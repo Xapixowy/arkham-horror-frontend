@@ -1,0 +1,17 @@
+.auth-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &__navigation {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+  }
+
+  &__content {
+    flex: 1;
+    padding: 1rem;
+  }
+}

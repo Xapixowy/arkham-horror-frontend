@@ -1,0 +1,27 @@
+@import '../../../assets/styles/breakpoints';
+
+.auth-card {
+  min-width: 35rem;
+  min-height: 30rem;
+  border-radius: 4rem;
+  padding: 0.25rem;
+  background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);
+  display: flex;
+  flex-direction: column;
+
+  @include smaller-than(md) {
+    min-width: 25rem;
+  }
+
+  @include smaller-than(sm) {
+    min-width: 20rem;
+  }
+
+  &__inner {
+    flex: 1;
+    width: 100%;
+    border-radius: 3.875rem;
+    padding: 4rem;
+    background-color: var(--surface-0);
+  }
+}

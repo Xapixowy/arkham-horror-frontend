@@ -1,0 +1,11 @@
+{
+  "Arkham Horror": "Horror w Arkham",
+  "_Title": {
+    "Landing": "Strona główna",
+    "Register": "Zarejestruj się",
+    "Verify": "Zweryfikuj konto",
+    "Login": "Zaloguj się",
+    "Remind password": "Przypomnij hasło",
+    "Reset password": "Resetuj hasło"
+  }
+}

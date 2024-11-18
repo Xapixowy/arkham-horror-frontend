@@ -1,0 +1,28 @@
+$breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl: 1600px
+);
+
+@mixin smaller-than($point) {
+  @if map-has-key($breakpoints, $point) {
+    @media (max-width: map-get($breakpoints, $point)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint #{$point} wasn't found";
+  }
+}
+
+@mixin bigger-than($point) {
+  @if map-has-key($breakpoints, $point) {
+    @media (min-width: map-get($breakpoints, $point)) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint #{$point} wasn't found";
+  }
+}

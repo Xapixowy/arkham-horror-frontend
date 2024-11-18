@@ -1,0 +1,17 @@
+.p-dropdown--language-switcher {
+  .p-dropdown-trigger {
+    display: none;
+  }
+
+  :is(.p-dropdown-item, .p-dropdown-label) {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .p-dropdown-label {
+    background-color: var(--surface-100);
+  }
+
+  .p-dropdown-items {
+    padding: 0.125rem;
+  }
+}

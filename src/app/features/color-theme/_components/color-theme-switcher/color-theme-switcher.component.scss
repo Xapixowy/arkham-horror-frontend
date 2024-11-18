@@ -1,0 +1,12 @@
+.theme-switcher {
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0;
+
+  &__switch {
+    display: flex;
+    align-items: center;
+  }
+}
