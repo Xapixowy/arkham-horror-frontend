@@ -29,16 +29,16 @@ export class RegisterPageService {
 
   initializeForm(): FormGroup<RegisterForm> {
     return new FormGroup<RegisterForm>({
-      [RegisterFormControls.NAME]: new FormControl('Minio', {
+      [RegisterFormControls.NAME]: new FormControl(null, {
         validators: RegisterFormValidators[RegisterFormControls.NAME],
       }),
-      [RegisterFormControls.EMAIL]: new FormControl('d.chmielowski01@gmail.com', {
+      [RegisterFormControls.EMAIL]: new FormControl(null, {
         validators: RegisterFormValidators[RegisterFormControls.EMAIL],
       }),
-      [RegisterFormControls.PASSWORD]: new FormControl('asdASD123!@', {
+      [RegisterFormControls.PASSWORD]: new FormControl(null, {
         validators: RegisterFormValidators[RegisterFormControls.PASSWORD],
       }),
-      [RegisterFormControls.PASSWORD_CONFIRMATION]: new FormControl('asdASD123!@', {
+      [RegisterFormControls.PASSWORD_CONFIRMATION]: new FormControl(null, {
         validators: RegisterFormValidators[RegisterFormControls.PASSWORD_CONFIRMATION],
       }),
     });
