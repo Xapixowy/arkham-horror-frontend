@@ -4,19 +4,20 @@
     [options]="APP_CONFIG.availableLanguages"
     [(ngModel)]="language"
     (onChange)="onChange($event)"
-    appendTo="body">
+    appendTo="body"
+  >
     <ng-template let-language pTemplate="item">
       @if (language === Language.ENGLISH) {
         <span class="fi fi-gb"></span>
       } @else {
-        <span class="fi fi-{{language}}"></span>
+        <span class="fi fi-{{ language }}"></span>
       }
     </ng-template>
     <ng-template let-language pTemplate="selectedItem">
       @if (language === Language.ENGLISH) {
         <span class="fi fi-gb"></span>
       } @else {
-        <span class="fi fi-{{language}}"></span>
+        <span class="fi fi-{{ language }}"></span>
       }
     </ng-template>
   </p-dropdown>

@@ -22,8 +22,10 @@
     "@ng-icons/core": "^29.9.0",
     "@ng-icons/tabler-icons": "^29.9.0",
     "flag-icons": "^7.2.3",
+    "prettier": "^3.3.3",
     "primeng": "^17.18.12",
     "rxjs": "~7.8.0",
+    "ts-enum-helpers": "^1.0.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.10"
   },

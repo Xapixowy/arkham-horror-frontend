@@ -1,8 +1,10 @@
-import {Route} from '@angular/router';
-import {AuthLayoutComponent} from '@Layouts/auth-layout/auth-layout.component';
-import {APP_ROUTES_CONFIG} from '@Configs/routes.config';
+import { Route } from '@angular/router';
+import { AuthLayoutComponent } from '@Layouts/auth-layout/auth-layout.component';
+import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 
-const REGISTER_PAGE = () => import('@Pages/auth/register/register.component').then(m => m.RegisterComponent);
+const REGISTER_PAGE = () =>
+  import('@Pages/auth/register-page/register-page.component').then((m) => m.RegisterPageComponent);
+const LOGIN_PAGE = () => import('@Pages/auth/login-page/login-page.component').then((m) => m.LoginPageComponent);
 
 export const AUTH_ROUTES: Route[] = [
   {
@@ -12,7 +14,7 @@ export const AUTH_ROUTES: Route[] = [
       {
         path: APP_ROUTES_CONFIG.Auth.Register,
         title: 'Register',
-        loadComponent: REGISTER_PAGE
+        loadComponent: REGISTER_PAGE,
       },
       {
         path: APP_ROUTES_CONFIG.Auth.Verify.Root,
@@ -20,19 +22,19 @@ export const AUTH_ROUTES: Route[] = [
         children: [
           {
             path: APP_ROUTES_CONFIG.Auth.Verify.Page,
-            loadComponent: REGISTER_PAGE
-          }
-        ]
+            loadComponent: REGISTER_PAGE,
+          },
+        ],
       },
       {
         path: APP_ROUTES_CONFIG.Auth.Login,
         title: 'Login',
-        loadComponent: REGISTER_PAGE
+        loadComponent: LOGIN_PAGE,
       },
       {
         path: APP_ROUTES_CONFIG.Auth.RemindPassword,
         title: 'Remind password',
-        loadComponent: REGISTER_PAGE
+        loadComponent: REGISTER_PAGE,
       },
       {
         path: APP_ROUTES_CONFIG.Auth.ResetPassword.Root,
@@ -40,15 +42,15 @@ export const AUTH_ROUTES: Route[] = [
         children: [
           {
             path: APP_ROUTES_CONFIG.Auth.ResetPassword.Page,
-            loadComponent: REGISTER_PAGE
-          }
-        ]
+            loadComponent: REGISTER_PAGE,
+          },
+        ],
       },
       {
         path: APP_ROUTES_CONFIG.Blank,
         redirectTo: APP_ROUTES_CONFIG.Auth.Login,
         pathMatch: 'full',
-      }
-    ]
-  }
-]
+      },
+    ],
+  },
+];

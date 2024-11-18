@@ -1,8 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
-@import "primeng/resources/primeng.css";
+@layer reset {
+  @import 'assets/styles/reset';
+}
 
-@import "assets/styles/reset";
-@import "assets/styles/variables";
-@import "assets/styles/theme";
+@import 'primeng/resources/primeng.css';
 
-@import "assets/styles/primeng/index";
+@import 'assets/styles/variables';
+@import 'assets/styles/theme';
+@import 'assets/styles/helpers';
+@import 'assets/styles/primeng/index';

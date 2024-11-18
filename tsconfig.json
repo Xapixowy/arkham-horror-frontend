@@ -20,65 +20,27 @@
     "importHelpers": true,
     "target": "ES2022",
     "module": "ES2022",
-    "lib": [
-      "ES2022",
-      "dom"
-    ],
+    "lib": ["ES2022", "dom"],
     "paths": {
-      "@Components/*": [
-        "src/app/components/*"
-      ],
-      "@Configs/*": [
-        "src/app/configs/*"
-      ],
-      "@Enums/*": [
-        "src/app/enums/*"
-      ],
-      "@Factories/*": [
-        "src/app/factories/*"
-      ],
-      "@Features/*": [
-        "src/app/features/*"
-      ],
-      "@Guards/*": [
-        "src/app/guards/*"
-      ],
-      "@Helpers/*": [
-        "src/app/helpers/*"
-      ],
-      "@Interceptors/*": [
-        "src/app/interceptors/*"
-      ],
-      "@Layouts/*": [
-        "src/app/layouts/*"
-      ],
-      "@Loaders/*": [
-        "src/app/loaders/*"
-      ],
-      "@Models/*": [
-        "src/app/models/*"
-      ],
-      "@Pages/*": [
-        "src/app/pages/*"
-      ],
-      "@Pipes/*": [
-        "src/app/pipes/*"
-      ],
-      "@Providers/*": [
-        "src/app/providers/*"
-      ],
-      "@Routes/*": [
-        "src/app/routes/*"
-      ],
-      "@Services/*": [
-        "src/app/services/*"
-      ],
-      "@Types/*": [
-        "src/app/types/*"
-      ],
-      "@Validators/*": [
-        "src/app/validators/*"
-      ]
+      "@Environments/*": ["src/environments/*"],
+      "@Components/*": ["src/app/components/*"],
+      "@Configs/*": ["src/app/configs/*"],
+      "@Enums/*": ["src/app/enums/*"],
+      "@Factories/*": ["src/app/factories/*"],
+      "@Features/*": ["src/app/features/*"],
+      "@Guards/*": ["src/app/guards/*"],
+      "@Helpers/*": ["src/app/helpers/*"],
+      "@Interceptors/*": ["src/app/interceptors/*"],
+      "@Layouts/*": ["src/app/layouts/*"],
+      "@Loaders/*": ["src/app/loaders/*"],
+      "@Models/*": ["src/app/models/*"],
+      "@Pages/*": ["src/app/pages/*"],
+      "@Pipes/*": ["src/app/pipes/*"],
+      "@Providers/*": ["src/app/providers/*"],
+      "@Routes/*": ["src/app/routes/*"],
+      "@Services/*": ["src/app/services/*"],
+      "@Types/*": ["src/app/types/*"],
+      "@Validators/*": ["src/app/validators/*"]
     }
   },
   "angularCompilerOptions": {

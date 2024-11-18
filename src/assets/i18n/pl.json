@@ -7,5 +7,52 @@
     "Login": "Zaloguj się",
     "Remind password": "Przypomnij hasło",
     "Reset password": "Resetuj hasło"
+  },
+  "_Validators": {
+    "Required": "Pole wymagane",
+    "Minimum characters": "Minimum {{value}} znaków",
+    "Maximum characters": "Maksimum {{value}} znaków",
+    "Pattern": "Błędny format",
+    "Password mismatch": "Hasła nie pasują do siebie",
+    "Whitespace": "Niedozwolone znaki białe",
+    "Whitespace leading or trailing": "Niedozwolone znaki białe na początku lub na końcu",
+    "Strong password": "Hasło jest zbyt słabe",
+    "Wrong value": "Nieprawidłowa wartość"
+  },
+  "_Errors": {
+    "VALIDATION_FAILED": "Błąd walidacji",
+    "SOMETHING_WRONG": "Coś poszło nie tak",
+    "NOT_FOUND": "Nie znaleziono",
+    "FILE_MISSING": "Brak pliku",
+    "FILE_WRONG_FILE_TYPE": "Nieprawidłowy typ pliku",
+    "FILE_MAXIMUM_SIZE_EXCEEDED": "Przekroczono maksymalną wielkość pliku",
+    "FILE_DELETE_FAILED": "Nie udało się usunąć pliku",
+    "USER_EXISTS": "Użytkownik już istnieje",
+    "USER_EMAIL_AND_TOKEN_MISMATCH": "Email i token użytkownika nie pasują do siebie",
+    "USER_NOT_VERIFIED": "Użytkownik nie zweryfikowany",
+    "USER_WRONG_PASSWORD": "Nieprawidłowe hasło",
+    "USER_PASSWORD_MISMATCH": "Hasła nie pasują do siebie",
+    "EMAIL_SEND_FAILURE": "Nie udało się wysłać wiadomości e-mail",
+    "TRANSLATION_EXISTS": "Tłumaczenie już istnieje",
+    "LANGUAGE_NOT_SUPPORTED": "Język nieobsługiwany",
+    "PLAYER_EXISTS": "Gracz już istnieje",
+    "PLAYERS_LIMIT_REACHED": "Osiągnięto limit graczy",
+    "PLAYER_TOKEN_INVALID": "Nieprawidłowy token gracza"
+  },
+  "_RegisterPage": {
+    "Register": "Zarejestruj się",
+    "Lets get started": "Zacznijmy",
+    "Name": "Imię",
+    "Email": "Email",
+    "Password": "Hasło",
+    "Confirm password": "Potwierdź hasło",
+    "Choose a password": "Wybierz hasło",
+    "Too simple": "Za proste",
+    "Average complexity": "Średnia złożoność",
+    "Complex password": "Złożone hasło",
+    "Already have an account?": "Masz już konto?",
+    "Login": "Zaloguj się",
+    "Registration": "Rejestracja",
+    "Your account has been created successfully": "Twoje konto zostało utworzone pomyślnie."
   }
 }

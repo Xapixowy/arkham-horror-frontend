@@ -1,5 +1,16 @@
 body {
   font-size: var(--font-size);
-  font-family: var(--font-family), serif;
+  font-family: var(--font-family), sans-serif;
   background-color: var(--surface-ground);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+
+  &:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+  }
 }

@@ -1,7 +1,7 @@
-import {Route} from '@angular/router';
-import {AUTH_ROUTES} from '@Routes/auth.routes';
-import {APP_ROUTES_CONFIG} from '@Configs/routes.config';
-import {LANDING_ROUTES} from '@Routes/landing.routes';
+import { Route } from '@angular/router';
+import { AUTH_ROUTES } from '@Routes/auth.routes';
+import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
+import { LANDING_ROUTES } from '@Routes/landing.routes';
 
 export const APP_ROUTES: Route[] = [
   ...LANDING_ROUTES,
@@ -14,5 +14,5 @@ export const APP_ROUTES: Route[] = [
   {
     path: APP_ROUTES_CONFIG.Wildcard,
     redirectTo: APP_ROUTES_CONFIG.Blank,
-  }
-]
+  },
+];
