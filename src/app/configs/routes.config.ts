@@ -19,4 +19,8 @@ export const APP_ROUTES_CONFIG = {
       Page: ':token',
     },
   },
+
+  Admin: {
+    Root: 'admin',
+  },
 };

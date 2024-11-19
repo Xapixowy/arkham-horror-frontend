@@ -1,45 +1,60 @@
 <div class="register">
-  <app-auth-card>
-    <h2 class="register__heading">{{ '_RegisterPage.Register' | transloco }}</h2>
-    <p class="register__description">{{ '_RegisterPage.Lets get started' | transloco }}</p>
-    <form class="register__form" [formGroup]="form" (ngSubmit)="onSubmit()">
-      <input
-        type="text"
-        pInputText
-        placeholder="{{ '_RegisterPage.Name' | transloco }}"
-        [formControlName]="RegisterFormControls.NAME"
-      />
-      <app-form-validation-message [errorFormControl]="name"/>
-      <input
-        type="text"
-        pInputText
-        placeholder="{{ '_RegisterPage.Email' | transloco }}"
-        [formControlName]="RegisterFormControls.EMAIL"
-      />
-      <app-form-validation-message [errorFormControl]="email"/>
-      <p-password
-        [toggleMask]="true"
-        placeholder="{{ '_RegisterPage.Password' | transloco }}"
-        promptLabel="{{ '_RegisterPage.Choose a password' | transloco }}"
-        weakLabel="{{ '_RegisterPage.Too simple' | transloco }}"
-        mediumLabel="{{ '_RegisterPage.Average complexity' | transloco }}"
-        strongLabel="{{ '_RegisterPage.Complex password' | transloco }}"
-        [strongRegex]="REGEX_CONFIG.strongPasswordRegex.toString().replaceAll('/','')"
-        [formControlName]="RegisterFormControls.PASSWORD"
-      />
-      <app-form-validation-message [errorFormControl]="password"/>
-      <p-password
-        [toggleMask]="true"
-        placeholder="{{ '_RegisterPage.Confirm password' | transloco }}"
-        promptLabel="{{ '_RegisterPage.Choose a password' | transloco }}"
-        weakLabel="{{ '_RegisterPage.Too simple' | transloco }}"
-        mediumLabel="{{ '_RegisterPage.Average complexity' | transloco }}"
-        strongLabel="{{ '_RegisterPage.Complex password' | transloco }}"
-        [strongRegex]="REGEX_CONFIG.strongPasswordRegex.toString().replaceAll('/','')"
-        [formControlName]="RegisterFormControls.PASSWORD_CONFIRMATION"
-      />
-      <app-form-validation-message [errorFormControl]="password_confirmation"/>
-      <div class="register__button">
+  <app-auth-card [heading]="'_RegisterPage.Registration' | transloco"
+                 [description]="'_RegisterPage.Lets get started' | transloco">
+    <form class="auth-card__form" [formGroup]="form" (ngSubmit)="onSubmit()" ngProjectAs="[form]">
+      <div class="auth-card__form__input-group">
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ '_RegisterPage.Name' | transloco }}"
+          [formControlName]="RegisterFormControls.NAME"
+          autocomplete="nickname"
+          [id]="RegisterFormControls.NAME"
+        />
+        <app-form-validation-message [errorFormControl]="name"/>
+      </div>
+      <div class="auth-card__form__input-group">
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ '_RegisterPage.Email' | transloco }}"
+          [formControlName]="RegisterFormControls.EMAIL"
+          autocomplete="email"
+          [id]="RegisterFormControls.EMAIL"
+        />
+        <app-form-validation-message [errorFormControl]="email"/>
+      </div>
+      <div class="auth-card__form__input-group">
+        <p-password
+          [toggleMask]="true"
+          placeholder="{{ '_RegisterPage.Password' | transloco }}"
+          promptLabel="{{ '_RegisterPage.Choose a password' | transloco }}"
+          weakLabel="{{ '_RegisterPage.Too simple' | transloco }}"
+          mediumLabel="{{ '_RegisterPage.Average complexity' | transloco }}"
+          strongLabel="{{ '_RegisterPage.Complex password' | transloco }}"
+          [strongRegex]="REGEX_CONFIG.strongPasswordRegex.toString().replaceAll('/','')"
+          [formControlName]="RegisterFormControls.PASSWORD"
+          autocomplete="new-password"
+          [inputId]="RegisterFormControls.PASSWORD"
+        />
+        <app-form-validation-message [errorFormControl]="password"/>
+      </div>
+      <div class="auth-card__form__input-group">
+        <p-password
+          [toggleMask]="true"
+          placeholder="{{ '_RegisterPage.Confirm password' | transloco }}"
+          promptLabel="{{ '_RegisterPage.Choose a password' | transloco }}"
+          weakLabel="{{ '_RegisterPage.Too simple' | transloco }}"
+          mediumLabel="{{ '_RegisterPage.Average complexity' | transloco }}"
+          strongLabel="{{ '_RegisterPage.Complex password' | transloco }}"
+          [strongRegex]="REGEX_CONFIG.strongPasswordRegex.toString().replaceAll('/','')"
+          [formControlName]="RegisterFormControls.PASSWORD_CONFIRMATION"
+          autocomplete="new-password"
+          [inputId]="RegisterFormControls.PASSWORD_CONFIRMATION"
+        />
+        <app-form-validation-message [errorFormControl]="password_confirmation"/>
+      </div>
+      <div class="auth-card__button">
         <p-button
           type="submit"
           severity="primary"
@@ -48,7 +63,7 @@
         />
       </div>
     </form>
-    <p class="register__link">
+    <p class="auth-card__link" ngProjectAs="[link]">
       {{ '_RegisterPage.Already have an account?' | transloco }}
       <a [routerLink]="[APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Login]">{{
           '_RegisterPage.Login' | transloco

@@ -2,11 +2,12 @@
   "Arkham Horror": "Horror w Arkham",
   "_Title": {
     "Landing": "Strona główna",
-    "Register": "Zarejestruj się",
-    "Verify": "Zweryfikuj konto",
-    "Login": "Zaloguj się",
+    "Registration": "Rejestracja",
+    "Verification": "Weryfikacja konta",
+    "Login": "Logowanie",
     "Remind password": "Przypomnij hasło",
-    "Reset password": "Resetuj hasło"
+    "Reset password": "Resetuj hasło",
+    "Admin": "Panel administracyjny"
   },
   "_Validators": {
     "Required": "Pole wymagane",
@@ -32,12 +33,19 @@
     "USER_NOT_VERIFIED": "Użytkownik nie zweryfikowany",
     "USER_WRONG_PASSWORD": "Nieprawidłowe hasło",
     "USER_PASSWORD_MISMATCH": "Hasła nie pasują do siebie",
+    "USER_NOT_FOUND": "Nie znaleziono użytkownika",
     "EMAIL_SEND_FAILURE": "Nie udało się wysłać wiadomości e-mail",
     "TRANSLATION_EXISTS": "Tłumaczenie już istnieje",
     "LANGUAGE_NOT_SUPPORTED": "Język nieobsługiwany",
     "PLAYER_EXISTS": "Gracz już istnieje",
     "PLAYERS_LIMIT_REACHED": "Osiągnięto limit graczy",
-    "PLAYER_TOKEN_INVALID": "Nieprawidłowy token gracza"
+    "PLAYER_TOKEN_INVALID": "Nieprawidłowy token gracza",
+    "CHARACTER_TRANSLATION_NOT_FOUND": "Nie znaleziono tłumaczenia postaci",
+    "CHARACTER_NOT_FOUND": "Nie znaleziono postaci",
+    "GAME_SESSION_NOT_FOUND": "Nie znaleziono sesji gry",
+    "CARD_NOT_FOUND": "Nie znaleziono karty",
+    "PLAYER_NOT_FOUND": "Nie znaleziono gracza",
+    "CARD_TRANSLATION_NOT_FOUND": "Nie znaleziono tłumaczenia karty"
   },
   "_RegisterPage": {
     "Register": "Zarejestruj się",
@@ -53,6 +61,52 @@
     "Already have an account?": "Masz już konto?",
     "Login": "Zaloguj się",
     "Registration": "Rejestracja",
-    "Your account has been created successfully": "Twoje konto zostało utworzone pomyślnie."
+    "Your account has been created successfully": "Twoje konto zostało utworzone pomyślnie"
+  },
+  "_VerifyPage": {
+    "Verify": "Zweryfikuj się",
+    "Fill the form to verify your account": "Wypłenij formularz, aby zweryfikować swoje konto",
+    "Email": "Email",
+    "Already have an account?": "Masz już konto?",
+    "Login": "Zaloguj się",
+    "Verification": "Weryfikacja",
+    "Your account has been verified successfully": "Twoje konto zostało zweryfikowane pomyślnie"
+  },
+  "_LoginPage": {
+    "Login": "Logowanie",
+    "You are almost there": "Już prawie...",
+    "Email": "Email",
+    "Password": "Hasło",
+    "Log in": "Zaloguj się",
+    "You have been logged in successfully": "Zostałeś pomyślnie zalogowany",
+    "You dont have an account": "Nie masz konta?",
+    "Register": "Zarejestruj się",
+    "You dont remember your password?": "Nie pamiętasz hasła?",
+    "Remind password": "Przypomnij hasło"
+  },
+  "_RemindPasswordPage": {
+    "Password reminder": "Przypomnienie hasła",
+    "Your password reminder has been sent successfully": "Przypomnienie hasła zostało wysłane pomyślnie",
+    "Fill the form to remind your password": "Wypełnij formularz, aby przypomnieć hasło",
+    "Email": "Email",
+    "Remind password": "Przypomnij hasło",
+    "Already have an account?": "Masz już konto?",
+    "Login": "Zaloguj się"
+  },
+  "_ResetPasswordPage": {
+    "Password reset": "Resetowanie hasła",
+    "Your account password has been reset successfully": "Twoje hasło zostało pomyślnie zresetowane",
+    "Fill the form to reset your password": "Wypełnij formularz, aby zresetować hasło",
+    "Email": "Email",
+    "Password": "Hasło",
+    "Confirm password": "Potwierdź hasło",
+    "Reset password": "Zresetuj hasło",
+    "Already have an account?": "Masz już konto?",
+    "Login": "Zaloguj się",
+    "Too simple": "Za proste",
+    "Average complexity": "Średnia złożoność",
+    "Complex password": "Złożone hasło",
+    "Choose a password": "Wybierz hasło",
+    "Password has been reset successfully": "Hasło zostało pomyślnie zresetowane"
   }
 }

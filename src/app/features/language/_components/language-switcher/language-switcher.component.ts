@@ -23,8 +23,8 @@ export class LanguageSwitcherComponent {
     this.language.set(this.languageService.language);
   }
 
-  async onChange(value: DropdownChangeEvent): Promise<void> {
-    await this.languageService.setLanguage(value.value as Language);
+  onChange(value: DropdownChangeEvent): void {
+    this.languageService.language = value.value as Language;
     window.location.reload();
   }
 }

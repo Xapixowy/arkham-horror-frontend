@@ -4,7 +4,7 @@ import { passwordMatchValidator } from '@Validators/password-match.validator';
 import { noWhiteSpaceValidator } from '@Validators/no-white-space.validator';
 import { strongPasswordValidator } from '@Validators/strong-password.validator';
 
-export const RegisterFormValidators = {
+export const REGISTER_FORM_VALIDATORS = {
   [RegisterFormControls.NAME]: [Validators.required, Validators.minLength(3), Validators.maxLength(64)],
   [RegisterFormControls.EMAIL]: [Validators.required, Validators.email],
   [RegisterFormControls.PASSWORD]: [

@@ -1,3 +1,50 @@
-<div class="register">
-  <app-auth-card> </app-auth-card>
+<div class="login">
+  <app-auth-card [heading]="'_LoginPage.Login' | transloco"
+                 [description]="'_LoginPage.You are almost there' | transloco">
+    <form class="auth-card__form" [formGroup]="form" (ngSubmit)="onSubmit()" ngProjectAs="[form]">
+      <div class="auth-card__form__input-group">
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ '_LoginPage.Email' | transloco }}"
+          [formControlName]="LoginFormControls.EMAIL"
+          autocomplete="email"
+          [id]="LoginFormControls.EMAIL"
+        />
+        <app-form-validation-message [errorFormControl]="email"/>
+      </div>
+      <div class="auth-card__form__input-group">
+        <p-password
+          [toggleMask]="true"
+          [feedback]="false"
+          placeholder="{{ '_LoginPage.Password' | transloco }}"
+          [formControlName]="LoginFormControls.PASSWORD"
+          autocomplete="current-password"
+          [inputId]="LoginFormControls.PASSWORD"
+        />
+        <app-form-validation-message [errorFormControl]="password"/>
+        <p class="auth-card__form__link">
+          {{ '_LoginPage.You dont remember your password?' | transloco }}
+          <a
+            [routerLink]="[APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.RemindPassword]">{{
+              '_LoginPage.Remind password' | transloco
+            }}</a>
+        </p>
+      </div>
+      <div class="auth-card__button">
+        <p-button
+          type="submit"
+          severity="primary"
+          label="{{ '_LoginPage.Log in' | transloco }}"
+          styleClass="full-width"
+        />
+      </div>
+    </form>
+    <p class="auth-card__link" ngProjectAs="[link]">
+      {{ '_LoginPage.You dont have an account' | transloco }}
+      <a [routerLink]="[APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Register]">{{
+          '_LoginPage.Register' | transloco
+        }}</a>
+    </p>
+  </app-auth-card>
 </div>

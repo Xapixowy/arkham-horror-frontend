@@ -3,26 +3,4 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-
-  &__heading {
-    margin-bottom: 0.5rem;
-  }
-
-  &__description {
-    margin-bottom: 1rem;
-  }
-
-  &__form {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  &__button {
-    margin-top: 1rem;
-  }
-
-  &__link {
-    margin-top: 1rem;
-  }
 }

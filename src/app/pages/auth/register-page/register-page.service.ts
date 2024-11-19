@@ -1,7 +1,7 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { RegisterFormControls } from '@Enums/form-controls/register-form-controls.enum';
-import { RegisterFormValidators } from '@Configs/form-validators/register-form-validators.config';
+import { REGISTER_FORM_VALIDATORS } from '@Configs/form-validators/register-form-validators.config';
 import { FormValidationService } from '@Services/form-validation.service';
 import { RegisterForm } from '@Types/forms/register-form.type';
 import { AuthService } from '@Services/auth.service';
@@ -30,16 +30,16 @@ export class RegisterPageService {
   initializeForm(): FormGroup<RegisterForm> {
     return new FormGroup<RegisterForm>({
       [RegisterFormControls.NAME]: new FormControl(null, {
-        validators: RegisterFormValidators[RegisterFormControls.NAME],
+        validators: REGISTER_FORM_VALIDATORS[RegisterFormControls.NAME],
       }),
       [RegisterFormControls.EMAIL]: new FormControl(null, {
-        validators: RegisterFormValidators[RegisterFormControls.EMAIL],
+        validators: REGISTER_FORM_VALIDATORS[RegisterFormControls.EMAIL],
       }),
       [RegisterFormControls.PASSWORD]: new FormControl(null, {
-        validators: RegisterFormValidators[RegisterFormControls.PASSWORD],
+        validators: REGISTER_FORM_VALIDATORS[RegisterFormControls.PASSWORD],
       }),
       [RegisterFormControls.PASSWORD_CONFIRMATION]: new FormControl(null, {
-        validators: RegisterFormValidators[RegisterFormControls.PASSWORD_CONFIRMATION],
+        validators: REGISTER_FORM_VALIDATORS[RegisterFormControls.PASSWORD_CONFIRMATION],
       }),
     });
   }
@@ -54,11 +54,11 @@ export class RegisterPageService {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (response: DataResponse<RegisterResponse>) => {
-          this.router.navigate([APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Login]);
           this.toastService.success(
             '_RegisterPage.Registration',
             '_RegisterPage.Your account has been created successfully',
           );
+          this.router.navigate([APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Login]);
         },
         error: (response: HttpErrorResponse) => {
           this.errorService.throwError('_RegisterPage.Registration', response);

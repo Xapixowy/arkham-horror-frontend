@@ -1,0 +1,32 @@
+<div class="verify">
+  <app-auth-card [heading]="'_VerifyPage.Verification' | transloco"
+                 [description]="'_VerifyPage.Fill the form to verify your account' | transloco">
+    <form class="auth-card__form" [formGroup]="form" (ngSubmit)="onSubmit()" ngProjectAs="[form]">
+      <div class="auth-card__form__input-group">
+        <input
+          type="text"
+          pInputText
+          placeholder="{{ '_VerifyPage.Email' | transloco }}"
+          [formControlName]="VerifyFormControls.EMAIL"
+          autocomplete="email"
+          [id]="VerifyFormControls.EMAIL"
+        />
+        <app-form-validation-message [errorFormControl]="email"/>
+      </div>
+      <div class="auth-card__button">
+        <p-button
+          type="submit"
+          severity="primary"
+          label="{{ '_VerifyPage.Verify' | transloco }}"
+          styleClass="full-width"
+        />
+      </div>
+    </form>
+    <p class="auth-card__link" ngProjectAs="[link]">
+      {{ '_VerifyPage.Already have an account?' | transloco }}
+      <a [routerLink]="[APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Login]">{{
+          '_VerifyPage.Login' | transloco
+        }}</a>
+    </p>
+  </app-auth-card>
+</div>

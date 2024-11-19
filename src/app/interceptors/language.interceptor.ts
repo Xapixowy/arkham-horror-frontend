@@ -1,17 +1,15 @@
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { LanguageService } from '@Features/language/_services/language.service';
+import { LocalStorageService } from '@Services/local-storage.service';
 
 export const languageInterceptor: HttpInterceptorFn = (req, next) => {
-  const languageService = inject(LanguageService);
-  const userLanguage = languageService.language;
+  const localStorageService = inject(LocalStorageService);
 
   const newRequest = req.clone({
     setHeaders: {
-      'Accept-Language': userLanguage,
+      'Accept-Language': localStorageService.language,
     },
   });
-  req.headers.set('Accept-Language', userLanguage);
 
   return next(newRequest);
 };

@@ -1,5 +1,8 @@
 <div class="auth-card">
   <div class="auth-card__inner">
-    <ng-content />
+    <h2 class="auth-card__heading">{{ heading() }}</h2>
+    <p class="auth-card__description">{{ description() }}</p>
+    <ng-content select="[form]"/>
+    <ng-content select="[link]"/>
   </div>
 </div>

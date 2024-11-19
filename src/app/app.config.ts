@@ -8,6 +8,7 @@ import { APP_CONFIG } from '@Configs/app.config';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { APP_INTERCEPTORS } from '@Providers/app.interceptors';
 import { APP_PROVIDERS } from '@Providers/app.providers';
+import { provideStore } from '@ngrx/store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,6 +25,7 @@ export const appConfig: ApplicationConfig = {
       loader: TranslocoHttpLoader,
     }),
     provideAnimations(),
+    provideStore(),
     ...APP_PROVIDERS,
   ],
 };

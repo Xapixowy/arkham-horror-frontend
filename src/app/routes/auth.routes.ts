@@ -4,7 +4,12 @@ import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 
 const REGISTER_PAGE = () =>
   import('@Pages/auth/register-page/register-page.component').then((m) => m.RegisterPageComponent);
+const VERIFY_PAGE = () => import('@Pages/auth/verify-page/verify-page.component').then((m) => m.VerifyPageComponent);
 const LOGIN_PAGE = () => import('@Pages/auth/login-page/login-page.component').then((m) => m.LoginPageComponent);
+const REMIND_PASSWORD_PAGE = () =>
+  import('@Pages/auth/remind-password-page/remind-password-page.component').then((m) => m.RemindPasswordPageComponent);
+const RESET_PASSWORD_PAGE = () =>
+  import('@Pages/auth/reset-password-page/reset-password-page.component').then((m) => m.ResetPasswordPageComponent);
 
 export const AUTH_ROUTES: Route[] = [
   {
@@ -13,16 +18,16 @@ export const AUTH_ROUTES: Route[] = [
     children: [
       {
         path: APP_ROUTES_CONFIG.Auth.Register,
-        title: 'Register',
+        title: 'Registration',
         loadComponent: REGISTER_PAGE,
       },
       {
         path: APP_ROUTES_CONFIG.Auth.Verify.Root,
-        title: 'Verify',
+        title: 'Verification',
         children: [
           {
             path: APP_ROUTES_CONFIG.Auth.Verify.Page,
-            loadComponent: REGISTER_PAGE,
+            loadComponent: VERIFY_PAGE,
           },
         ],
       },
@@ -34,7 +39,7 @@ export const AUTH_ROUTES: Route[] = [
       {
         path: APP_ROUTES_CONFIG.Auth.RemindPassword,
         title: 'Remind password',
-        loadComponent: REGISTER_PAGE,
+        loadComponent: REMIND_PASSWORD_PAGE,
       },
       {
         path: APP_ROUTES_CONFIG.Auth.ResetPassword.Root,
@@ -42,7 +47,7 @@ export const AUTH_ROUTES: Route[] = [
         children: [
           {
             path: APP_ROUTES_CONFIG.Auth.ResetPassword.Page,
-            loadComponent: REGISTER_PAGE,
+            loadComponent: RESET_PASSWORD_PAGE,
           },
         ],
       },

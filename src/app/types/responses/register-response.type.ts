@@ -1,9 +1,3 @@
-export type RegisterResponse = {
-  id: number;
-  name: string;
-  email: string;
-  role: number;
-  verified_at: string;
-  created_at: string;
-  updated_at: string;
-};
+import { UserDto } from '@Types/dtos/user-dto.type';
+
+export type RegisterResponse = Omit<UserDto, 'access_token'>;
