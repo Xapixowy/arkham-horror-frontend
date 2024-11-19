@@ -1,0 +1,10 @@
+<li class="sidebar-item" [routerLink]="route()" routerLinkActive="sidebar-item--active"
+    [routerLinkActiveOptions]="{ exact: true }">
+  <span class="sidebar-item__icon">
+    <ng-icon [name]="icon()"/>
+  </span>
+  <span class="sidebar-item__label">
+    {{ label() | transloco }}
+ </span>
+</li>
+

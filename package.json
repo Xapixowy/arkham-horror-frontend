@@ -21,6 +21,7 @@
     "@jsverse/transloco": "^7.5.0",
     "@ng-icons/core": "^29.9.0",
     "@ng-icons/tabler-icons": "^29.9.0",
+    "@ngrx/effects": "^18.1.1",
     "@ngrx/store": "^18.1.1",
     "flag-icons": "^7.2.3",
     "prettier": "^3.3.3",

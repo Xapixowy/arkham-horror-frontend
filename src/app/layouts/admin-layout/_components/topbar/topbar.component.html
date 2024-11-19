@@ -1,0 +1,9 @@
+<div class="topbar">
+  <div class="topbar__left">
+    <app-sidebar-toggle-button/>
+    <h1 class="topbar__title">{{ title() | transloco }}</h1>
+  </div>
+  <div class="topbar__right">
+    <app-user-menu [user]="user"/>
+  </div>
+</div>

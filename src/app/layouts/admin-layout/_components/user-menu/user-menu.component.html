@@ -1,0 +1,23 @@
+<div class="user-menu__button" (click)="op.toggle($event)">
+  <app-user-avatar [user]="user()"/>
+</div>
+<p-overlayPanel #op appendTo="body">
+  <div class="user-menu">
+    <div class="user-menu__user-info">
+      <p class="user-menu__user-info__name">{{ user().name }}</p>
+      <p class="user-menu__user-info__email">{{ user().email }}</p>
+    </div>
+    <ul class="user-menu__actions">
+      @for (action of actions(); track action.id) {
+        <li class="user-menu__action" (click)="action.action()">
+         <span class="user-menu__action-icon">
+           <ng-icon [name]="action.icon"/>
+         </span>
+          <span class="user-menu__action-label">
+           {{ action.label | transloco }}
+         </span>
+        </li>
+      }
+    </ul>
+  </div>
+</p-overlayPanel>

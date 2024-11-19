@@ -1,0 +1,16 @@
+<div class="sidebar" [class.sidebar--hidden]="!isSidebarShown()">
+  <div class="sidebar__brand">
+    {{ 'Arkham Horror' | transloco }}
+  </div>
+  <div class="sidebar__navigation">
+    <div class="sidebar__navigation__menu">
+      @for (section of SIDEBAR_CONFIG.sections; track $index) {
+        <app-sidebar-section [title]="section.title" [items]="section.items"/>
+      }
+    </div>
+    <div class="sidebar__navigation__actions">
+      <app-color-theme-switcher/>
+      <app-language-switcher/>
+    </div>
+  </div>
+</div>

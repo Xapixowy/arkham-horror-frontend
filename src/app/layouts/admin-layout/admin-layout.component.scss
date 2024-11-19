@@ -1,0 +1,15 @@
+.admin-layout {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 0.875rem 0.875rem 0.875rem calc(var(--admin-sidebar-width) + 0.875rem);
+  transition: padding var(--transition-duration) var(--transition-timing-function);
+
+  &--sidebar-hidden {
+    padding-left: 0.875rem;
+  }
+
+  &__content {
+    margin-top: 1rem;
+  }
+}

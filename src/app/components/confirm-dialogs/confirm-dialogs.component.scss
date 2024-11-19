@@ -1,0 +1,35 @@
+.confirm-dialog {
+  padding: 1.75rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  &__icon {
+    width: 6rem;
+    height: 6rem;
+    font-size: 3rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__heading {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin: 1.25rem 0 0.25rem;
+  }
+
+  &__actions {
+    margin-top: 1.25rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  &--danger {
+    .confirm-dialog__icon {
+      color: var(--surface-0);
+      background-color: var(--red-400);
+    }
+  }
+}

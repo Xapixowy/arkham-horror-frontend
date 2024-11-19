@@ -1,0 +1,7 @@
+<div class="admin-layout" [class.admin-layout--sidebar-hidden]="!isSidebarShown()">
+  <app-sidebar/>
+  <app-topbar/>
+  <div class="admin-layout__content">
+    <router-outlet/>
+  </div>
+</div>

@@ -22,5 +22,17 @@ export const APP_ROUTES_CONFIG = {
 
   Admin: {
     Root: 'admin',
+    Cards: {
+      Root: 'cards',
+      CardTranslations: ':id/translations',
+    },
+    Characters: {
+      Root: 'characters',
+      CharacterTranslations: ':id/translations',
+    },
+    GameSessions: {
+      Root: 'game-sessions',
+      Players: ':id/players',
+    }
   },
 };

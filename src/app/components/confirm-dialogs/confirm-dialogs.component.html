@@ -1,0 +1,21 @@
+<p-confirmDialog key="danger" #cdDanger>
+  <ng-template pTemplate="headless" let-dialog>
+    <div class="confirm-dialog confirm-dialog--danger">
+      <div class="confirm-dialog__icon">
+        <ng-icon name="tablerTrash"/>
+      </div>
+      <h2 class="confirm-dialog__heading">
+        {{ (dialog.header ?? '_ConfirmDialog.Are you sure?') | transloco }}
+      </h2>
+      <p class="confirm-dialog__message">
+        {{ (dialog.message ?? '_ConfirmDialog.Please confirm to proceed') | transloco }}
+      </p>
+      <div class="confirm-dialog__actions">
+        <p-button severity="danger" [label]="'_ConfirmDialog.Save' | transloco"
+                  (click)="cdDanger.accept()"/>
+        <p-button severity="secondary" [outlined]="true" [label]="'_ConfirmDialog.Cancel' | transloco"
+                  (click)="cdDanger.reject()"/>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>

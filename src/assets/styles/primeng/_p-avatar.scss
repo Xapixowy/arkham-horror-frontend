@@ -1,0 +1,8 @@
+.p-avatar {
+  border: 1px solid #cbd5e1;
+  transition: border-color var(--transition-duration-fast) var(--transition-timing-function);
+
+  &:hover {
+    border-color: #94a3b8;
+  }
+}

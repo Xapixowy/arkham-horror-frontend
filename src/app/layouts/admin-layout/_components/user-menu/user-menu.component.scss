@@ -1,0 +1,47 @@
+.user-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+
+  &__button {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__user-info {
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--text-color);
+
+    &__name {
+      font-weight: 700;
+    }
+
+    &__email {
+      font-size: 0.75rem;
+    }
+  }
+
+  &__actions {
+    list-style-type: none;
+    padding: 0;
+  }
+
+  &__action {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    transition: text-decoration var(--transition-duration-fast) var(--transition-timing-function);
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

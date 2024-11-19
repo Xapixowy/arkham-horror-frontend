@@ -1,0 +1,17 @@
+.sidebar-toggle-button {
+  width: 2rem;
+  height: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  font-size: 1.5rem;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: background-color var(--transition-duration-fast) var(--transition-timing-function), color var(--transition-duration-fast) var(--transition-timing-function);
+
+  &:hover {
+    color: var(--surface-0);
+    background-color: var(--primary-color);
+  }
+}

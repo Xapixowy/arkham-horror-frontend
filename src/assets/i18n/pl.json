@@ -7,7 +7,10 @@
     "Login": "Logowanie",
     "Remind password": "Przypomnij hasło",
     "Reset password": "Resetuj hasło",
-    "Admin": "Panel administracyjny"
+    "Admin": "Panel administracyjny",
+    "Cards": "Karty",
+    "Characters": "Postacie",
+    "Game sessions": "Sesje gry"
   },
   "_Validators": {
     "Required": "Pole wymagane",
@@ -46,6 +49,44 @@
     "CARD_NOT_FOUND": "Nie znaleziono karty",
     "PLAYER_NOT_FOUND": "Nie znaleziono gracza",
     "CARD_TRANSLATION_NOT_FOUND": "Nie znaleziono tłumaczenia karty"
+  },
+  "_AdminSidebar": {
+    "Home": "Strona główna",
+    "Dashboard": "Panel główny",
+    "Resources": "Zasoby",
+    "Cards": "Karty",
+    "Characters": "Postacie",
+    "Game": "Gra",
+    "Game sessions": "Sesje gry"
+  },
+  "_UserMenu": {
+    "Logout": "Wyloguj się"
+  },
+  "_CardType": {
+    "location": "Lokalizacja",
+    "madness": "Obłęd",
+    "wound": "Rana",
+    "honorarium": "Honorarium",
+    "blessing": "Błogosławieństwo",
+    "curse": "Klątwa",
+    "ally": "Sojusznik",
+    "ability": "Umiejętność",
+    "common_item": "Przedmiot Pospolity",
+    "unique_item": "Przedmiot Unikalny",
+    "spell": "Zaklęcie"
+  },
+  "_CardSubtype": {
+    "physical_weapon": "Broń Fizyczna",
+    "magical_weapon": "Broń Magiczna",
+    "quest": "Misja",
+    "task": "Zadanie",
+    "book": "Książka"
+  },
+  "_ConfirmDialog": {
+    "Are you sure?": "Jesteś pewien?",
+    "Please confirm to proceed": "Proszę potwierdzić, aby kontynuować",
+    "Save": "Zapisz",
+    "Cancel": "Anuluj"
   },
   "_RegisterPage": {
     "Register": "Zarejestruj się",
@@ -108,5 +149,18 @@
     "Complex password": "Złożone hasło",
     "Choose a password": "Wybierz hasło",
     "Password has been reset successfully": "Hasło zostało pomyślnie zresetowane"
+  },
+  "_CardsPage": {
+    "ID": "ID",
+    "Front image": "Przód karty",
+    "Name": "Nazwa",
+    "Type": "Typ",
+    "Subtype": "Podtyp",
+    "Actions": "Akcje",
+    "Add card": "Dodaj kartę",
+    "Delete card": "Usuń kartę",
+    "Are you sure you want to delete this card?": "Jesteś pewien, że chcesz usunąć tę kartę?",
+    "Cards": "Karty",
+    "Card deleted successfully": "Karta została pomyślnie usunięta"
   }
 }

@@ -1,0 +1,10 @@
+<div class="sidebar-section">
+  <div class="sidebar-section__title">
+    {{ title() | transloco }}
+  </div>
+  <ul class="sidebar-section__list">
+    @for (item of items(); track $index) {
+      <app-sidebar-item [icon]="item.icon" [label]="item.label" [route]="item.route"/>
+    }
+  </ul>
+</div>
