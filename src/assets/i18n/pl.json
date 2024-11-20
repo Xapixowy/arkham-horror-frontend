@@ -161,6 +161,7 @@
     "Delete card": "Usuń kartę",
     "Are you sure you want to delete this card?": "Jesteś pewien, że chcesz usunąć tę kartę?",
     "Cards": "Karty",
-    "Card deleted successfully": "Karta została pomyślnie usunięta"
+    "Card deleted successfully": "Karta została pomyślnie usunięta",
+    "Add new card": "Dodaj nową kartę"
   }
 }

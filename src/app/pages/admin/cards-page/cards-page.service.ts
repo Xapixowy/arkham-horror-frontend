@@ -18,6 +18,7 @@ export class CardsPageService {
   private readonly cards$ = this.store.select(selectCards);
 
   readonly cards = signal<Card[]>(cardInitialState.cards)
+  readonly isNewCardModalShown = signal(false)
 
   constructor() {
     this.subscribeForCardsChanges()
@@ -33,10 +34,11 @@ export class CardsPageService {
     });
   }
 
+  showNewCardModal(): void {
+    this.isNewCardModalShown.set(true);
+  }
+
   private subscribeForCardsChanges(): void {
-    this.cards$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => {
-      this.cards.set(value)
-      console.log(value);
-    })
+    this.cards$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(value => this.cards.set(value));
   }
 }

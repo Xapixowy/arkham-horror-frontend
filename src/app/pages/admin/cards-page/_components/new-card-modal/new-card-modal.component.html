@@ -1,0 +1,12 @@
+<p-dialog [header]="'_CardsPage.Add new card' | transloco" [modal]="true" [(visible)]="isNewCardModalShown"
+          appendTo="body">
+  <form class="new-card-modal__form">
+
+  </form>
+  <div class="new-card-modal__actions">
+    <p-button severity="danger" [label]="'_ConfirmDialog.Save' | transloco"
+              (click)="onSave()" />
+    <p-button severity="secondary" [outlined]="true" [label]="'_ConfirmDialog.Cancel' | transloco"
+              (click)="onCancel()" />
+  </div>
+</p-dialog>
