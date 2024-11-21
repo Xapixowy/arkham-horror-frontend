@@ -1,15 +1,21 @@
 .cards-page {
+  min-height: 100%;
   display: flex;
   flex-direction: column;
   gap: 1rem;
 
   &__header {
+    height: 3rem;
     display: flex;
     justify-content: flex-end;
     align-items: center;
   }
 
   &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
     overflow: hidden;
     border-radius: var(--border-radius-md);
   }

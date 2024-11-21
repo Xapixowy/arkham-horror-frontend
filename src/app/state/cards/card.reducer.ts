@@ -1,5 +1,14 @@
 import {createReducer, on} from '@ngrx/store';
 import {
+  addCard,
+  addCardBackImage,
+  addCardBackImageFailure,
+  addCardBackImageSuccess,
+  addCardFailure,
+  addCardFrontImage,
+  addCardFrontImageFailure,
+  addCardFrontImageSuccess,
+  addCardSuccess,
   loadCards,
   loadCardsFailure,
   loadCardsSuccess,
@@ -24,6 +33,18 @@ export const cardInitialState: CardState = {
 
 export const cardReducer = createReducer(
   cardInitialState,
+  on(addCard, (state) => ({...state, status: StateStatus.LOADING})),
+  on(addCardSuccess, (state, {card}) => ({
+    ...state,
+    cards: [...state.cards, card],
+    status: StateStatus.SUCCESS,
+    error: null,
+  })),
+  on(addCardFailure, (state, {error}) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
   on(removeCard, (state) => ({...state, status: StateStatus.LOADING})),
   on(removeCardSuccess, (state, {id}) => ({
     ...state,
@@ -44,6 +65,43 @@ export const cardReducer = createReducer(
     error: null,
   })),
   on(loadCardsFailure, (state, {error}) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
+  on(addCardFrontImage, (state) => ({...state, status: StateStatus.LOADING})),
+  on(addCardFrontImageSuccess, (state, {card}) => {
+      const index = state.cards.findIndex(c => c.id === card.id);
+      const cards = [...state.cards];
+      cards[index] = {...card};
+
+      return {
+        ...state,
+        cards,
+        status: StateStatus.SUCCESS,
+        error: null,
+      }
+    }
+  ),
+  on(addCardFrontImageFailure, (state, {error}) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
+  on(addCardBackImage, (state) => ({...state, status: StateStatus.LOADING})),
+  on(addCardBackImageSuccess, (state, {card}) => {
+    const index = state.cards.findIndex(c => c.id === card.id);
+    const cards = [...state.cards];
+    cards[index] = {...card};
+
+    return {
+      ...state,
+      cards,
+      status: StateStatus.SUCCESS,
+      error: null,
+    }
+  }),
+  on(addCardBackImageFailure, (state, {error}) => ({
     ...state,
     status: StateStatus.ERROR,
     error,

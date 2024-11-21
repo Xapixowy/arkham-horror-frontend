@@ -1,17 +1,17 @@
-import { DestroyRef, inject, Injectable } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
-import { FormValidationService } from '@Services/form-validation.service';
-import { AuthService } from '@Services/auth.service';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ToastService } from '@Services/toast.service';
-import { ErrorService } from '@Services/error.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
-import { ResetPasswordForm } from '@Types/forms/reset-password-form.type';
-import { ResetPasswordFormControls } from '@Enums/form-controls/reset-password-form-controls.enum';
-import { RESET_PASSWORD_FORM_VALIDATORS } from '@Configs/form-validators/reset-password-form-validators.config';
-import { ResetPasswordPayload } from '@Types/payloads/reset-password-payload.type';
+import {DestroyRef, inject, Injectable} from '@angular/core';
+import {FormControl, FormGroup} from '@angular/forms';
+import {FormValidationService} from '@Services/form-validation.service';
+import {AuthService} from '@Services/auth.service';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ToastService} from '@Services/toast.service';
+import {ErrorService} from '@Services/error.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {APP_ROUTES_CONFIG} from '@Configs/routes.config';
+import {ResetPasswordForm} from '@Types/forms/reset-password-form.type';
+import {ResetPasswordFormControls} from '@Enums/form-controls/reset-password-form-controls.enum';
+import {RESET_PASSWORD_FORM_VALIDATORS} from '@Configs/form-validators/reset-password-form-validators.config';
+import {ResetPasswordPayload} from '@Types/payloads/auth/reset-password-payload.type';
 
 @Injectable({
   providedIn: 'root',

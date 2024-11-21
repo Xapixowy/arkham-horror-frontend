@@ -1,15 +1,15 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { DataResponse } from '@Types/data-response.type';
-import { RegisterResponse } from '@Types/responses/register-response.type';
-import { map, Observable } from 'rxjs';
-import { RegisterPayload } from '@Types/payloads/register-payload.type';
-import { ENVIRONMENT } from '@Environments/environment';
-import { VerifyPayload } from '@Types/payloads/verify-payload.type';
-import { LoginPayload } from '@Types/payloads/login-payload.type';
-import { LoginResponse } from '@Types/responses/login-response.type';
-import { RemindPasswordPayload } from '@Types/payloads/remind-password-payload.type';
-import { ResetPasswordPayload } from '@Types/payloads/reset-password-payload.type';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {DataResponse} from '@Types/data-response.type';
+import {RegisterResponse} from '@Types/responses/auth/register-response.type';
+import {map, Observable} from 'rxjs';
+import {RegisterPayload} from '@Types/payloads/auth/register-payload.type';
+import {ENVIRONMENT} from '@Environments/environment';
+import {VerifyPayload} from '@Types/payloads/auth/verify-payload.type';
+import {LoginPayload} from '@Types/payloads/auth/login-payload.type';
+import {LoginResponse} from '@Types/responses/auth/login-response.type';
+import {RemindPasswordPayload} from '@Types/payloads/auth/remind-password-payload.type';
+import {ResetPasswordPayload} from '@Types/payloads/auth/reset-password-payload.type';
 
 @Injectable({
   providedIn: 'root',

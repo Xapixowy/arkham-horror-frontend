@@ -4,6 +4,9 @@ import {Store} from '@ngrx/store';
 import {AppState} from '@State/app.state';
 import {CardsService} from '@Services/cards.service';
 import {
+  addCard,
+  addCardFailure,
+  addCardSuccess,
   loadCards,
   loadCardsFailure,
   loadCardsSuccess,
@@ -11,7 +14,7 @@ import {
   removeCardFailure,
   removeCardSuccess
 } from '@State/cards/card.actions';
-import {catchError, map, of, switchMap} from 'rxjs';
+import {catchError, concatMap, map, of, switchMap} from 'rxjs';
 import {Card} from '@Models/card.model';
 import {HttpErrorResponse} from '@angular/common/http';
 import {ToastService} from '@Services/toast.service';
@@ -25,15 +28,29 @@ export class CardEffects {
   private readonly toastService = inject(ToastService);
   private readonly errorService = inject(ErrorService);
 
-  loadCards$ = createEffect(() => this.actions$.pipe(
-    ofType(loadCards),
-    switchMap(() => this.cardService.getAllCards()
-      .pipe(
-        map(response => loadCardsSuccess({cards: response.data.map(card => Card.fromDto(card))})),
+  addCard$ = createEffect(() => this.actions$.pipe(
+    ofType(addCard),
+    concatMap(({card, frontImage, backImage}) =>
+      this.cardService.addCard({...card}).pipe(
+        concatMap((addCardResponse) =>
+          this.cardService.addCardFrontImage(addCardResponse.data.id, {file: frontImage}).pipe(
+            concatMap(() =>
+              this.cardService.addCardBackImage(addCardResponse.data.id, {file: backImage}).pipe(
+                map((addCardBackImageResponse) => {
+                  this.toastService.success(
+                    '_CardsPage.Cards',
+                    '_CardsPage.Card and images added successfully'
+                  );
+                  return addCardSuccess({card: Card.fromDto(addCardBackImageResponse.data)});
+                })
+              )
+            )
+          )
+        ),
         catchError((response: HttpErrorResponse) => {
           const {error} = response.error;
           this.errorService.throwError('_CardsPage.Cards', response);
-          return of(loadCardsFailure({error}))
+          return of(addCardFailure({error}));
         })
       )
     )
@@ -51,6 +68,20 @@ export class CardEffects {
           const {error} = response.error;
           this.errorService.throwError('_CardsPage.Cards', response);
           return of(removeCardFailure({error}))
+        })
+      )
+    )
+  ))
+
+  loadCards$ = createEffect(() => this.actions$.pipe(
+    ofType(loadCards),
+    switchMap(() => this.cardService.getAllCards()
+      .pipe(
+        map(response => loadCardsSuccess({cards: response.data.map(card => Card.fromDto(card))})),
+        catchError((response: HttpErrorResponse) => {
+          const {error} = response.error;
+          this.errorService.throwError('_CardsPage.Cards', response);
+          return of(loadCardsFailure({error}))
         })
       )
     )

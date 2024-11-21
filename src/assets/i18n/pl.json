@@ -1,5 +1,6 @@
 {
   "Arkham Horror": "Horror w Arkham",
+  "No content": "Brak treści",
   "_Title": {
     "Landing": "Strona główna",
     "Registration": "Rejestracja",
@@ -82,6 +83,49 @@
     "task": "Zadanie",
     "book": "Książka"
   },
+  "_CardAttributeAbility": {
+    "cannot_gather_clues_from_board": "Nie można zbierać wskazówek z planszy",
+    "one_hand_less": "Jedna ręka mniej",
+    "immune_to_nightmare_ability": "Odporność na zdolność Koszmaru",
+    "monster_no_magic_resistance": "Potwór bez odporności na magię",
+    "monster_no_physical_resistance": "Potwór bez odporności fizycznej",
+    "immune_to_overwhelm_ability": "Odporność na zdolność Przytłoczenia",
+    "collect_trophies_from_eternal": "Zbieranie trofeów od Wiecznego",
+    "add_plus_one_to_combat_dice_result": "Dodaj +1 do wyniku rzutu walki",
+    "add_plus_one_to_knowledge_dice_result": "Dodaj +1 do wyniku rzutu wiedzy",
+    "add_plus_one_to_will_dice_result": "Dodaj +1 do wyniku rzutu woli",
+    "add_plus_one_to_luck_dice_result": "Dodaj +1 do wyniku rzutu szczęścia",
+    "add_plus_one_to_evade_dice_result": "Dodaj +1 do wyniku rzutu uniku",
+    "add_plus_one_to_speed_dice_result": "Dodaj +1 do wyniku rzutu szybkości",
+    "bonus_combat_dice_when_spending_clue": "Premia do rzutu walki przy wydaniu wskazówki",
+    "bonus_knowledge_dice_when_spending_clue": "Premia do rzutu wiedzy przy wydaniu wskazówki",
+    "bonus_will_dice_when_spending_clue": "Premia do rzutu woli przy wydaniu wskazówki",
+    "bonus_luck_dice_when_spending_clue": "Premia do rzutu szczęścia przy wydaniu wskazówki",
+    "bonus_evade_dice_when_spending_clue": "Premia do rzutu uniku przy wydaniu wskazówki",
+    "bonus_speed_dice_when_spending_clue": "Premia do rzutu szybkości przy wydaniu wskazówki"
+  },
+  "_CardAttributeModifier": {
+    "combat_test": "Test Walki",
+    "spell_test": "Test Zaklęcia",
+    "evade_test": "Test Uniku",
+    "luck_test": "Test Szczęścia",
+    "horror_test": "Test Grozy",
+    "movement_point": "Punkt Ruchu",
+    "max_sanity": "Maksymalna Poczytalność",
+    "max_endurance": "Maksymalna Wytrzymałość",
+    "knowledge": "Wiedza",
+    "speed": "Szybkość",
+    "evade": "Unik",
+    "luck": "Szczęście",
+    "concentration": "Koncentracja",
+    "will": "Wola",
+    "combat_prowess": "Mistrzostwo Walki"
+  },
+  "_CardAttributeRestriction": {
+    "max_clue_tokens": "Maksymalna Liczba Żetonów Wskazówek",
+    "max_skills_spells": "Maksymalna Liczba Umiejętności i Zaklęć",
+    "max_common_unique_items": "Maksymalna Liczba Zwykłych i Unikalnych Przedmiotów"
+  },
   "_ConfirmDialog": {
     "Are you sure?": "Jesteś pewien?",
     "Please confirm to proceed": "Proszę potwierdzić, aby kontynuować",
@@ -153,6 +197,7 @@
   "_CardsPage": {
     "ID": "ID",
     "Front image": "Przód karty",
+    "Back image": "Tył karty",
     "Name": "Nazwa",
     "Type": "Typ",
     "Subtype": "Podtyp",
@@ -162,6 +207,16 @@
     "Are you sure you want to delete this card?": "Jesteś pewien, że chcesz usunąć tę kartę?",
     "Cards": "Karty",
     "Card deleted successfully": "Karta została pomyślnie usunięta",
-    "Add new card": "Dodaj nową kartę"
+    "Description": "Opis",
+    "Add new card": "Dodaj nową kartę",
+    "Choose file": "Wybierz plik",
+    "Attribute modifiers": "Modyfikatory atrybutów",
+    "Select modifier": "Wybierz modyfikator",
+    "Abilities": "Umiejętności",
+    "Restrictions": "Restrykcje",
+    "Modifiers": "Modyfikatory",
+    "Value": "Wartość",
+    "Hand usage": "Użyte ręce",
+    "Card and images added successfully": "Karta i obrazy zostały pomyślnie dodane"
   }
 }

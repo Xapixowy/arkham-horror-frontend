@@ -1,9 +1,11 @@
 <div class="cards-page">
   <div class="cards-page__header">
-    <p-button severity="success" [label]="'_CardsPage.Add card' | transloco" (onClick)="showNewCardModal()" />
+    <p-button [label]="'_CardsPage.Add card' | transloco" (onClick)="showNewCardModal()"/>
   </div>
   <div class="cards-page__content">
     <p-table
+      class="flex-1"
+      styleClass="full-height"
       [value]="cards()"
       [paginator]="true"
       [rows]="10"
@@ -13,6 +15,7 @@
         <tr>
           <th>{{ '_CardsPage.ID' | transloco }}</th>
           <th>{{ '_CardsPage.Front image' | transloco }}</th>
+          <th>{{ '_CardsPage.Back image' | transloco }}</th>
           <th>{{ '_CardsPage.Name' | transloco }}</th>
           <th>{{ '_CardsPage.Type' | transloco }}</th>
           <th>{{ '_CardsPage.Subtype' | transloco }}</th>
@@ -22,19 +25,27 @@
       <ng-template pTemplate="body" let-card>
         <tr>
           <td>{{ card.id }}</td>
-          <td><img [src]="card.front_image_path ?? CARDS_PAGE_CONFIG.placeholderImageUrl" [alt]="card.name" /></td>
+          <td><img [src]="card.front_image_path ?? CARDS_PAGE_CONFIG.placeholderImageUrl" [alt]="card.name"/></td>
+          <td><img [src]="card.back_image_path ?? CARDS_PAGE_CONFIG.placeholderImageUrl" [alt]="card.name"/></td>
           <td>{{ card.name }}</td>
           <td>{{ '_CardType.' + card.type | transloco }}</td>
-          <td>{{ card.subtype ? ('_CardSubtype' + card.subtype | transloco) : '-' }}</td>
+          <td>{{ card.subtype ? ('_CardSubtype.' + card.subtype | transloco) : '-' }}</td>
           <td>
             <div class="cards-page__table__actions">
-              <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEdit(card)" />
-              <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(card)" />
+              <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEdit(card)"/>
+              <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(card)"/>
             </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [colSpan]="99">
+            <app-no-content/>
           </td>
         </tr>
       </ng-template>
     </p-table>
   </div>
 </div>
-<app-new-card-modal />
+<app-new-card-modal/>

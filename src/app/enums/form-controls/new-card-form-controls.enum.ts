@@ -5,5 +5,6 @@ export enum NewCardFormControls {
   SUBTYPE = 'subtype',
   FRONT_IMAGE = 'front_image',
   BACK_IMAGE = 'back_image',
+  ATTRIBUTE_MODIFIERS = 'attribute_modifiers',
   HAND_USAGE = 'hand_usage',
 }
