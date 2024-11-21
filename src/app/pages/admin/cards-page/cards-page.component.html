@@ -10,9 +10,9 @@
       [paginator]="true"
       [rows]="10"
       [rowsPerPageOptions]="[10, 25, 50]"
+      [resetPageOnSort]="true"
       (onSort)="customSort($event)"
       [customSort]="true"
-      [lazy]="true"
     >
       <ng-template pTemplate="header">
         <tr>

@@ -75,14 +75,14 @@ export class CardEffects {
 
         return this.cardService.updateCard(card.id, { ...cardWithoutId }).pipe(
           concatMap((cardResponse) =>
-            (cardResponse.data.front_image_path && !frontImage
-              ? this.cardService.removeCardFrontImage(cardResponse.data.id)
-              : this.cardService.addCardFrontImage(cardResponse.data.id, { file: frontImage })
+            (frontImage
+              ? this.cardService.addCardFrontImage(cardResponse.data.id, { file: frontImage })
+              : this.cardService.removeCardFrontImage(cardResponse.data.id)
             ).pipe(
               concatMap((frontImageResponse) =>
-                (frontImageResponse.data.back_image_path && !backImage
-                  ? this.cardService.removeCardBackImage(frontImageResponse.data.id)
-                  : this.cardService.addCardBackImage(frontImageResponse.data.id, { file: backImage })
+                (backImage
+                  ? this.cardService.addCardBackImage(frontImageResponse.data.id, { file: backImage })
+                  : this.cardService.removeCardBackImage(frontImageResponse.data.id)
                 ).pipe(
                   map((backImageResponse) => {
                     this.toastService.success('_CardsPage.Cards', '_CardsPage.Card and images updated successfully');
