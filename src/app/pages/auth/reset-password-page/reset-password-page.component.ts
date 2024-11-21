@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthCardComponent } from '@Components/auth-card/auth-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { InputTextModule } from 'primeng/inputtext';
@@ -29,6 +29,7 @@ import { ResetPasswordFormControls } from '@Enums/form-controls/reset-password-f
   providers: [ResetPasswordPageService],
   templateUrl: './reset-password-page.component.html',
   styleUrl: './reset-password-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResetPasswordPageComponent {
   private readonly resetPasswordPageService = inject(ResetPasswordPageService);

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthCardComponent } from '@Components/auth-card/auth-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { InputTextModule } from 'primeng/inputtext';
@@ -29,6 +29,7 @@ import { VerifyForm } from '@Types/forms/verify-form.type';
   providers: [VerifyPageService],
   templateUrl: './verify-page.component.html',
   styleUrl: './verify-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VerifyPageComponent {
   private readonly verifyPageService = inject(VerifyPageService);

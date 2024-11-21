@@ -1,8 +1,8 @@
-import {CardType} from '@Enums/cards/card-type.enum';
-import {CardSubtype} from '@Enums/cards/card-subtype.enum';
-import {AttributeModifier} from '@Types/cards/attribute-modifier.type';
-import {Language} from '@Features/language/_enums/language.enum';
-import {CardDto} from '@Types/dtos/card-dto.type';
+import { CardType } from '@Enums/cards/card-type.enum';
+import { CardSubtype } from '@Enums/cards/card-subtype.enum';
+import { AttributeModifier } from '@Types/cards/attribute-modifier.type';
+import { Language } from '@Features/language/_enums/language.enum';
+import { CardDto } from '@Types/dtos/card-dto.type';
 
 export class Card {
   constructor(
@@ -11,15 +11,14 @@ export class Card {
     public description: string,
     public type: CardType,
     public subtype: CardSubtype | null,
-    public attributeModifiers: AttributeModifier[] | null,
-    public handUsage: number | null,
+    public attribute_modifiers: AttributeModifier[] | null,
+    public hand_usage: number | null,
     public front_image_path: string | null,
     public back_image_path: string | null,
     public locale: Language,
     public created_at: Date,
     public update_at: Date,
-  ) {
-  }
+  ) {}
 
   static fromDto(dto: CardDto): Card {
     return new Card(
@@ -28,8 +27,8 @@ export class Card {
       dto.description,
       dto.type,
       dto.subtype,
-      dto.attributeModifiers,
-      dto.handUsage,
+      dto.attribute_modifiers,
+      dto.hand_usage,
       dto.front_image_path,
       dto.back_image_path,
       dto.locale,

@@ -1,0 +1,10 @@
+.p-dialog {
+  &-content {
+    overflow: hidden;
+    padding-right: 0;
+
+    & > * {
+      padding-right: 1.5rem;
+    }
+  }
+}

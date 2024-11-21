@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { tablerMoon } from '@ng-icons/tabler-icons';
 import { InputSwitchChangeEvent, InputSwitchModule } from 'primeng/inputswitch';
@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
   ],
   templateUrl: './color-theme-switcher.component.html',
   styleUrl: './color-theme-switcher.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorThemeSwitcherComponent {
   protected readonly themeSwitcherService = inject(ColorThemeService);

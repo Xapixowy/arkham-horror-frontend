@@ -1,7 +1,6 @@
-.new-card-modal {
-  min-width: 25rem;
-  max-height: 30rem;
-  padding-right: 1rem;
+.card-modal {
+  width: clamp(25rem, calc(100vw - 20rem), 40rem);
+  max-height: 40rem;
   overflow-y: auto;
 
   &__form {
@@ -34,6 +33,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    &__file-upload-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
     }
 
     img {

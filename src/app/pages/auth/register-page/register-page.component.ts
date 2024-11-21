@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthCardComponent } from '@Components/auth-card/auth-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { InputTextModule } from 'primeng/inputtext';
@@ -29,6 +29,7 @@ import { REGEX_CONFIG } from '@Configs/regex.config';
   providers: [RegisterPageService],
   templateUrl: './register-page.component.html',
   styleUrl: './register-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RegisterPageComponent {
   private readonly registerPageService = inject(RegisterPageService);

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { DropdownChangeEvent, DropdownModule } from 'primeng/dropdown';
 import { Language } from '@Features/language/_enums/language.enum';
 import { FormsModule } from '@angular/forms';
@@ -11,6 +11,7 @@ import { LanguageService } from '@Features/language/_services/language.service';
   imports: [DropdownModule, FormsModule],
   templateUrl: './language-switcher.component.html',
   styleUrl: './language-switcher.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LanguageSwitcherComponent {
   private readonly languageService = inject(LanguageService);

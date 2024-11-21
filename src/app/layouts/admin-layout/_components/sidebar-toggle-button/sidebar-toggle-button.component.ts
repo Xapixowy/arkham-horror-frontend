@@ -1,21 +1,20 @@
-import {Component, inject} from '@angular/core';
-import {NgIcon, provideIcons} from '@ng-icons/core';
-import {tablerMenu2} from '@ng-icons/tabler-icons';
-import {AdminLayoutService} from '@Layouts/admin-layout/admin-layout.service';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { NgIcon, provideIcons } from '@ng-icons/core';
+import { tablerMenu2 } from '@ng-icons/tabler-icons';
+import { AdminLayoutService } from '@Layouts/admin-layout/admin-layout.service';
 
 @Component({
   selector: 'app-sidebar-toggle-button',
   standalone: true,
-  imports: [
-    NgIcon
-  ],
+  imports: [NgIcon],
   providers: [
     provideIcons({
-      tablerMenu2
-    })
+      tablerMenu2,
+    }),
   ],
   templateUrl: './sidebar-toggle-button.component.html',
-  styleUrl: './sidebar-toggle-button.component.scss'
+  styleUrl: './sidebar-toggle-button.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SidebarToggleButtonComponent {
   private readonly adminLayoutService = inject(AdminLayoutService);

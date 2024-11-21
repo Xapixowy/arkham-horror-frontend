@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthCardComponent } from '@Components/auth-card/auth-card.component';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { InputTextModule } from 'primeng/inputtext';
@@ -29,6 +29,7 @@ import { RemindPasswordFormControls } from '@Enums/form-controls/remind-password
   providers: [RemindPasswordPageService],
   templateUrl: './remind-password-page.component.html',
   styleUrl: './remind-password-page.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RemindPasswordPageComponent {
   private readonly remindPasswordPageService = inject(RemindPasswordPageService);

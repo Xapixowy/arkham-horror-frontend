@@ -1,19 +1,14 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {DataResponse} from '@Types/data-response.type';
-import {map, Observable} from 'rxjs';
-import {ENVIRONMENT} from '@Environments/environment';
-import {GetAllCardsResponse} from '@Types/responses/cards/get-all-cards-response.type';
-import {RemoveCardResponse} from '@Types/responses/cards/remove-card-response.type';
-import {AddCardPayload} from '@Types/payloads/cards/add-card-payload.type';
-import {AddCardResponse} from '@Types/responses/cards/add-card-response.type';
-import {AddCardFrontImagePayload} from '@Types/payloads/cards/add-card-front-image-payload.type';
-import {AddCardFrontImageResponse} from '@Types/responses/cards/add-card-front-image-response.type';
-import {RemoveCardFrontImageResponse} from '@Types/responses/cards/remove-card-front-image-response.type';
-import {AddCardBackImagePayload} from '@Types/payloads/cards/add-card-back-image-payload.type';
-import {AddCardBackImageResponse} from '@Types/responses/cards/add-card-back-image-response.type';
-import {RemoveCardBackImageResponse} from '@Types/responses/cards/remove-card-back-image-response.type';
-import {HttpServiceHelper} from '@Helpers/http-service.helper';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { DataResponse } from '@Types/data-response.type';
+import { map, Observable } from 'rxjs';
+import { ENVIRONMENT } from '@Environments/environment';
+import { AddCardPayload } from '@Types/payloads/cards/add-card-payload.type';
+import { AddCardFrontImagePayload } from '@Types/payloads/cards/add-card-front-image-payload.type';
+import { AddCardBackImagePayload } from '@Types/payloads/cards/add-card-back-image-payload.type';
+import { HttpServiceHelper } from '@Helpers/http-service.helper';
+import { UpdateCardPayload } from '@Types/payloads/cards/update-card-payload.type';
+import { CardDto } from '@Types/dtos/card-dto.type';
 
 @Injectable({
   providedIn: 'root',
@@ -21,49 +16,55 @@ import {HttpServiceHelper} from '@Helpers/http-service.helper';
 export class CardsService {
   private readonly httpClient = inject(HttpClient);
 
-  getAllCards(): Observable<DataResponse<GetAllCardsResponse>> {
+  getAllCards(): Observable<DataResponse<CardDto[]>> {
     return this.httpClient
       .get(`${ENVIRONMENT.api_url}/cards`, {
         params: {
-          originalLanguage: true
-        }
+          originalLanguage: true,
+        },
       })
-      .pipe(map((response) => response as DataResponse<GetAllCardsResponse>));
+      .pipe(map((response) => response as DataResponse<CardDto[]>));
   }
 
-  removeCard(id: number): Observable<DataResponse<RemoveCardResponse>> {
-    return this.httpClient
-      .delete(`${ENVIRONMENT.api_url}/cards/${id}`)
-      .pipe(map((response) => response as DataResponse<RemoveCardResponse>));
-  }
-
-  addCard(payload: AddCardPayload): Observable<DataResponse<AddCardResponse>> {
+  addCard(payload: AddCardPayload): Observable<DataResponse<CardDto>> {
     return this.httpClient
       .post(`${ENVIRONMENT.api_url}/cards`, payload)
-      .pipe(map((response) => response as DataResponse<AddCardResponse>));
+      .pipe(map((response) => response as DataResponse<CardDto>));
   }
 
-  addCardFrontImage(id: number, payload: AddCardFrontImagePayload): Observable<DataResponse<AddCardFrontImageResponse>> {
+  updateCard(id: number, payload: UpdateCardPayload): Observable<DataResponse<CardDto>> {
+    return this.httpClient
+      .put(`${ENVIRONMENT.api_url}/cards/${id}`, payload)
+      .pipe(map((response) => response as DataResponse<CardDto>));
+  }
+
+  removeCard(id: number): Observable<DataResponse<Omit<CardDto, 'id'>>> {
+    return this.httpClient
+      .delete(`${ENVIRONMENT.api_url}/cards/${id}`)
+      .pipe(map((response) => response as DataResponse<Omit<CardDto, 'id'>>));
+  }
+
+  addCardFrontImage(id: number, payload: AddCardFrontImagePayload): Observable<DataResponse<CardDto>> {
     return this.httpClient
       .post(`${ENVIRONMENT.api_url}/cards/${id}/front-photo`, HttpServiceHelper.createFormData(payload))
-      .pipe(map((response) => response as DataResponse<AddCardFrontImageResponse>));
+      .pipe(map((response) => response as DataResponse<CardDto>));
   }
 
-  removeCardFrontImage(id: number): Observable<DataResponse<RemoveCardFrontImageResponse>> {
+  removeCardFrontImage(id: number): Observable<DataResponse<CardDto>> {
     return this.httpClient
       .delete(`${ENVIRONMENT.api_url}/cards/${id}/front-photo`)
-      .pipe(map((response) => response as DataResponse<RemoveCardFrontImageResponse>));
+      .pipe(map((response) => response as DataResponse<CardDto>));
   }
 
-  addCardBackImage(id: number, payload: AddCardBackImagePayload): Observable<DataResponse<AddCardBackImageResponse>> {
+  addCardBackImage(id: number, payload: AddCardBackImagePayload): Observable<DataResponse<CardDto>> {
     return this.httpClient
       .post(`${ENVIRONMENT.api_url}/cards/${id}/back-photo`, HttpServiceHelper.createFormData(payload))
-      .pipe(map((response) => response as DataResponse<AddCardBackImageResponse>));
+      .pipe(map((response) => response as DataResponse<CardDto>));
   }
 
-  removeCardBackImage(id: number): Observable<DataResponse<RemoveCardBackImageResponse>> {
+  removeCardBackImage(id: number): Observable<DataResponse<CardDto>> {
     return this.httpClient
       .delete(`${ENVIRONMENT.api_url}/cards/${id}/back-photo`)
-      .pipe(map((response) => response as DataResponse<RemoveCardBackImageResponse>));
+      .pipe(map((response) => response as DataResponse<CardDto>));
   }
 }

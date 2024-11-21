@@ -7,5 +7,5 @@ export class HttpServiceHelper {
     });
 
     return formData;
-  } 
+  }
 }

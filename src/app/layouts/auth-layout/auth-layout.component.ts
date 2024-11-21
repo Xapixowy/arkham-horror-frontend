@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ColorThemeSwitcherComponent } from '@Features/color-theme/_components/color-theme-switcher/color-theme-switcher.component';
 import { LanguageSwitcherComponent } from '@Features/language/_components/language-switcher/language-switcher.component';
@@ -9,5 +9,6 @@ import { LanguageSwitcherComponent } from '@Features/language/_components/langua
   imports: [RouterOutlet, ColorThemeSwitcherComponent, LanguageSwitcherComponent],
   templateUrl: './auth-layout.component.html',
   styleUrl: './auth-layout.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AuthLayoutComponent {}

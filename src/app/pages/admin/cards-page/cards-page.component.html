@@ -1,6 +1,6 @@
 <div class="cards-page">
   <div class="cards-page__header">
-    <p-button [label]="'_CardsPage.Add card' | transloco" (onClick)="showNewCardModal()"/>
+    <p-button [label]="'_CardsPage.Add card' | transloco" (onClick)="onCreate()"/>
   </div>
   <div class="cards-page__content">
     <p-table
@@ -10,15 +10,26 @@
       [paginator]="true"
       [rows]="10"
       [rowsPerPageOptions]="[10, 25, 50]"
+      (onSort)="customSort($event)"
+      [customSort]="true"
+      [lazy]="true"
     >
       <ng-template pTemplate="header">
         <tr>
-          <th>{{ '_CardsPage.ID' | transloco }}</th>
+          <th pSortableColumn="id">{{ '_CardsPage.ID' | transloco }}
+            <p-sortIcon field="id"/>
+          </th>
           <th>{{ '_CardsPage.Front image' | transloco }}</th>
           <th>{{ '_CardsPage.Back image' | transloco }}</th>
-          <th>{{ '_CardsPage.Name' | transloco }}</th>
-          <th>{{ '_CardsPage.Type' | transloco }}</th>
-          <th>{{ '_CardsPage.Subtype' | transloco }}</th>
+          <th pSortableColumn="name">{{ '_CardsPage.Name' | transloco }}
+            <p-sortIcon field="name"/>
+          </th>
+          <th pSortableColumn="type">{{ '_CardsPage.Type' | transloco }}
+            <p-sortIcon field="type"/>
+          </th>
+          <th pSortableColumn="subtype">{{ '_CardsPage.Subtype' | transloco }}
+            <p-sortIcon field="subtype"/>
+          </th>
           <th>{{ '_CardsPage.Actions' | transloco }}</th>
         </tr>
       </ng-template>
@@ -32,6 +43,7 @@
           <td>{{ card.subtype ? ('_CardSubtype.' + card.subtype | transloco) : '-' }}</td>
           <td>
             <div class="cards-page__table__actions">
+              <app-button-icon-only icon="tablerLanguage" severity="secondary" (onClick)="onEdit(card)"/>
               <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEdit(card)"/>
               <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(card)"/>
             </div>
@@ -48,4 +60,4 @@
     </p-table>
   </div>
 </div>
-<app-new-card-modal/>
+<app-card-modal/>

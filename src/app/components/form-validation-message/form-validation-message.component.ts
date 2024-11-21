@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { FormValidationService } from '@Services/form-validation.service';
 import { AbstractControl } from '@angular/forms';
 
@@ -8,6 +8,7 @@ import { AbstractControl } from '@angular/forms';
   imports: [],
   templateUrl: './form-validation-message.component.html',
   styleUrl: './form-validation-message.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FormValidationMessageComponent {
   protected readonly formValidationService = inject(FormValidationService);

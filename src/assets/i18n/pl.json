@@ -203,12 +203,12 @@
     "Subtype": "Podtyp",
     "Actions": "Akcje",
     "Add card": "Dodaj kartę",
+    "Edit card": "Edytuj kartę",
     "Delete card": "Usuń kartę",
     "Are you sure you want to delete this card?": "Jesteś pewien, że chcesz usunąć tę kartę?",
     "Cards": "Karty",
     "Card deleted successfully": "Karta została pomyślnie usunięta",
     "Description": "Opis",
-    "Add new card": "Dodaj nową kartę",
     "Choose file": "Wybierz plik",
     "Attribute modifiers": "Modyfikatory atrybutów",
     "Select modifier": "Wybierz modyfikator",
@@ -217,6 +217,7 @@
     "Modifiers": "Modyfikatory",
     "Value": "Wartość",
     "Hand usage": "Użyte ręce",
-    "Card and images added successfully": "Karta i obrazy zostały pomyślnie dodane"
+    "Card and images added successfully": "Karta i obrazy zostały pomyślnie dodane",
+    "Card and images updated successfully": "Karta i obrazy zostały pomyślnie zaktualizowane"
   }
 }

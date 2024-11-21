@@ -1,4 +1,4 @@
-import { Component, input, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, ViewEncapsulation } from '@angular/core';
 import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 import { LoginFormControls } from '@Enums/form-controls/login-form-controls.enum';
 import { Button } from 'primeng/button';
@@ -14,6 +14,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
   imports: [Button, FormValidationMessageComponent, InputTextModule, PaginatorModule, PasswordModule, TranslocoPipe],
   templateUrl: './auth-card.component.html',
   styleUrl: './auth-card.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   encapsulation: ViewEncapsulation.None,
 })
 export class AuthCardComponent {

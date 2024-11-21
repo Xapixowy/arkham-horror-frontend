@@ -1,4 +1,5 @@
-export enum NewCardFormControls {
+export enum CardFormControls {
+  ID = 'id',
   NAME = 'name',
   DESCRIPTION = 'description',
   TYPE = 'type',
