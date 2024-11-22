@@ -3,15 +3,27 @@ import {
   addCard,
   addCardFailure,
   addCardSuccess,
+  addCardTranslation,
+  addCardTranslationFailure,
+  addCardTranslationSuccess,
   loadCards,
   loadCardsFailure,
   loadCardsSuccess,
+  loadCardTranslations,
+  loadCardTranslationsFailure,
+  loadCardTranslationsSuccess,
   removeCard,
   removeCardFailure,
   removeCardSuccess,
+  removeCardTranslation,
+  removeCardTranslationFailure,
+  removeCardTranslationSuccess,
   updateCard,
   updateCardFailure,
   updateCardSuccess,
+  updateCardTranslation,
+  updateCardTranslationFailure,
+  updateCardTranslationSuccess,
 } from './card.actions';
 import { StateStatus } from '@Enums/state-status.enum';
 import { CardState } from '@State/cards/card.state';
@@ -68,6 +80,75 @@ export const cardReducer = createReducer(
     error: null,
   })),
   on(loadCardsFailure, (state, { error }) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
+  on(addCardTranslation, (state) => ({ ...state, status: StateStatus.LOADING })),
+  on(addCardTranslationSuccess, (state, { cardId, cardTranslation }) => ({
+    ...state,
+    cards: state.cards.map((c) =>
+      c.id === cardId
+        ? {
+            ...c,
+            translations: [...(c.translations ?? []), cardTranslation],
+          }
+        : c,
+    ),
+    status: StateStatus.SUCCESS,
+    error: null,
+  })),
+  on(addCardTranslationFailure, (state, { error }) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
+  on(updateCardTranslation, (state) => ({ ...state, status: StateStatus.LOADING })),
+  on(updateCardTranslationSuccess, (state, { cardId, cardTranslation }) => ({
+    ...state,
+    cards: state.cards.map((c) =>
+      c.id === cardId
+        ? {
+            ...c,
+            translations: (c.translations ?? []).map((t) => (t.id === cardTranslation.id ? cardTranslation : t)),
+          }
+        : c,
+    ),
+    status: StateStatus.SUCCESS,
+    error: null,
+  })),
+  on(updateCardTranslationFailure, (state, { error }) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
+  on(removeCardTranslation, (state) => ({ ...state, status: StateStatus.LOADING })),
+  on(removeCardTranslationSuccess, (state, { cardId, locale }) => ({
+    ...state,
+    cards: state.cards.map((c) =>
+      c.id === cardId
+        ? {
+            ...c,
+            translations: c.translations?.filter((t) => t.locale !== locale),
+          }
+        : c,
+    ),
+    status: StateStatus.SUCCESS,
+    error: null,
+  })),
+  on(removeCardTranslationFailure, (state, { error }) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
+  on(loadCardTranslations, (state) => ({ ...state, status: StateStatus.LOADING })),
+  on(loadCardTranslationsSuccess, (state, { cardId, cardTranslations }) => ({
+    ...state,
+    cards: state.cards.map((c) => (c.id === cardId ? { ...c, translations: cardTranslations } : c)),
+    status: StateStatus.SUCCESS,
+    error: null,
+  })),
+  on(loadCardTranslationsFailure, (state, { error }) => ({
     ...state,
     status: StateStatus.ERROR,
     error,

@@ -16,7 +16,7 @@ export class CardTranslationsService {
 
   getAllCardTranslation(cardId: number): Observable<DataResponse<CardTranslationDto[]>> {
     return this.httpClient
-      .get(`${ENVIRONMENT.api_url}/cards/{cardId}/translations`)
+      .get(`${ENVIRONMENT.api_url}/cards/${cardId}/translations`)
       .pipe(map((response) => response as DataResponse<CardTranslationDto[]>));
   }
 

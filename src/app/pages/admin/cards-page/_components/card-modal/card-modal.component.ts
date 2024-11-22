@@ -27,6 +27,8 @@ import { ModalMode } from '@Enums/modal-mode.enum';
 import { FileHelper } from '@Helpers/file.helper';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { textInHtmlRequiredValidator } from '@Validators/text-in-html-required.validator';
+import { TooltipModule } from 'primeng/tooltip';
+import { TruncatePipe } from '@Pipes/truncate.pipe';
 
 @Component({
   selector: 'app-card-modal',
@@ -49,6 +51,8 @@ import { textInHtmlRequiredValidator } from '@Validators/text-in-html-required.v
     InputTextModule,
     NoContentComponent,
     NgOptimizedImage,
+    TooltipModule,
+    TruncatePipe,
   ],
   providers: [provideIcons({ tablerUpload, tablerX, tablerEdit, tablerCheck, tablerTrash })],
   templateUrl: './card-modal.component.html',
@@ -83,15 +87,8 @@ export class CardModalComponent {
     this.cardsPageService.cardModalMode() === ModalMode.CREATE ? '_CardsPage.Add card' : '_CardsPage.Edit card',
   );
 
-  protected readonly attributeModifiersSelectOptions = CARDS_PAGE_CONFIG.attributeModifiersSelectOptions.map(
-    (group) => ({
-      label: this.translocoService.translate(group.label),
-      options: group.options.map((option) => ({
-        ...option,
-        name: this.translocoService.translate(option.name),
-      })),
-    }),
-  ) as unknown as string[];
+  protected readonly attributeModifiersSelectOptions =
+    CARDS_PAGE_CONFIG.attributeModifiersSelectOptions as unknown as string[];
 
   constructor() {
     this.subscribeToFormChanges();
@@ -102,7 +99,7 @@ export class CardModalComponent {
   }
 
   get nameInputId(): string {
-    return 'new-card-' + CardFormControls.NAME;
+    return 'card-modal-' + CardFormControls.NAME;
   }
 
   get description(): AbstractControl {
@@ -110,7 +107,7 @@ export class CardModalComponent {
   }
 
   get descriptionInputId(): string {
-    return 'new-card-' + CardFormControls.DESCRIPTION;
+    return 'card-modal-' + CardFormControls.DESCRIPTION;
   }
 
   get type(): AbstractControl {
@@ -118,7 +115,7 @@ export class CardModalComponent {
   }
 
   get typeInputId(): string {
-    return 'new-card-' + CardFormControls.TYPE;
+    return 'card-modal-' + CardFormControls.TYPE;
   }
 
   get subtype(): AbstractControl {
@@ -126,7 +123,7 @@ export class CardModalComponent {
   }
 
   get subtypeInputId(): string {
-    return 'new-card-' + CardFormControls.SUBTYPE;
+    return 'card-modal-' + CardFormControls.SUBTYPE;
   }
 
   get frontImage(): AbstractControl {
@@ -134,7 +131,7 @@ export class CardModalComponent {
   }
 
   get frontImageInputId(): string {
-    return 'new-card-' + CardFormControls.FRONT_IMAGE;
+    return 'card-modal-' + CardFormControls.FRONT_IMAGE;
   }
 
   get backImage(): AbstractControl {
@@ -142,11 +139,11 @@ export class CardModalComponent {
   }
 
   get backImageInputId(): string {
-    return 'new-card-' + CardFormControls.BACK_IMAGE;
+    return 'card-modal-' + CardFormControls.BACK_IMAGE;
   }
 
   get attributeModifiersInputId(): string {
-    return 'new-card-' + CardFormControls.ATTRIBUTE_MODIFIERS;
+    return 'card-modal-' + CardFormControls.ATTRIBUTE_MODIFIERS;
   }
 
   get handUsage(): AbstractControl {
@@ -154,7 +151,7 @@ export class CardModalComponent {
   }
 
   get handUsageInputId(): string {
-    return 'new-card-' + CardFormControls.HAND_USAGE;
+    return 'card-modal-' + CardFormControls.HAND_USAGE;
   }
 
   onSave(): void {

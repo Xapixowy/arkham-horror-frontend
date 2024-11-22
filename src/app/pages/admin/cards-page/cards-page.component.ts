@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CardsPageService } from '@Pages/admin/cards-page/cards-page.service';
 import { AsyncPipe } from '@angular/common';
@@ -12,6 +12,10 @@ import { tablerEdit, tablerLanguage, tablerTrash } from '@ng-icons/tabler-icons'
 import { CardModalComponent } from '@Pages/admin/cards-page/_components/card-modal/card-modal.component';
 import { NoContentComponent } from '@Components/no-content/no-content.component';
 import { SortEvent } from 'primeng/api';
+import { Language } from '@Features/language/_enums/language.enum';
+import { StateStatus } from '@Enums/state-status.enum';
+import { CardTranslationModalComponent } from '@Pages/admin/cards-page/_components/card-translation-modal/card-translation-modal.component';
+import { CardTranslationsModalComponent } from '@Pages/admin/cards-page/_components/card-translations-modal/card-translations-modal.component';
 
 @Component({
   selector: 'app-cards-page',
@@ -24,6 +28,9 @@ import { SortEvent } from 'primeng/api';
     ButtonIconOnlyComponent,
     CardModalComponent,
     NoContentComponent,
+    CardTranslationModalComponent,
+    CardTranslationModalComponent,
+    CardTranslationsModalComponent,
   ],
   providers: [CardsPageService, provideIcons({ tablerEdit, tablerTrash, tablerLanguage })],
   templateUrl: './cards-page.component.html',
@@ -34,19 +41,30 @@ export class CardsPageComponent {
   private readonly cardsPageService = inject(CardsPageService);
 
   protected readonly CARDS_PAGE_CONFIG = CARDS_PAGE_CONFIG;
+  protected readonly Language = Language;
 
-  readonly cards = this.cardsPageService.cards;
+  protected readonly cards = this.cardsPageService.cards;
 
-  onCreate(): void {
-    this.cardsPageService.showCardModal();
+  protected readonly isLoading = computed<boolean>(
+    () =>
+      this.cardsPageService.cardStatus() === StateStatus.LOADING &&
+      this.cardsPageService.cardTranslationsCardId() === null,
+  );
+
+  async onCreate(): Promise<void> {
+    await this.cardsPageService.showCardModal();
   }
 
-  onEdit(card: Card): void {
-    this.cardsPageService.showCardModal(card);
+  async onEdit(card: Card): Promise<void> {
+    await this.cardsPageService.showCardModal(card);
   }
 
   onDelete(card: Card): void {
     this.cardsPageService.removeCard(card.id);
+  }
+
+  onCardTranslations(card: Card): void {
+    this.cardsPageService.showCardTranslationsModal(card.id);
   }
 
   customSort(event: SortEvent): void {

@@ -1,5 +1,5 @@
 <p-dialog [header]="heading() | transloco" [modal]="true" [(visible)]="isCardModalShown"
-          appendTo="body" (onHide)="onCancel()">
+          appendTo="body" (onHide)="onCancel()" [resizable]="false">
   <div class="card-modal">
     <form class="card-modal__form" [formGroup]="form">
       <div class="card-modal__form__group">
@@ -105,76 +105,85 @@
           <app-form-validation-message [errorFormControl]="backImage"/>
         </div>
       </div>
-      <div class="card-modal__form__group">
-        <label [for]="attributeModifiersInputId">{{ '_CardsPage.Attribute modifiers' | transloco }}</label>
-        <p-cascadeSelect
-          #attributeModifierSelect
-          [options]="attributeModifiersSelectOptions"
-          optionLabel="name"
-          optionGroupLabel="label"
-          [optionGroupChildren]="['options']"
-          appendTo="body"
-          [placeholder]="'_CardsPage.Select modifier' | transloco"
-          (onChange)="onAttributeModifiersChange($event, attributeModifierSelect)"
-          styleClass="full-width"
-        />
-        <p-table [value]="selectedAttributeModifiers()" editMode="row" dataKey="modifier">
-          <ng-template pTemplate="body" let-attributeModifier let-editing="editing">
-            <tr [pEditableRow]="attributeModifier">
-              @if (getEnumValues(CardAttributeAbility).includes(attributeModifier.modifier)) {
-                <td>{{ '_CardAttributeAbility.' + attributeModifier.modifier | transloco }}</td>
-              } @else if (getEnumValues(CardAttributeRestriction).includes(attributeModifier.modifier)) {
-                <td>{{ '_CardAttributeRestriction.' + attributeModifier.modifier | transloco }}</td>
-              } @else {
-                <td>{{ '_CardAttributeModifier.' + attributeModifier.modifier | transloco }}</td>
-              }
-              <td>
-                <p-cellEditor>
-                  <ng-template pTemplate="input">
-                    <p-inputNumber [(ngModel)]="attributeModifier.value" [ngModelOptions]="{standalone: true}"
-                                   required/>
-                  </ng-template>
-                  <ng-template pTemplate="output">
-                    {{ attributeModifier.value }}
-                  </ng-template>
-                </p-cellEditor>
-              </td>
-              <td>
-                <div class="card-modal__form__actions">
-                  @if (!editing) {
-                    <app-button-icon-only icon="tablerEdit" severity="secondary"
-                                          pInitEditableRow
-                                          (onClick)="onRowEditInit(attributeModifier)"/>
-                    <app-button-icon-only icon="tablerTrash" severity="danger"
-                                          (onClick)="onRowRemove(attributeModifier)"/>
-                  } @else {
-                    <app-button-icon-only icon="tablerCheck" severity="success"
-                                          pSaveEditableRow
-                                          (onClick)="onRowEditSave(attributeModifier)"/>
-                    <app-button-icon-only icon="tablerX" severity="danger"
-                                          pCancelEditableRow
-                                          (onClick)="onRowEditCancel(attributeModifier)"/>
-                  }
-                </div>
-              </td>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="emptymessage">
-            <tr>
-              <td [colSpan]="4">
-                <app-no-content/>
-              </td>
-            </tr>
-          </ng-template>
-        </p-table>
+      <div class="card-modal__form__group-wrapper">
+        <div class="card-modal__form__group">
+          <label [for]="attributeModifiersInputId">{{ '_CardsPage.Attribute modifiers' | transloco }}</label>
+          <p-cascadeSelect
+            #attributeModifierSelect
+            [options]="attributeModifiersSelectOptions"
+            optionLabel="name"
+            optionGroupLabel="label"
+            [optionGroupChildren]="['options']"
+            appendTo="body"
+            [placeholder]="'_CardsPage.Select modifier' | transloco"
+            (onChange)="onAttributeModifiersChange($event, attributeModifierSelect)"
+            styleClass="full-width">
+            <ng-template pTemplate="option" let-attributeModifierSelectOption>
+              @let label = attributeModifierSelectOption.label | transloco ;
+              <div class="card-modal__form__attribute-modifier-select-option" pTooltip="{{ label }}"
+                   tooltipPosition="left" [tooltipDisabled]="label.length <= 40">
+                {{ label | truncate : 40 }}
+              </div>
+            </ng-template>
+          </p-cascadeSelect>
+        </div>
+        <div class="card-modal__form__group">
+          <label [for]="handUsageInputId">{{ '_CardsPage.Hand usage' | transloco }}</label>
+          <p-dropdown [formControlName]="NewCardFormControls.HAND_USAGE" [options]="CARDS_PAGE_CONFIG.handOptions"
+                      [inputId]="handUsageInputId" appendTo="body"
+                      [showClear]="true" styleClass="full-width"/>
+          <app-form-validation-message [errorFormControl]="handUsage"/>
+        </div>
       </div>
-      <div class="card-modal__form__group">
-        <label [for]="handUsageInputId">{{ '_CardsPage.Hand usage' | transloco }}</label>
-        <p-dropdown [formControlName]="NewCardFormControls.HAND_USAGE" [options]="CARDS_PAGE_CONFIG.handOptions"
-                    [inputId]="handUsageInputId" appendTo="body"
-                    [showClear]="true" styleClass="full-width"/>
-        <app-form-validation-message [errorFormControl]="handUsage"/>
-      </div>
+      <p-table [value]="selectedAttributeModifiers()" editMode="row" dataKey="modifier">
+        <ng-template pTemplate="body" let-attributeModifier let-editing="editing">
+          <tr [pEditableRow]="attributeModifier">
+            @if (getEnumValues(CardAttributeAbility).includes(attributeModifier.modifier)) {
+              <td>{{ '_CardAttributeAbility.' + attributeModifier.modifier | transloco }}</td>
+            } @else if (getEnumValues(CardAttributeRestriction).includes(attributeModifier.modifier)) {
+              <td>{{ '_CardAttributeRestriction.' + attributeModifier.modifier | transloco }}</td>
+            } @else {
+              <td>{{ '_CardAttributeModifier.' + attributeModifier.modifier | transloco }}</td>
+            }
+            <td>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <p-inputNumber [(ngModel)]="attributeModifier.value" [ngModelOptions]="{standalone: true}"
+                                 required/>
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ attributeModifier.value }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <div class="card-modal__form__actions">
+                @if (!editing) {
+                  <app-button-icon-only icon="tablerEdit" severity="secondary"
+                                        pInitEditableRow
+                                        (onClick)="onRowEditInit(attributeModifier)"/>
+                  <app-button-icon-only icon="tablerTrash" severity="danger"
+                                        (onClick)="onRowRemove(attributeModifier)"/>
+                } @else {
+                  <app-button-icon-only icon="tablerCheck" severity="success"
+                                        pSaveEditableRow
+                                        (onClick)="onRowEditSave(attributeModifier)"/>
+                  <app-button-icon-only icon="tablerX" severity="danger"
+                                        pCancelEditableRow
+                                        (onClick)="onRowEditCancel(attributeModifier)"/>
+                }
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td [colSpan]="4">
+              <app-no-content/>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
     </form>
     <div class="card-modal__actions">
       <p-button [label]="'_ConfirmDialog.Save' | transloco"

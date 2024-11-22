@@ -1,6 +1,10 @@
 {
   "Arkham Horror": "Horror w Arkham",
   "No content": "Brak treści",
+  "_Language": {
+    "en": "Angielski",
+    "pl": "Polski"
+  },
   "_Title": {
     "Landing": "Strona główna",
     "Registration": "Rejestracja",
@@ -64,16 +68,16 @@
     "Logout": "Wyloguj się"
   },
   "_CardType": {
-    "location": "Lokalizacja",
-    "madness": "Obłęd",
+    "location": "Obszar",
+    "madness": "Szaleństwo",
     "wound": "Rana",
     "honorarium": "Honorarium",
     "blessing": "Błogosławieństwo",
     "curse": "Klątwa",
-    "ally": "Sojusznik",
+    "ally": "Sprzymierzeniec",
     "ability": "Umiejętność",
-    "common_item": "Przedmiot Pospolity",
-    "unique_item": "Przedmiot Unikalny",
+    "common_item": "Przedmiot Powszechny",
+    "unique_item": "Przedmiot Unikatowy",
     "spell": "Zaklęcie"
   },
   "_CardSubtype": {
@@ -84,13 +88,13 @@
     "book": "Książka"
   },
   "_CardAttributeAbility": {
-    "cannot_gather_clues_from_board": "Nie można zbierać wskazówek z planszy",
-    "one_hand_less": "Jedna ręka mniej",
-    "immune_to_nightmare_ability": "Odporność na zdolność Koszmaru",
-    "monster_no_magic_resistance": "Potwór bez odporności na magię",
-    "monster_no_physical_resistance": "Potwór bez odporności fizycznej",
-    "immune_to_overwhelm_ability": "Odporność na zdolność Przytłoczenia",
-    "collect_trophies_from_eternal": "Zbieranie trofeów od Wiecznego",
+    "cannot_gather_clues_from_board": "Nie możesz zbierać żetonów wskazówek z planszy",
+    "one_hand_less": "Możesz korzystać z jedej dłoni mniej",
+    "immune_to_nightmare_ability": "Nie tracisz poczytalności z powodu zdolności 'Koszmarny'",
+    "monster_no_magic_resistance": "Podczas twojego ataku potwór nie może korzystać ze zdolności 'Magiczna odporność'",
+    "monster_no_physical_resistance": "Podczas twojego ataku potwór nie może korzystać ze zdolności 'Fizyczna odporność'",
+    "immune_to_overwhelm_ability": "Nie tracisz wytrzymałości z powodu zdolności 'Przytłaczający'",
+    "collect_trophies_from_eternal": "'Możesz zbierać trofea po potworach posiadających zdolność 'Wieczny'",
     "add_plus_one_to_combat_dice_result": "Dodaj +1 do wyniku rzutu walki",
     "add_plus_one_to_knowledge_dice_result": "Dodaj +1 do wyniku rzutu wiedzy",
     "add_plus_one_to_will_dice_result": "Dodaj +1 do wyniku rzutu woli",
@@ -119,7 +123,7 @@
     "luck": "Szczęście",
     "concentration": "Koncentracja",
     "will": "Wola",
-    "combat_prowess": "Mistrzostwo Walki"
+    "combat_prowess": "Waleczność"
   },
   "_CardAttributeRestriction": {
     "max_clue_tokens": "Maksymalna Liczba Żetonów Wskazówek",
@@ -207,7 +211,6 @@
     "Delete card": "Usuń kartę",
     "Are you sure you want to delete this card?": "Jesteś pewien, że chcesz usunąć tę kartę?",
     "Cards": "Karty",
-    "Card deleted successfully": "Karta została pomyślnie usunięta",
     "Description": "Opis",
     "Choose file": "Wybierz plik",
     "Attribute modifiers": "Modyfikatory atrybutów",
@@ -217,7 +220,17 @@
     "Modifiers": "Modyfikatory",
     "Value": "Wartość",
     "Hand usage": "Użyte ręce",
-    "Card and images added successfully": "Karta i obrazy zostały pomyślnie dodane",
-    "Card and images updated successfully": "Karta i obrazy zostały pomyślnie zaktualizowane"
+    "Locale": "Język",
+    "Card translations": "Tłumaczenia karty",
+    "Are you sure you want to delete this card translation?": "Jesteś pewien, że chcesz usunąć tłumaczenie karty?",
+    "Delete card translation": "Usuń tłumaczenie karty",
+    "Add card translation": "Dodaj tłumaczenie karty",
+    "Edit card translation": "Edytuj tłumaczenie karty",
+    "Card translation has been created": "Tłumaczenie karty zostało utworzone",
+    "Card translation has been updated": "Tłumaczenie karty zostało zaktualizowane",
+    "Card translation has been deleted": "Tłumaczenie karty zostało usunięte",
+    "Card and images have been added": "Karta i obrazy zostały pomyślnie dodane",
+    "Card and images have been updated": "Karta i obrazy zostały pomyślnie zaktualizowane",
+    "Card has been deleted": "Karta została pomyślnie usunięta"
   }
 }
