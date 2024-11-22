@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { SidebarToggleButtonComponent } from '@Layouts/admin-layout/_components/sidebar-toggle-button/sidebar-toggle-button.component';
-import { AvatarModule } from 'primeng/avatar';
-import { LocalStorageService } from '@Services/local-storage.service';
-import { User } from '@Models/user.model';
-import { UserMenuComponent } from '@Layouts/admin-layout/_components/user-menu/user-menu.component';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { ActivationEnd, Router } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {
+  SidebarToggleButtonComponent
+} from '@Layouts/admin-layout/_components/sidebar-toggle-button/sidebar-toggle-button.component';
+import {AvatarModule} from 'primeng/avatar';
+import {LocalStorageService} from '@Services/local-storage.service';
+import {User} from '@Models/user.model';
+import {UserMenuComponent} from '@Layouts/admin-layout/_components/user-menu/user-menu.component';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {AdminLayoutService} from '@Layouts/admin-layout/admin-layout.service';
 
 @Component({
   selector: 'app-topbar',
@@ -17,26 +18,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TopbarComponent {
+  private readonly adminLayoutService = inject(AdminLayoutService);
   private readonly localStorageService = inject(LocalStorageService);
-  private readonly router = inject(Router);
-  private readonly destroyRef = inject(DestroyRef);
 
-  protected readonly title = signal<string>('this.getInitialTitle()');
-
-  constructor() {
-    this.listenForTitleChanges();
-  }
+  protected readonly title = this.adminLayoutService.topbarTitle
 
   get user(): User {
     return this.localStorageService.user!;
-  }
-
-  private listenForTitleChanges(): void {
-    this.router.events.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((event) => {
-      if (event instanceof ActivationEnd) {
-        const routeTitle = event.snapshot.firstChild?.title;
-        this.title.set(routeTitle ? `_Title.${routeTitle}` : '');
-      }
-    });
   }
 }

@@ -1,12 +1,12 @@
-import { inject, Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { DataResponse } from '@Types/data-response.type';
-import { map, Observable } from 'rxjs';
-import { ENVIRONMENT } from '@Environments/environment';
-import { CardTranslationDto } from '@Types/dtos/card-translation-dto.type';
-import { Language } from '@Features/language/_enums/language.enum';
-import { AddCardTranslationPayload } from '@Types/payloads/card-translations/add-card-translation-payload.type';
-import { UpdateCardTranslationPayload } from '@Types/payloads/card-translations/update-card-translation-payload.type';
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {DataResponse} from '@Types/data-response.type';
+import {map, Observable} from 'rxjs';
+import {ENVIRONMENT} from '@Environments/environment';
+import {CardTranslationDto} from '@Types/dtos/card-translation-dto.type';
+import {Language} from '@Features/language/_enums/language.enum';
+import {AddCardTranslationPayload} from '@Types/payloads/card-translations/add-card-translation-payload.type';
+import {UpdateCardTranslationPayload} from '@Types/payloads/card-translations/update-card-translation-payload.type';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +14,7 @@ import { UpdateCardTranslationPayload } from '@Types/payloads/card-translations/
 export class CardTranslationsService {
   private readonly httpClient = inject(HttpClient);
 
-  getAllCardTranslation(cardId: number): Observable<DataResponse<CardTranslationDto[]>> {
+  getAllCardTranslations(cardId: number): Observable<DataResponse<CardTranslationDto[]>> {
     return this.httpClient
       .get(`${ENVIRONMENT.api_url}/cards/${cardId}/translations`)
       .pipe(map((response) => response as DataResponse<CardTranslationDto[]>));

@@ -1,9 +1,8 @@
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectCards, selectCardStatus, selectCardTranslations } from '@State/cards/card.selectors';
-import { Card } from '@Models/card.model';
-import { cardInitialState } from '@State/cards/card.reducer';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import {DestroyRef, inject, Injectable, signal} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {selectCards, selectCardStatus, selectCardTranslations} from '@State/cards/card.selectors';
+import {Card} from '@Models/card.model';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
   addCard,
   addCardTranslation,
@@ -14,26 +13,27 @@ import {
   updateCard,
   updateCardTranslation,
 } from '@State/cards/card.actions';
-import { ConfirmationService, SortEvent } from 'primeng/api';
-import { FormControl, FormGroup } from '@angular/forms';
-import { CardForm } from '@Types/forms/card-form.type';
-import { CardFormControls } from '@Enums/form-controls/card-form-controls.enum';
-import { CardType } from '@Enums/cards/card-type.enum';
-import { CardSubtype } from '@Enums/cards/card-subtype.enum';
-import { AttributeModifier } from '@Types/cards/attribute-modifier.type';
-import { CARD_FORM_VALIDATORS } from '@Configs/form-validators/card-form-validators.config';
-import { FormValidationService } from '@Services/form-validation.service';
-import { getEnumValues } from 'ts-enum-helpers';
-import { ModalMode } from '@Enums/modal-mode.enum';
-import { FileHelper } from '@Helpers/file.helper';
-import { TableHelper } from '@Helpers/table.helper';
-import { CardTranslationForm } from '@Types/forms/card-translation-form.type';
-import { CardTranslationFormControls } from '@Enums/form-controls/card-translation-form-controls.enum';
-import { CARD_TRANSLATION_FORM_VALIDATORS } from '@Configs/form-validators/card-translation-form-validators.config';
-import { Language } from '@Features/language/_enums/language.enum';
-import { CardTranslation } from '@Models/card-translation.model';
-import { Observable, Subscription } from 'rxjs';
-import { StateStatus } from '@Enums/state-status.enum';
+import {ConfirmationService, SortEvent} from 'primeng/api';
+import {FormControl, FormGroup} from '@angular/forms';
+import {CardForm} from '@Types/forms/card-form.type';
+import {CardFormControls} from '@Enums/form-controls/card-form-controls.enum';
+import {CardType} from '@Enums/cards/card-type.enum';
+import {CardSubtype} from '@Enums/cards/card-subtype.enum';
+import {AttributeModifier} from '@Types/cards/attribute-modifier.type';
+import {CARD_FORM_VALIDATORS} from '@Configs/form-validators/card-form-validators.config';
+import {FormValidationService} from '@Services/form-validation.service';
+import {getEnumValues} from 'ts-enum-helpers';
+import {ModalMode} from '@Enums/modal-mode.enum';
+import {FileHelper} from '@Helpers/file.helper';
+import {TableHelper} from '@Helpers/table.helper';
+import {CardTranslationForm} from '@Types/forms/card-translation-form.type';
+import {CardTranslationFormControls} from '@Enums/form-controls/card-translation-form-controls.enum';
+import {CARD_TRANSLATION_FORM_VALIDATORS} from '@Configs/form-validators/card-translation-form-validators.config';
+import {Language} from '@Features/language/_enums/language.enum';
+import {CardTranslation} from '@Models/card-translation.model';
+import {Observable, Subscription} from 'rxjs';
+import {StateStatus} from '@Enums/state-status.enum';
+import {CARD_STATE_CONFIG} from '@State/cards/card.config';
 
 @Injectable({
   providedIn: 'root',
@@ -46,8 +46,8 @@ export class CardsPageService {
   private readonly cards$ = this.store.select(selectCards);
   private readonly cardStatus$ = this.store.select(selectCardStatus);
 
-  readonly cards = signal<Card[]>(cardInitialState.cards);
-  readonly cardStatus = signal<StateStatus>(cardInitialState.status);
+  readonly cards = signal<Card[]>(CARD_STATE_CONFIG.initialState.cards);
+  readonly cardStatus = signal<StateStatus>(CARD_STATE_CONFIG.initialState.status);
 
   readonly isCardsTableSorting = signal(false);
   readonly isCardModalShown = signal(false);
@@ -76,7 +76,7 @@ export class CardsPageService {
       key: 'danger',
       header: '_CardsPage.Delete card',
       message: '_CardsPage.Are you sure you want to delete this card?',
-      accept: () => this.store.dispatch(removeCard({ id })),
+      accept: () => this.store.dispatch(removeCard({id})),
     });
   }
 
@@ -85,12 +85,12 @@ export class CardsPageService {
       key: 'danger',
       header: '_CardsPage.Delete card translation',
       message: '_CardsPage.Are you sure you want to delete this card translation?',
-      accept: () => this.store.dispatch(removeCardTranslation({ cardId, locale })),
+      accept: () => this.store.dispatch(removeCardTranslation({cardId, locale})),
     });
   }
 
   showCardTranslationsModal(cardId: number): void {
-    this.store.dispatch(loadCardTranslations({ cardId }));
+    this.store.dispatch(loadCardTranslations({cardId}));
     this.subscribeForCardTranslationsChanges(this.store.select(selectCardTranslations(cardId)));
     this.cardTranslationsCardId.set(cardId);
     this.isCardTranslationsModalShown.set(true);

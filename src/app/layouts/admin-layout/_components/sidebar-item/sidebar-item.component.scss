@@ -10,15 +10,20 @@
     color: var(--primary-color);
     display: flex;
     align-items: center;
+    font-size: 1.25rem;
   }
 
   &__label {
-    font-size: 0.75rem;
+    font-weight: 300;
   }
 
   &--active {
+    .sidebar-item__icon svg {
+      stroke-width: 2px;
+    }
+
     .sidebar-item__label {
-      font-weight: 700;
+      font-weight: 600;
     }
   }
 

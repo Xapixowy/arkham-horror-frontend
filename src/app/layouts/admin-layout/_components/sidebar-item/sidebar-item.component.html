@@ -1,7 +1,7 @@
 <li class="sidebar-item" [routerLink]="route()" routerLinkActive="sidebar-item--active"
     [routerLinkActiveOptions]="{ exact: true }">
   <span class="sidebar-item__icon">
-    <ng-icon [name]="icon()"/>
+    <ng-icon [name]="icon()" [strokeWidth]="strokeWidth()"/>
   </span>
   <span class="sidebar-item__label">
     {{ label() | transloco }}

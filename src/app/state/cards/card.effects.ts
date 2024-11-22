@@ -1,8 +1,8 @@
-import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AppState } from '@State/app.state';
-import { CardsService } from '@Services/cards.service';
+import {inject, Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Store} from '@ngrx/store';
+import {AppState} from '@State/app.state';
+import {CardsService} from '@Services/cards.service';
 import {
   addCard,
   addCardFailure,
@@ -29,13 +29,14 @@ import {
   updateCardTranslationFailure,
   updateCardTranslationSuccess,
 } from '@State/cards/card.actions';
-import { catchError, concatMap, map, of, switchMap } from 'rxjs';
-import { Card } from '@Models/card.model';
-import { HttpErrorResponse } from '@angular/common/http';
-import { ToastService } from '@Services/toast.service';
-import { ErrorService } from '@Services/error.service';
-import { CardTranslation } from '@Models/card-translation.model';
-import { CardTranslationsService } from '@Services/card-translations.service';
+import {catchError, concatMap, map, of, switchMap} from 'rxjs';
+import {Card} from '@Models/card.model';
+import {HttpErrorResponse} from '@angular/common/http';
+import {ToastService} from '@Services/toast.service';
+import {ErrorService} from '@Services/error.service';
+import {CardTranslation} from '@Models/card-translation.model';
+import {CardTranslationsService} from '@Services/card-translations.service';
+import {CARD_STATE_CONFIG} from '@State/cards/card.config';
 
 @Injectable()
 export class CardEffects {
@@ -49,30 +50,30 @@ export class CardEffects {
   addCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCard),
-      concatMap(({ card, frontImage, backImage }) =>
-        this.cardService.addCard({ ...card }).pipe(
+      concatMap(({card, frontImage, backImage}) =>
+        this.cardService.addCard({...card}).pipe(
           concatMap((cardResponse) =>
             (frontImage
-              ? this.cardService.addCardFrontImage(cardResponse.data.id, { file: frontImage })
-              : of(cardResponse)
+                ? this.cardService.addCardFrontImage(cardResponse.data.id, {file: frontImage})
+                : of(cardResponse)
             ).pipe(
               concatMap((frontImageResponse) =>
                 (backImage
-                  ? this.cardService.addCardBackImage(frontImageResponse.data.id, { file: backImage })
-                  : of(frontImageResponse)
+                    ? this.cardService.addCardBackImage(frontImageResponse.data.id, {file: backImage})
+                    : of(frontImageResponse)
                 ).pipe(
                   map((backImageResponse) => {
-                    this.toastService.success('_CardsPage.Cards', '_CardsPage.Card and images have been added');
-                    return addCardSuccess({ card: Card.fromDto(backImageResponse.data) });
+                    this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cards, CARD_STATE_CONFIG.toastTranslationKeys.addCardSuccess);
+                    return addCardSuccess({card: Card.fromDto(backImageResponse.data)});
                   }),
                 ),
               ),
             ),
           ),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
-            this.errorService.throwError('_CardsPage.Cards', response);
-            return of(addCardFailure({ error }));
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cards, response);
+            return of(addCardFailure({error}));
           }),
         ),
       ),
@@ -82,35 +83,35 @@ export class CardEffects {
   updateCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateCard),
-      concatMap(({ card, frontImage, backImage }) => {
-        const cardWithoutId = Object.fromEntries(Object.entries(card).filter(([key]) => key !== 'id')) as Omit<
+      concatMap(({card, frontImage, backImage}) => {
+        const cardWithoutId = Object.fromEntries(Object.entries(card).filter(([key, value]) => key !== 'id')) as Omit<
           Card,
           'id'
         >;
 
-        return this.cardService.updateCard(card.id, { ...cardWithoutId }).pipe(
+        return this.cardService.updateCard(card.id, {...cardWithoutId}).pipe(
           concatMap((cardResponse) =>
             (frontImage
-              ? this.cardService.addCardFrontImage(cardResponse.data.id, { file: frontImage })
-              : this.cardService.removeCardFrontImage(cardResponse.data.id)
+                ? this.cardService.addCardFrontImage(cardResponse.data.id, {file: frontImage})
+                : this.cardService.removeCardFrontImage(cardResponse.data.id)
             ).pipe(
               concatMap((frontImageResponse) =>
                 (backImage
-                  ? this.cardService.addCardBackImage(frontImageResponse.data.id, { file: backImage })
-                  : this.cardService.removeCardBackImage(frontImageResponse.data.id)
+                    ? this.cardService.addCardBackImage(frontImageResponse.data.id, {file: backImage})
+                    : this.cardService.removeCardBackImage(frontImageResponse.data.id)
                 ).pipe(
                   map((backImageResponse) => {
-                    this.toastService.success('_CardsPage.Cards', '_CardsPage.Card and images have been updated');
-                    return updateCardSuccess({ card: Card.fromDto(backImageResponse.data) });
+                    this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cards, CARD_STATE_CONFIG.toastTranslationKeys.updateCardSuccess);
+                    return updateCardSuccess({card: Card.fromDto(backImageResponse.data)});
                   }),
                 ),
               ),
             ),
           ),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
-            this.errorService.throwError('_CardsPage.Cards', response);
-            return of(updateCardFailure({ error }));
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cards, response);
+            return of(updateCardFailure({error}));
           }),
         );
       }),
@@ -120,16 +121,16 @@ export class CardEffects {
   removeCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(removeCard),
-      switchMap(({ id }) =>
+      switchMap(({id}) =>
         this.cardService.removeCard(id).pipe(
           map(() => {
-            this.toastService.success('_CardsPage.Cards', '_CardsPage.Card has been deleted');
-            return removeCardSuccess({ id });
+            this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cards, CARD_STATE_CONFIG.toastTranslationKeys.removeCardSuccess);
+            return removeCardSuccess({id});
           }),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
-            this.errorService.throwError('_CardsPage.Cards', response);
-            return of(removeCardFailure({ error }));
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cards, response);
+            return of(removeCardFailure({error}));
           }),
         ),
       ),
@@ -141,11 +142,11 @@ export class CardEffects {
       ofType(loadCards),
       switchMap(() =>
         this.cardService.getAllCards().pipe(
-          map((response) => loadCardsSuccess({ cards: response.data.map((card) => Card.fromDto(card)) })),
+          map((response) => loadCardsSuccess({cards: response.data.map((card) => Card.fromDto(card))})),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
-            this.errorService.throwError('_CardsPage.Cards', response);
-            return of(loadCardsFailure({ error }));
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cards, response);
+            return of(loadCardsFailure({error}));
           }),
         ),
       ),
@@ -155,19 +156,19 @@ export class CardEffects {
   addCardTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCardTranslation),
-      switchMap(({ cardId, cardTranslation }) =>
-        this.cardTranslationsService.addCardTranslation(cardId, { ...cardTranslation }).pipe(
+      switchMap(({cardId, cardTranslation}) =>
+        this.cardTranslationsService.addCardTranslation(cardId, {...cardTranslation}).pipe(
           map((response) => {
-            this.toastService.success('_CardsPage.Card translations', '_CardsPage.Card translation has been created');
+            this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, CARD_STATE_CONFIG.toastTranslationKeys.addCardTranslationSuccess);
             return addCardTranslationSuccess({
               cardId,
               cardTranslation: CardTranslation.fromDto(response.data),
             });
           }),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
-            this.errorService.throwError('_CardsPage.Cards', response);
-            return of(addCardTranslationFailure({ error }));
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, response);
+            return of(addCardTranslationFailure({error}));
           }),
         ),
       ),
@@ -177,22 +178,22 @@ export class CardEffects {
   updateCardTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateCardTranslation),
-      switchMap(({ cardId, cardTranslation }) => {
+      switchMap(({cardId, cardTranslation}) => {
         const cardTranslationWithoutLocale = Object.fromEntries(
           Object.entries(cardTranslation).filter(([key]) => !['locale', 'id'].includes(key)),
-        ) as Omit<CardTranslation, 'locale'>;
+        ) as Omit<CardTranslation, 'locale' | 'id'>;
 
         return this.cardTranslationsService
-          .updateCardTranslation(cardId, cardTranslation.locale, { ...cardTranslationWithoutLocale })
+          .updateCardTranslation(cardId, cardTranslation.locale, {...cardTranslationWithoutLocale})
           .pipe(
             map((response) => {
-              this.toastService.success('_CardsPage.Card translations', '_CardsPage.Card translation has been updated');
-              return updateCardTranslationSuccess({ cardId, cardTranslation: CardTranslation.fromDto(response.data) });
+              this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, CARD_STATE_CONFIG.toastTranslationKeys.updateCardTranslationSuccess);
+              return updateCardTranslationSuccess({cardId, cardTranslation: CardTranslation.fromDto(response.data)});
             }),
             catchError((response: HttpErrorResponse) => {
-              const { error } = response.error;
-              this.errorService.throwError('_CardsPage.Cards', response);
-              return of(updateCardTranslationFailure({ error }));
+              const {error} = response.error;
+              this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, response);
+              return of(updateCardTranslationFailure({error}));
             }),
           );
       }),
@@ -202,16 +203,16 @@ export class CardEffects {
   removeCardTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(removeCardTranslation),
-      switchMap(({ cardId, locale }) =>
+      switchMap(({cardId, locale}) =>
         this.cardTranslationsService.removeCardTranslation(cardId, locale).pipe(
           map(() => {
-            this.toastService.success('_CardsPage.Card translations', '_CardsPage.Card translation has been deleted');
-            return removeCardTranslationSuccess({ cardId, locale });
+            this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, CARD_STATE_CONFIG.toastTranslationKeys.removeCardTranslationSuccess);
+            return removeCardTranslationSuccess({cardId, locale});
           }),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
-            this.errorService.throwError('_CardsPage.Cards', response);
-            return of(removeCardTranslationFailure({ error }));
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, response);
+            return of(removeCardTranslationFailure({error}));
           }),
         ),
       ),
@@ -221,8 +222,8 @@ export class CardEffects {
   loadCardTranslations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadCardTranslations),
-      switchMap(({ cardId }) =>
-        this.cardTranslationsService.getAllCardTranslation(cardId).pipe(
+      switchMap(({cardId}) =>
+        this.cardTranslationsService.getAllCardTranslations(cardId).pipe(
           map((response) =>
             loadCardTranslationsSuccess({
               cardId,
@@ -230,9 +231,9 @@ export class CardEffects {
             }),
           ),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
-            this.errorService.throwError('_CardsPage.Cards', response);
-            return of(loadCardTranslationsFailure({ error }));
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, response);
+            return of(loadCardTranslationsFailure({error}));
           }),
         ),
       ),
