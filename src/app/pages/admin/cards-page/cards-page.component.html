@@ -38,8 +38,20 @@
       <ng-template pTemplate="body" let-card>
         <tr>
           <td>{{ card.id }}</td>
-          <td><img [src]="card.front_image_path ?? CARDS_PAGE_CONFIG.placeholderImageUrl" [alt]="card.name"/></td>
-          <td><img [src]="card.back_image_path ?? CARDS_PAGE_CONFIG.placeholderImageUrl" [alt]="card.name"/></td>
+          <td>
+            @if (card.front_image_path) {
+              <img [src]="card.front_image_path" [alt]="card.name"/>
+            } @else {
+              <app-img-placeholder [size]="CARDS_PAGE_CONFIG.placeholderImageSize"/>
+            }
+          </td>
+          <td>
+            @if (card.back_image_path) {
+              <img [src]="card.back_image_path" [alt]="card.name"/>
+            } @else {
+              <app-img-placeholder [size]="CARDS_PAGE_CONFIG.placeholderImageSize"/>
+            }
+          </td>
           <td>{{ card.name }}</td>
           <td>{{ '_CardType.' + card.type | transloco }}</td>
           <td>{{ card.subtype ? ('_CardSubtype.' + card.subtype | transloco) : '-' }}</td>

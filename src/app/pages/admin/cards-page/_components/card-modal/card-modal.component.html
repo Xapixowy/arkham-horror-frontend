@@ -42,8 +42,13 @@
       <div class="card-modal__form__group-wrapper">
         <div class="card-modal__form__group">
           <label [for]="frontImageInputId">{{ '_CardsPage.Front image' | transloco }}</label>
-          <img [src]="frontImageSrc() ?? CARDS_PAGE_CONFIG.placeholderImageUrl"
-               [alt]="'_CardsPage.Front image' | transloco"/>
+          <div class="card-modal__form__image-wrapper">
+            @if (frontImageSrc()) {
+              <img [src]="frontImageSrc()" [alt]="'_CardsPage.Front image' | transloco"/>
+            } @else {
+              <app-img-placeholder [size]="CARDS_PAGE_CONFIG.placeholderImageSize"/>
+            }
+          </div>
           <div class="card-modal__form__file-upload-wrapper">
             <p-fileUpload #frontImageFileUpload
                           mode="basic"
@@ -74,8 +79,13 @@
         </div>
         <div class="card-modal__form__group">
           <label [for]="backImageInputId">{{ '_CardsPage.Back image' | transloco }}</label>
-          <img [src]="backImageSrc() ?? CARDS_PAGE_CONFIG.placeholderImageUrl"
-               [alt]="'_CardsPage.Back image' | transloco"/>
+          <div class="card-modal__form__image-wrapper">
+            @if (backImageSrc()) {
+              <img [src]="backImageSrc()" [alt]="'_CardsPage.Back image' | transloco"/>
+            } @else {
+              <app-img-placeholder [size]="CARDS_PAGE_CONFIG.placeholderImageSize"/>
+            }
+          </div>
           <div class="card-modal__form__file-upload-wrapper">
             <p-fileUpload #backImageFileUpload
                           mode="basic"

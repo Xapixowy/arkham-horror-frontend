@@ -1,34 +1,35 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, viewChild } from '@angular/core';
-import { DialogModule } from 'primeng/dialog';
-import { CardsPageService } from '@Pages/admin/cards-page/cards-page.service';
-import { Button } from 'primeng/button';
-import { TranslocoPipe, TranslocoService } from '@jsverse/transloco';
-import { CardFormControls } from '@Enums/form-controls/card-form-controls.enum';
-import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FormValidationMessageComponent } from '@Components/form-validation-message/form-validation-message.component';
-import { Editor, EditorModule } from 'primeng/editor';
-import { DropdownModule } from 'primeng/dropdown';
-import { FileSelectEvent, FileUpload, FileUploadModule } from 'primeng/fileupload';
-import { CARDS_PAGE_CONFIG } from '@Pages/admin/cards-page/cards-page.config';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { tablerCheck, tablerEdit, tablerTrash, tablerUpload, tablerX } from '@ng-icons/tabler-icons';
-import { CascadeSelect, CascadeSelectChangeEvent, CascadeSelectModule } from 'primeng/cascadeselect';
-import { TableModule } from 'primeng/table';
-import { getEnumValues } from 'ts-enum-helpers';
-import { CardAttributeAbility } from '@Enums/cards/card-attribute-ability.enum';
-import { CardAttributeRestriction } from '@Enums/cards/card-attribute-restriction.enum';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
-import { AttributeModifier } from '@Types/cards/attribute-modifier.type';
-import { InputTextModule } from 'primeng/inputtext';
-import { NoContentComponent } from '@Components/no-content/no-content.component';
-import { NgOptimizedImage } from '@angular/common';
-import { ModalMode } from '@Enums/modal-mode.enum';
-import { FileHelper } from '@Helpers/file.helper';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { textInHtmlRequiredValidator } from '@Validators/text-in-html-required.validator';
-import { TooltipModule } from 'primeng/tooltip';
-import { TruncatePipe } from '@Pipes/truncate.pipe';
+import {ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, viewChild} from '@angular/core';
+import {DialogModule} from 'primeng/dialog';
+import {CardsPageService} from '@Pages/admin/cards-page/cards-page.service';
+import {Button} from 'primeng/button';
+import {TranslocoPipe, TranslocoService} from '@jsverse/transloco';
+import {CardFormControls} from '@Enums/form-controls/card-form-controls.enum';
+import {AbstractControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FormValidationMessageComponent} from '@Components/form-validation-message/form-validation-message.component';
+import {Editor, EditorModule} from 'primeng/editor';
+import {DropdownModule} from 'primeng/dropdown';
+import {FileSelectEvent, FileUpload, FileUploadModule} from 'primeng/fileupload';
+import {CARDS_PAGE_CONFIG} from '@Pages/admin/cards-page/cards-page.config';
+import {NgIcon, provideIcons} from '@ng-icons/core';
+import {tablerCheck, tablerEdit, tablerTrash, tablerUpload, tablerX} from '@ng-icons/tabler-icons';
+import {CascadeSelect, CascadeSelectChangeEvent, CascadeSelectModule} from 'primeng/cascadeselect';
+import {TableModule} from 'primeng/table';
+import {getEnumValues} from 'ts-enum-helpers';
+import {CardAttributeAbility} from '@Enums/cards/card-attribute-ability.enum';
+import {CardAttributeRestriction} from '@Enums/cards/card-attribute-restriction.enum';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {ButtonIconOnlyComponent} from '@Components/button-icon-only/button-icon-only.component';
+import {AttributeModifier} from '@Types/cards/attribute-modifier.type';
+import {InputTextModule} from 'primeng/inputtext';
+import {NoContentComponent} from '@Components/no-content/no-content.component';
+import {NgOptimizedImage} from '@angular/common';
+import {ModalMode} from '@Enums/modal-mode.enum';
+import {FileHelper} from '@Helpers/file.helper';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {textInHtmlRequiredValidator} from '@Validators/text-in-html-required.validator';
+import {TooltipModule} from 'primeng/tooltip';
+import {TruncatePipe} from '@Pipes/truncate.pipe';
+import {ImgPlaceholderComponent} from '@Components/img-placeholder/img-placeholder.component';
 
 @Component({
   selector: 'app-card-modal',
@@ -53,8 +54,9 @@ import { TruncatePipe } from '@Pipes/truncate.pipe';
     NgOptimizedImage,
     TooltipModule,
     TruncatePipe,
+    ImgPlaceholderComponent,
   ],
-  providers: [provideIcons({ tablerUpload, tablerX, tablerEdit, tablerCheck, tablerTrash })],
+  providers: [provideIcons({tablerUpload, tablerX, tablerEdit, tablerCheck, tablerTrash})],
   templateUrl: './card-modal.component.html',
   styleUrl: './card-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -207,7 +209,7 @@ export class CardModalComponent {
   onRowEditInit(attributeModifier: AttributeModifier): void {
     this.editableAttributeModifiers.set({
       ...this.editableAttributeModifiers(),
-      [attributeModifier.modifier]: { ...attributeModifier },
+      [attributeModifier.modifier]: {...attributeModifier},
     });
   }
 
@@ -221,7 +223,7 @@ export class CardModalComponent {
     const editableAttributeModifier = this.editableAttributeModifiers()[attributeModifier.modifier];
     this.cardsPageService.attributeModifiers.update((modifiers) => [
       ...modifiers.filter((modifier) => modifier.modifier !== editableAttributeModifier.modifier),
-      { ...editableAttributeModifier },
+      {...editableAttributeModifier},
     ]);
     this.onRowEditSave(attributeModifier);
   }

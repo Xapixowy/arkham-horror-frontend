@@ -1,21 +1,26 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { TableModule } from 'primeng/table';
-import { CardsPageService } from '@Pages/admin/cards-page/cards-page.service';
-import { AsyncPipe } from '@angular/common';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { CARDS_PAGE_CONFIG } from '@Pages/admin/cards-page/cards-page.config';
-import { Button } from 'primeng/button';
-import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
-import { Card } from '@Models/card.model';
-import { provideIcons } from '@ng-icons/core';
-import { tablerEdit, tablerLanguage, tablerTrash } from '@ng-icons/tabler-icons';
-import { CardModalComponent } from '@Pages/admin/cards-page/_components/card-modal/card-modal.component';
-import { NoContentComponent } from '@Components/no-content/no-content.component';
-import { SortEvent } from 'primeng/api';
-import { Language } from '@Features/language/_enums/language.enum';
-import { StateStatus } from '@Enums/state-status.enum';
-import { CardTranslationModalComponent } from '@Pages/admin/cards-page/_components/card-translation-modal/card-translation-modal.component';
-import { CardTranslationsModalComponent } from '@Pages/admin/cards-page/_components/card-translations-modal/card-translations-modal.component';
+import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
+import {TableModule} from 'primeng/table';
+import {CardsPageService} from '@Pages/admin/cards-page/cards-page.service';
+import {AsyncPipe} from '@angular/common';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {CARDS_PAGE_CONFIG} from '@Pages/admin/cards-page/cards-page.config';
+import {Button} from 'primeng/button';
+import {ButtonIconOnlyComponent} from '@Components/button-icon-only/button-icon-only.component';
+import {Card} from '@Models/card.model';
+import {provideIcons} from '@ng-icons/core';
+import {tablerEdit, tablerLanguage, tablerTrash} from '@ng-icons/tabler-icons';
+import {CardModalComponent} from '@Pages/admin/cards-page/_components/card-modal/card-modal.component';
+import {NoContentComponent} from '@Components/no-content/no-content.component';
+import {SortEvent} from 'primeng/api';
+import {Language} from '@Features/language/_enums/language.enum';
+import {StateStatus} from '@Enums/state-status.enum';
+import {
+  CardTranslationModalComponent
+} from '@Pages/admin/cards-page/_components/card-translation-modal/card-translation-modal.component';
+import {
+  CardTranslationsModalComponent
+} from '@Pages/admin/cards-page/_components/card-translations-modal/card-translations-modal.component';
+import {ImgPlaceholderComponent} from '@Components/img-placeholder/img-placeholder.component';
 
 @Component({
   selector: 'app-cards-page',
@@ -31,8 +36,9 @@ import { CardTranslationsModalComponent } from '@Pages/admin/cards-page/_compone
     CardTranslationModalComponent,
     CardTranslationModalComponent,
     CardTranslationsModalComponent,
+    ImgPlaceholderComponent,
   ],
-  providers: [CardsPageService, provideIcons({ tablerEdit, tablerTrash, tablerLanguage })],
+  providers: [CardsPageService, provideIcons({tablerEdit, tablerTrash, tablerLanguage})],
   templateUrl: './cards-page.component.html',
   styleUrl: './cards-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

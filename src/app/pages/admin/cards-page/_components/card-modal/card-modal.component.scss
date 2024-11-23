@@ -1,5 +1,5 @@
 .card-modal {
-  width: clamp(25rem, calc(100vw - 20rem), 40rem);
+  width: clamp(30rem, calc(100vw - 20rem), 40rem);
   max-height: 40rem;
   overflow-y: auto;
 
@@ -41,8 +41,11 @@
       gap: 0.5rem;
     }
 
-    img {
+    &__image-wrapper {
       margin: 0 auto 1rem;
+    }
+
+    img {
       display: block;
       max-width: 6rem;
       max-height: 9rem;

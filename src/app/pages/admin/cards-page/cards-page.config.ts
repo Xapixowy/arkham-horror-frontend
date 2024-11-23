@@ -1,10 +1,10 @@
-import { getEnumValues } from 'ts-enum-helpers';
-import { CardAttributeAbility } from '@Enums/cards/card-attribute-ability.enum';
-import { CardAttributeRestriction } from '@Enums/cards/card-attribute-restriction.enum';
-import { CardAttributeModifier } from '@Enums/cards/card-attribute-modifier.enum';
+import {getEnumValues} from 'ts-enum-helpers';
+import {CardAttributeAbility} from '@Enums/cards/card-attribute-ability.enum';
+import {CardAttributeRestriction} from '@Enums/cards/card-attribute-restriction.enum';
+import {CardAttributeModifier} from '@Enums/cards/card-attribute-modifier.enum';
 
 export const CARDS_PAGE_CONFIG: {
-  placeholderImageUrl: string;
+  placeholderImageSize: string;
   allowedCardImageFormats: string[];
   maxCardImageFileSize: number;
   attributeModifiersSelectOptions: {
@@ -16,7 +16,7 @@ export const CARDS_PAGE_CONFIG: {
   }[];
   handOptions: number[];
 } = {
-  placeholderImageUrl: 'https://placehold.co/240x360',
+  placeholderImageSize: '6rem',
   allowedCardImageFormats: ['.jpg', '.png'],
   maxCardImageFileSize: 5 * 1024 * 1024,
   attributeModifiersSelectOptions: [
