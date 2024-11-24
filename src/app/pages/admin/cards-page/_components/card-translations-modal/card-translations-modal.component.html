@@ -8,6 +8,7 @@
           <th>{{ '_CardsPage.ID' | transloco }}</th>
           <th>{{ '_CardsPage.Name' | transloco }}</th>
           <th>{{ '_CardsPage.Locale' | transloco }}</th>
+          <th>{{ '_CardsPage.Updated at' | transloco }}</th>
           <th>{{ '_CardsPage.Actions' | transloco }}</th>
         </tr>
       </ng-template>
@@ -23,6 +24,9 @@
             }
           </td>
           <td>
+            <app-date-human-readable [date]="cardTranslation.updated_at"/>
+          </td>
+          <td>
             <div class="card-translations-modal__table__actions">
               <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEditInit(cardTranslation)"/>
               <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(cardTranslation)"/>
@@ -32,7 +36,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td [colSpan]="4">
+          <td [colSpan]="5">
             <app-no-content/>
           </td>
         </tr>

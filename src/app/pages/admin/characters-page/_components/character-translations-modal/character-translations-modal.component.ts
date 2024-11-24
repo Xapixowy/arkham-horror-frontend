@@ -16,6 +16,7 @@ import { StateStatus } from '@Enums/state-status.enum';
 import { Language } from '@Features/language/_enums/language.enum';
 import { APP_CONFIG } from '@Configs/app.config';
 import { CharacterTranslation } from '@Models/character-translation.model';
+import { DateHumanReadableComponent } from '@Components/date-human-readable/date-human-readable.component';
 
 @Component({
   selector: 'app-character-translations-modal',
@@ -33,6 +34,7 @@ import { CharacterTranslation } from '@Models/character-translation.model';
     NoContentComponent,
     OverlayPanelModule,
     TableModule,
+    DateHumanReadableComponent,
   ],
   templateUrl: './character-translations-modal.component.html',
   styleUrl: './character-translations-modal.component.scss',

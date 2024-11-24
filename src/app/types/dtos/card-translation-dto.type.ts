@@ -6,5 +6,5 @@ export type CardTranslationDto = {
   description: string;
   locale: Language;
   created_at: string;
-  update_at: string;
+  updated_at: string;
 };

@@ -8,7 +8,7 @@ export class CardTranslation {
     public description: string,
     public locale: Language,
     public created_at: Date,
-    public update_at: Date,
+    public updated_at: Date,
   ) {}
 
   static fromDto(dto: CardTranslationDto): CardTranslation {
@@ -18,7 +18,7 @@ export class CardTranslation {
       dto.description,
       dto.locale,
       new Date(dto.created_at),
-      new Date(dto.update_at),
+      new Date(dto.updated_at),
     );
   }
 }

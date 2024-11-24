@@ -13,6 +13,7 @@ import { StateStatus } from '@Enums/state-status.enum';
 import { Button } from 'primeng/button';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { APP_CONFIG } from '@Configs/app.config';
+import { DateHumanReadableComponent } from '@Components/date-human-readable/date-human-readable.component';
 
 @Component({
   selector: 'app-card-translations-modal',
@@ -25,6 +26,7 @@ import { APP_CONFIG } from '@Configs/app.config';
     ButtonIconOnlyComponent,
     Button,
     OverlayPanelModule,
+    DateHumanReadableComponent,
   ],
   providers: [provideIcons({ tablerEdit, tablerTrash })],
   templateUrl: './card-translations-modal.component.html',

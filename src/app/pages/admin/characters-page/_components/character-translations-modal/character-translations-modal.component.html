@@ -8,6 +8,7 @@
           <th>{{ '_CharactersPage.ID' | transloco }}</th>
           <th>{{ '_CharactersPage.Name' | transloco }}</th>
           <th>{{ '_CharactersPage.Locale' | transloco }}</th>
+          <th>{{ '_CharactersPage.Updated at' | transloco }}</th>
           <th>{{ '_CharactersPage.Actions' | transloco }}</th>
         </tr>
       </ng-template>
@@ -23,6 +24,9 @@
             }
           </td>
           <td>
+            <app-date-human-readable [date]="characterTranslation.updated_at"/>
+          </td>
+          <td>
             <div class="character-translations-modal__table__actions">
               <app-button-icon-only icon="tablerEdit" severity="secondary"
                                     (onClick)="onEditInit(characterTranslation)"/>
@@ -33,7 +37,7 @@
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td [colSpan]="4">
+          <td [colSpan]="5">
             <app-no-content/>
           </td>
         </tr>
