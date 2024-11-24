@@ -15,6 +15,8 @@ import { provideIcons } from '@ng-icons/core';
 import { tablerEdit, tablerLanguage, tablerTrash } from '@ng-icons/tabler-icons';
 import { DateHumanReadableComponent } from '@Components/date-human-readable/date-human-readable.component';
 import { CharacterModalComponent } from '@Pages/admin/characters-page/_components/character-modal/character-modal.component';
+import { CharacterTranslationsModalComponent } from '@Pages/admin/characters-page/_components/character-translations-modal/character-translations-modal.component';
+import { CharacterTranslationModalComponent } from '@Pages/admin/characters-page/_components/character-translation-modal/character-translation-modal.component';
 
 @Component({
   selector: 'app-characters-page',
@@ -29,6 +31,8 @@ import { CharacterModalComponent } from '@Pages/admin/characters-page/_component
     TranslocoPipe,
     DateHumanReadableComponent,
     CharacterModalComponent,
+    CharacterTranslationsModalComponent,
+    CharacterTranslationModalComponent,
   ],
   providers: [CharactersPageService, provideIcons({ tablerEdit, tablerTrash, tablerLanguage })],
   templateUrl: './characters-page.component.html',
@@ -53,7 +57,7 @@ export class CharactersPageComponent {
   }
 
   onCharacterTranslations(character: Character): void {
-    console.log('onCharacterTranslations', character);
+    this.charactersPageService.showCharacterTranslationsModal(character.id);
   }
 
   onEdit(character: Character): void {

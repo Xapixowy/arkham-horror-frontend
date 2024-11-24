@@ -1,0 +1,63 @@
+<p-dialog [header]="heading() | transloco" [modal]="true" [(visible)]="isCharacterTranslationModalShown"
+          appendTo="body" (onHide)="onCancel()">
+  <ng-template pTemplate="header">
+    <div class="character-translation-modal__header">
+      @if (language() === Language.ENGLISH) {
+        <span class="fi fi-gb"></span>
+      } @else {
+        <span class="fi fi-{{ language() }}"></span>
+      }
+      <span class="p-dialog-title">{{ heading() | transloco }}</span>
+    </div>
+  </ng-template>
+  <div class="character-translation-modal">
+    <form class="character-translation-modal__form" [formGroup]="form">
+      <div class="character-translation-modal__form__group">
+        <label [for]="nameInputId">{{ '_CharactersPage.Name' | transloco }}</label>
+        <input type="text" pInputText [formControlName]="CharacterTranslationFormControls.NAME" [id]="nameInputId"/>
+        <app-form-validation-message [errorFormControl]="name"/>
+      </div>
+      <div class="character-translation-modal__form__group">
+        <label [for]="descriptionInputId">{{ '_CharactersPage.Description' | transloco }}</label>
+        <p-editor #descriptionEditor [formControlName]="CharacterTranslationFormControls.DESCRIPTION"
+                  [id]="descriptionInputId"
+                  [style]="{ height: '10rem' }">
+          <ng-template pTemplate="header">
+            <span class="ql-formats">
+                <button type="button" class="ql-bold" aria-label="Bold"></button>
+                <button type="button" class="ql-italic" aria-label="Italic"></button>
+                <button type="button" class="ql-underline" aria-label="Underline"></button>
+            </span>
+          </ng-template>
+        </p-editor>
+        <app-form-validation-message [errorFormControl]="description"/>
+      </div>
+      <div class="character-translation-modal__form__group">
+        <label [for]="professionInputId">{{ '_CharactersPage.Profession' | transloco }}</label>
+        <input type="text" pInputText [formControlName]="CharacterTranslationFormControls.PROFESSION"
+               [id]="professionInputId"/>
+        <app-form-validation-message [errorFormControl]="profession"/>
+      </div>
+      <div class="character-translation-modal__form__group">
+        <label [for]="startingLocationInputId">{{ '_CharactersPage.Starting location' | transloco }}</label>
+        <input type="text" pInputText [formControlName]="CharacterTranslationFormControls.STARTING_LOCATION"
+               [id]="startingLocationInputId"/>
+        <app-form-validation-message [errorFormControl]="startingLocation"/>
+      </div>
+      <div class="character-translation-modal__group">
+        <label>
+          {{ '_CharactersPage.Skills' | transloco }}
+          <app-button-icon-only icon="tablerPlus" (onClick)="onSkillAdd()"/>
+        </label>
+        <app-character-skill-selector [isModalShown]="isCharacterSkillModalShown" [skills]="skills"/>
+        <app-form-validation-message [errorFormControl]="characterSkills"/>
+      </div>
+    </form>
+    <div class="character-translation-modal__actions">
+      <p-button [label]="'_ConfirmDialog.Save' | transloco"
+                (click)="onSave()"/>
+      <p-button severity="secondary" [outlined]="true" [label]="'_ConfirmDialog.Cancel' | transloco"
+                (click)="onCancel()"/>
+    </div>
+  </div>
+</p-dialog>

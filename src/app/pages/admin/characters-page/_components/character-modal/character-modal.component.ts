@@ -68,7 +68,7 @@ export class CharacterModalComponent {
   protected readonly isCharacterSkillModalShown = this.charactersPageService.isCharacterSkillModalShown;
   protected readonly form = this.charactersPageService.characterForm;
   protected readonly expansions = this.charactersPageService.expansions;
-  protected readonly skills = this.charactersPageService.skills;
+  protected readonly skills = this.charactersPageService.characterModalSkills;
   protected readonly selectedCharacterCards = this.charactersPageService.selectedCharacterCards;
 
   private readonly descriptionEditor = viewChild<Editor>('descriptionEditor');

@@ -306,6 +306,9 @@
     "Character translation has been updated": "Tłumaczenie postaci zostało zaktualizowane",
     "Character translation has been deleted": "Tłumaczenie postaci zostało usunięte",
     "Add character skill": "Dodaj umiejętność postaci",
-    "Edit character skill": "Edytuj umiejętność postaci"
+    "Edit character skill": "Edytuj umiejętność postaci",
+    "Add character translation": "Dodaj tłumaczenie postaci",
+    "Edit character translation": "Edytuj tłumaczenie postaci",
+    "Are you sure you want to delete this character translation?": "Jesteś pewien, że chcesz usunąć tłumaczenie postaci?"
   }
 }

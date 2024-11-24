@@ -3,15 +3,28 @@ import { Store } from '@ngrx/store';
 import { ConfirmationService, SortEvent } from 'primeng/api';
 import { Character } from '@Models/character.model';
 import { CHARACTER_STATE_CONFIG } from '@State/characters/character.config';
-import { selectCharacters, selectCharacterStatus } from '@State/characters/character.selectors';
+import {
+  selectCharacters,
+  selectCharacterStatus,
+  selectCharacterTranslations,
+} from '@State/characters/character.selectors';
 import { StateStatus } from '@Enums/state-status.enum';
-import { addCharacter, loadCharacters, removeCharacter, updateCharacter } from '@State/characters/character.actions';
+import {
+  addCharacter,
+  addCharacterTranslation,
+  loadCharacters,
+  loadCharacterTranslations,
+  removeCharacter,
+  removeCharacterTranslation,
+  updateCharacter,
+  updateCharacterTranslation,
+} from '@State/characters/character.actions';
 import { TableHelper } from '@Helpers/table.helper';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ModalMode } from '@Enums/modal-mode.enum';
 import { Skill } from '@Types/characters/skill.type';
 import { CharacterTranslation } from '@Models/character-translation.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { getEnumValues } from 'ts-enum-helpers';
 import { FormControl, FormGroup } from '@angular/forms';
 import { CharacterForm } from '@Types/forms/character-form.type';
@@ -21,6 +34,10 @@ import { FormValidationService } from '@Services/form-validation.service';
 import { Expansion } from '@Enums/expansion.enum';
 import { CharacterCard } from '@Models/character-card.model';
 import { CardSelectorService } from '@Components/card-selector/card-selector.service';
+import { Language } from '@Features/language/_enums/language.enum';
+import { CharacterTranslationForm } from '@Types/forms/character-translation-form.type';
+import { CharacterTranslationFormControls } from '@Enums/form-controls/character-translation-form-controls.enum';
+import { CHARACTER_TRANSLATION_FORM_VALIDATORS } from '@Configs/form-validators/character-translation-form-validators.config';
 
 @Injectable({
   providedIn: 'root',
@@ -41,14 +58,17 @@ export class CharactersPageService {
   readonly isCharacterTranslationsModalShown = signal<boolean>(false);
   readonly isCharacterTranslationModalShown = signal<boolean>(false);
   readonly isCharacterSkillModalShown = signal<boolean>(false);
+  readonly isCharacterTranslationSkillModalShown = signal<boolean>(false);
   readonly characterModalMode = signal<ModalMode>(ModalMode.CREATE);
   readonly characterTranslationModalMode = signal<ModalMode>(ModalMode.CREATE);
-  readonly skills = signal<Skill[]>([]);
+  readonly characterModalSkills = signal<Skill[]>([]);
+  readonly characterTranslationModalSkills = signal<Skill[]>([]);
   readonly selectedCharacterCards = signal<CharacterCard[]>([]);
   readonly characterTranslations = signal<CharacterTranslation[]>([]);
   readonly characterTranslationsCharacterId = signal<number | null>(null);
 
   readonly characterForm = this.initializeCharacterForm();
+  readonly characterTranslationForm = this.initializeCharacterTranslationForm();
   readonly expansions: string[] = getEnumValues(Expansion);
 
   readonly characterTranslationsSubscription = new Subscription();
@@ -64,6 +84,15 @@ export class CharactersPageService {
       header: '_CharactersPage.Delete character',
       message: '_CharactersPage.Are you sure you want to delete this character?',
       accept: () => this.store.dispatch(removeCharacter({ id })),
+    });
+  }
+
+  removeCharacterTranslation(characterId: number, locale: Language): void {
+    this.confirmationService.confirm({
+      key: 'danger',
+      header: '_CharactersPage.Delete character translation',
+      message: '_CharactersPage.Are you sure you want to delete this character translation?',
+      accept: () => this.store.dispatch(removeCharacterTranslation({ characterId, locale })),
     });
   }
 
@@ -108,7 +137,7 @@ export class CharactersPageService {
         [CharacterFormControls.EQUIPMENT_RANDOM_ABILITIES]: character.equipment.random.abilities,
         [CharacterFormControls.EQUIPMENT_RANDOM_ALLIES]: character.equipment.random.allies,
       });
-      this.skills.set(character.skills ?? []);
+      this.characterModalSkills.set(character.skills ?? []);
       this.selectedCharacterCards.set(character.characterCards ?? []);
     }
     this.isCharacterModalShown.set(true);
@@ -118,21 +147,71 @@ export class CharactersPageService {
     this.isCharacterSkillModalShown.set(true);
   }
 
+  showCharacterTranslationSkillModal(): void {
+    this.isCharacterTranslationSkillModalShown.set(true);
+  }
+
+  showCharacterTranslationsModal(characterId: number): void {
+    this.store.dispatch(loadCharacterTranslations({ characterId }));
+    this.subscribeForCharacterTranslationsChanges(this.store.select(selectCharacterTranslations(characterId)));
+    this.characterTranslationsCharacterId.set(characterId);
+    this.isCharacterTranslationsModalShown.set(true);
+  }
+
+  showCharacterTranslationModal(language: Language, characterTranslation?: CharacterTranslation): void {
+    this.characterTranslationModalMode.set(characterTranslation ? ModalMode.EDIT : ModalMode.CREATE);
+    if (characterTranslation) {
+      this.characterTranslationForm.patchValue({
+        [CharacterTranslationFormControls.ID]: characterTranslation.id,
+        [CharacterTranslationFormControls.NAME]: characterTranslation.name,
+        [CharacterTranslationFormControls.DESCRIPTION]: characterTranslation.description,
+        [CharacterTranslationFormControls.PROFESSION]: characterTranslation.profession,
+        [CharacterTranslationFormControls.STARTING_LOCATION]: characterTranslation.starting_location,
+        [CharacterTranslationFormControls.SKILLS]: characterTranslation.skills,
+        [CharacterTranslationFormControls.LOCALE]: language,
+      });
+      this.characterTranslationModalSkills.set(characterTranslation.skills ?? []);
+    } else {
+      this.characterTranslationForm.patchValue({
+        [CharacterTranslationFormControls.LOCALE]: language,
+      });
+    }
+    this.isCharacterTranslationModalShown.set(true);
+  }
+
   hideCharacterModal(): void {
     this.isCharacterModalShown.set(false);
     this.resetCharacterForm();
   }
 
+  hideCharacterTranslationsModal(): void {
+    this.isCharacterTranslationsModalShown.set(false);
+    this.characterTranslationsCharacterId.set(null);
+    this.characterTranslations.set([]);
+    this.characterTranslationsSubscription.unsubscribe();
+  }
+
+  hideCharacterTranslationModal(): void {
+    this.isCharacterTranslationModalShown.set(false);
+    this.resetCharacterTranslationForm();
+  }
+
   resetCharacterForm(): void {
     this.characterForm.reset();
-    this.skills.set([]);
+    this.characterModalSkills.set([]);
     this.selectedCharacterCards.set([]);
     this.characterForm.markAsPristine();
   }
 
+  resetCharacterTranslationForm(): void {
+    this.characterTranslationForm.reset();
+    this.characterTranslationModalSkills.set([]);
+    this.characterTranslationForm.markAsPristine();
+  }
+
   async submitCharacterForm(): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
-      this.characterForm.controls[CharacterFormControls.SKILLS].setValue(this.skills());
+      this.characterForm.controls[CharacterFormControls.SKILLS].setValue(this.characterModalSkills());
       this.characterForm.controls[CharacterFormControls.CARD_IDS].setValue(
         CardSelectorService.getSelectedCardsIdsArray(this.selectedCharacterCards()),
       );
@@ -209,11 +288,62 @@ export class CharactersPageService {
     });
   }
 
+  async submitCharacterTranslationForm(): Promise<boolean> {
+    return new Promise<boolean>((resolve) => {
+      this.characterTranslationForm.controls[CharacterTranslationFormControls.SKILLS].setValue(
+        this.characterTranslationModalSkills(),
+      );
+
+      if (FormValidationService.isFormInvalid(this.characterTranslationForm)) {
+        return resolve(false);
+      }
+
+      const payload = {
+        name: this.characterTranslationForm.controls[CharacterTranslationFormControls.NAME].value as string,
+        description: this.characterTranslationForm.controls[CharacterTranslationFormControls.DESCRIPTION]
+          .value as string,
+        profession: this.characterTranslationForm.controls[CharacterTranslationFormControls.PROFESSION].value as string,
+        starting_location: this.characterTranslationForm.controls[CharacterTranslationFormControls.STARTING_LOCATION]
+          .value as string,
+        skills: this.characterTranslationForm.controls[CharacterTranslationFormControls.SKILLS].value as Skill[],
+      };
+
+      if (this.characterTranslationModalMode() === ModalMode.CREATE) {
+        this.store.dispatch(
+          addCharacterTranslation({
+            characterId: this.characterTranslationsCharacterId()!,
+            payload: {
+              ...payload,
+              locale: this.characterTranslationForm.controls[CharacterTranslationFormControls.LOCALE].value as Language,
+            },
+          }),
+        );
+      } else {
+        this.store.dispatch(
+          updateCharacterTranslation({
+            characterId: this.characterTranslationsCharacterId()!,
+            locale: this.characterTranslationForm.controls[CharacterTranslationFormControls.LOCALE].value as Language,
+            payload,
+          }),
+        );
+      }
+
+      this.resetCharacterTranslationForm();
+      resolve(true);
+    });
+  }
+
   private subscribeForCharactersChanges(): void {
     this.characters$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => this.characters.set(value));
     this.characterStatus$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((value) => this.characterStatus.set(value));
+  }
+
+  private subscribeForCharacterTranslationsChanges(cardTranslations$: Observable<CharacterTranslation[]>): void {
+    this.characterTranslationsSubscription.add(
+      cardTranslations$.subscribe((value) => this.characterTranslations.set(value)),
+    );
   }
 
   private initializeCharacterForm(): FormGroup<CharacterForm> {
@@ -287,6 +417,28 @@ export class CharactersPageService {
       }),
       [CharacterFormControls.CARD_IDS]: new FormControl(null),
       [CharacterFormControls.IMAGE]: new FormControl(null),
+    });
+  }
+
+  private initializeCharacterTranslationForm(): FormGroup<CharacterTranslationForm> {
+    return new FormGroup<CharacterTranslationForm>({
+      [CharacterTranslationFormControls.ID]: new FormControl(null),
+      [CharacterTranslationFormControls.NAME]: new FormControl(null, {
+        validators: CHARACTER_TRANSLATION_FORM_VALIDATORS[CharacterTranslationFormControls.NAME],
+      }),
+      [CharacterTranslationFormControls.DESCRIPTION]: new FormControl(null, {
+        validators: CHARACTER_TRANSLATION_FORM_VALIDATORS[CharacterTranslationFormControls.DESCRIPTION],
+      }),
+      [CharacterTranslationFormControls.PROFESSION]: new FormControl(null, {
+        validators: CHARACTER_TRANSLATION_FORM_VALIDATORS[CharacterTranslationFormControls.PROFESSION],
+      }),
+      [CharacterTranslationFormControls.STARTING_LOCATION]: new FormControl(null, {
+        validators: CHARACTER_TRANSLATION_FORM_VALIDATORS[CharacterTranslationFormControls.STARTING_LOCATION],
+      }),
+      [CharacterTranslationFormControls.SKILLS]: new FormControl(null, {
+        validators: CHARACTER_TRANSLATION_FORM_VALIDATORS[CharacterTranslationFormControls.SKILLS],
+      }),
+      [CharacterTranslationFormControls.LOCALE]: new FormControl(null),
     });
   }
 }

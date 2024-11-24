@@ -1,0 +1,61 @@
+<p-dialog [header]="'_CharactersPage.Character translations' | transloco" [modal]="true"
+          [(visible)]="isCharacterTranslationsModalShown" [resizable]="false" (onHide)="onHide()"
+          appendTo="body">
+  <div class="character-translations-modal">
+    <p-table [value]="characterTranslations()" [loading]="isLoading()">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{ '_CharactersPage.ID' | transloco }}</th>
+          <th>{{ '_CharactersPage.Name' | transloco }}</th>
+          <th>{{ '_CharactersPage.Locale' | transloco }}</th>
+          <th>{{ '_CharactersPage.Actions' | transloco }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-characterTranslation>
+        <tr>
+          <td>{{ characterTranslation.id }}</td>
+          <td>{{ characterTranslation.name }}</td>
+          <td>
+            @if (characterTranslation.locale === Language.ENGLISH) {
+              <span class="fi fi-gb"></span>
+            } @else {
+              <span class="fi fi-{{ characterTranslation.locale }}"></span>
+            }
+          </td>
+          <td>
+            <div class="character-translations-modal__table__actions">
+              <app-button-icon-only icon="tablerEdit" severity="secondary"
+                                    (onClick)="onEditInit(characterTranslation)"/>
+              <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(characterTranslation)"/>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [colSpan]="4">
+            <app-no-content/>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <div class="character-translations-modal__actions">
+      <p-button [label]="'_CharactersPage.Add character translation' | transloco"
+                (onClick)="opAddCharacterTranslation.toggle($event)" [disabled]="!availableLanguages().length"/>
+      <p-overlayPanel #opAddCharacterTranslation appendTo="body">
+        @for (language of availableLanguages(); track $index) {
+          <p-button [label]="'_Language.' + language | transloco" severity="secondary"
+                    (onClick)="onAddCharacterTranslation(language)">
+            <ng-template pTemplate="icon">
+              @if (language === Language.ENGLISH) {
+                <span class="fi fi-gb"></span>
+              } @else {
+                <span class="fi fi-{{ language }}"></span>
+              }
+            </ng-template>
+          </p-button>
+        }
+      </p-overlayPanel>
+    </div>
+  </div>
+</p-dialog>

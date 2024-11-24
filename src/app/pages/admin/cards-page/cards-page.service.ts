@@ -123,7 +123,7 @@ export class CardsPageService {
     this.isCardModalShown.set(true);
   }
 
-  async showCardTranslationModal(language: Language, cardTranslation?: CardTranslation): Promise<void> {
+  showCardTranslationModal(language: Language, cardTranslation?: CardTranslation): void {
     this.cardTranslationModalMode.set(cardTranslation ? ModalMode.EDIT : ModalMode.CREATE);
     if (cardTranslation) {
       this.cardTranslationForm.patchValue({

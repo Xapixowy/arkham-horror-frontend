@@ -1,5 +1,5 @@
 <p-dialog [header]="heading() | transloco" [modal]="true" [visible]="isModalShown()()"
-          appendTo="body" (onHide)="onCancel()" [resizable]="false">
+          appendTo="body" [resizable]="false" (visibleChange)="onCancel()">
   <div class="character-skill-modal">
     <form class="character-skill-modal__form" [formGroup]="form">
       <div class="character-skill-modal__form__group">
