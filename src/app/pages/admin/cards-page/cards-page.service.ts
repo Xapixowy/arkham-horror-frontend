@@ -1,8 +1,8 @@
-import {DestroyRef, inject, Injectable, signal} from '@angular/core';
-import {Store} from '@ngrx/store';
-import {selectCards, selectCardStatus, selectCardTranslations} from '@State/cards/card.selectors';
-import {Card} from '@Models/card.model';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { selectCards, selectCardStatus, selectCardTranslations } from '@State/cards/card.selectors';
+import { Card } from '@Models/card.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   addCard,
   addCardTranslation,
@@ -13,27 +13,31 @@ import {
   updateCard,
   updateCardTranslation,
 } from '@State/cards/card.actions';
-import {ConfirmationService, SortEvent} from 'primeng/api';
-import {FormControl, FormGroup} from '@angular/forms';
-import {CardForm} from '@Types/forms/card-form.type';
-import {CardFormControls} from '@Enums/form-controls/card-form-controls.enum';
-import {CardType} from '@Enums/cards/card-type.enum';
-import {CardSubtype} from '@Enums/cards/card-subtype.enum';
-import {AttributeModifier} from '@Types/cards/attribute-modifier.type';
-import {CARD_FORM_VALIDATORS} from '@Configs/form-validators/card-form-validators.config';
-import {FormValidationService} from '@Services/form-validation.service';
-import {getEnumValues} from 'ts-enum-helpers';
-import {ModalMode} from '@Enums/modal-mode.enum';
-import {FileHelper} from '@Helpers/file.helper';
-import {TableHelper} from '@Helpers/table.helper';
-import {CardTranslationForm} from '@Types/forms/card-translation-form.type';
-import {CardTranslationFormControls} from '@Enums/form-controls/card-translation-form-controls.enum';
-import {CARD_TRANSLATION_FORM_VALIDATORS} from '@Configs/form-validators/card-translation-form-validators.config';
-import {Language} from '@Features/language/_enums/language.enum';
-import {CardTranslation} from '@Models/card-translation.model';
-import {Observable, Subscription} from 'rxjs';
-import {StateStatus} from '@Enums/state-status.enum';
-import {CARD_STATE_CONFIG} from '@State/cards/card.config';
+import { ConfirmationService, SortEvent } from 'primeng/api';
+import { FormControl, FormGroup } from '@angular/forms';
+import { CardForm } from '@Types/forms/card-form.type';
+import { CardFormControls } from '@Enums/form-controls/card-form-controls.enum';
+import { CardType } from '@Enums/cards/card-type.enum';
+import { CardSubtype } from '@Enums/cards/card-subtype.enum';
+import { AttributeModifier } from '@Types/cards/attribute-modifier.type';
+import { CARD_FORM_VALIDATORS } from '@Configs/form-validators/card-form-validators.config';
+import { FormValidationService } from '@Services/form-validation.service';
+import { getEnumValues } from 'ts-enum-helpers';
+import { ModalMode } from '@Enums/modal-mode.enum';
+import { FileHelper } from '@Helpers/file.helper';
+import { TableHelper } from '@Helpers/table.helper';
+import { CardTranslationForm } from '@Types/forms/card-translation-form.type';
+import { CardTranslationFormControls } from '@Enums/form-controls/card-translation-form-controls.enum';
+import { CARD_TRANSLATION_FORM_VALIDATORS } from '@Configs/form-validators/card-translation-form-validators.config';
+import { Language } from '@Features/language/_enums/language.enum';
+import { CardTranslation } from '@Models/card-translation.model';
+import { Observable, Subscription } from 'rxjs';
+import { StateStatus } from '@Enums/state-status.enum';
+import { CARD_STATE_CONFIG } from '@State/cards/card.config';
+import { AddCardTranslationPayload } from '@Types/payloads/card-translations/add-card-translation-payload.type';
+import { UpdateCardTranslationPayload } from '@Types/payloads/card-translations/update-card-translation-payload.type';
+import { AddCardPayload } from '@Types/payloads/cards/add-card-payload.type';
+import { UpdateCardPayload } from '@Types/payloads/cards/update-card-payload.type';
 
 @Injectable({
   providedIn: 'root',
@@ -76,7 +80,7 @@ export class CardsPageService {
       key: 'danger',
       header: '_CardsPage.Delete card',
       message: '_CardsPage.Are you sure you want to delete this card?',
-      accept: () => this.store.dispatch(removeCard({id})),
+      accept: () => this.store.dispatch(removeCard({ id })),
     });
   }
 
@@ -85,12 +89,12 @@ export class CardsPageService {
       key: 'danger',
       header: '_CardsPage.Delete card translation',
       message: '_CardsPage.Are you sure you want to delete this card translation?',
-      accept: () => this.store.dispatch(removeCardTranslation({cardId, locale})),
+      accept: () => this.store.dispatch(removeCardTranslation({ cardId, locale })),
     });
   }
 
   showCardTranslationsModal(cardId: number): void {
-    this.store.dispatch(loadCardTranslations({cardId}));
+    this.store.dispatch(loadCardTranslations({ cardId }));
     this.subscribeForCardTranslationsChanges(this.store.select(selectCardTranslations(cardId)));
     this.cardTranslationsCardId.set(cardId);
     this.isCardTranslationsModalShown.set(true);
@@ -138,6 +142,7 @@ export class CardsPageService {
 
   hideCardModal(): void {
     this.isCardModalShown.set(false);
+    this.resetCardForm();
   }
 
   hideCardTranslationsModal(): void {
@@ -149,6 +154,7 @@ export class CardsPageService {
 
   hideCardTranslationModal(): void {
     this.isCardTranslationModalShown.set(false);
+    this.resetCardTranslationForm();
   }
 
   async submitCardForm(): Promise<boolean> {
@@ -162,14 +168,14 @@ export class CardsPageService {
       if (this.cardModalMode() === ModalMode.CREATE) {
         this.store.dispatch(
           addCard({
-            card: {
+            payload: {
               name: this.cardForm.controls[CardFormControls.NAME].value as string,
               description: this.cardForm.controls[CardFormControls.DESCRIPTION].value as string,
               type: this.cardForm.controls[CardFormControls.TYPE].value as CardType,
               subtype: this.cardForm.controls[CardFormControls.SUBTYPE].value as CardSubtype,
               attribute_modifiers: this.attributeModifiers(),
               hand_usage: this.cardForm.controls[CardFormControls.HAND_USAGE].value as number,
-            } as Card,
+            } as AddCardPayload,
             frontImage: this.cardForm.controls[CardFormControls.FRONT_IMAGE].value as File,
             backImage: this.cardForm.controls[CardFormControls.BACK_IMAGE].value as File,
           }),
@@ -177,15 +183,16 @@ export class CardsPageService {
       } else {
         this.store.dispatch(
           updateCard({
-            card: {
-              id: this.cardForm.controls[CardFormControls.ID].value as number,
+            cardId: this.cardForm.controls[CardFormControls.ID].value as number,
+            payload: {
               name: this.cardForm.controls[CardFormControls.NAME].value as string,
               description: this.cardForm.controls[CardFormControls.DESCRIPTION].value as string,
               type: this.cardForm.controls[CardFormControls.TYPE].value as CardType,
               subtype: this.cardForm.controls[CardFormControls.SUBTYPE].value as CardSubtype,
-              attribute_modifiers: this.attributeModifiers(),
+              attribute_modifiers: this.cardForm.controls[CardFormControls.ATTRIBUTE_MODIFIERS]
+                .value as AttributeModifier[],
               hand_usage: this.cardForm.controls[CardFormControls.HAND_USAGE].value as number,
-            } as Card,
+            } as UpdateCardPayload,
             frontImage: this.cardForm.controls[CardFormControls.FRONT_IMAGE].value as File,
             backImage: this.cardForm.controls[CardFormControls.BACK_IMAGE].value as File,
           }),
@@ -207,23 +214,22 @@ export class CardsPageService {
         this.store.dispatch(
           addCardTranslation({
             cardId: this.cardTranslationsCardId()!,
-            cardTranslation: {
+            payload: {
               name: this.cardTranslationForm.controls[CardTranslationFormControls.NAME].value as string,
               description: this.cardTranslationForm.controls[CardTranslationFormControls.DESCRIPTION].value as string,
               locale: this.cardTranslationForm.controls[CardTranslationFormControls.LOCALE].value as Language,
-            } as CardTranslation,
+            } as AddCardTranslationPayload,
           }),
         );
       } else {
         this.store.dispatch(
           updateCardTranslation({
             cardId: this.cardTranslationsCardId()!,
-            cardTranslation: {
-              id: this.cardTranslationForm.controls[CardTranslationFormControls.ID].value as number,
+            locale: this.cardTranslationForm.controls[CardTranslationFormControls.LOCALE].value as Language,
+            payload: {
               name: this.cardTranslationForm.controls[CardTranslationFormControls.NAME].value as string,
               description: this.cardTranslationForm.controls[CardTranslationFormControls.DESCRIPTION].value as string,
-              locale: this.cardTranslationForm.controls[CardTranslationFormControls.LOCALE].value as Language,
-            } as CardTranslation,
+            } as UpdateCardTranslationPayload,
           }),
         );
       }

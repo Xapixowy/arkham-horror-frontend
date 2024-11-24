@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { Button } from 'primeng/button';
 import { Severity } from '@Types/severity.type';
 import { NgIcon } from '@ng-icons/core';
@@ -14,5 +14,18 @@ import { NgIcon } from '@ng-icons/core';
 export class ButtonIconOnlyComponent {
   readonly icon = input.required<string>();
   readonly severity = input<Severity>('primary');
+  readonly size = input<'small' | 'medium' | 'large'>('medium');
+
   readonly onClick = output<void>();
+
+  protected readonly sizeClass = computed<string>(() => {
+    switch (this.size()) {
+      case 'small':
+        return 'p-button--small';
+      case 'large':
+        return 'p-button--large';
+      default:
+        return '';
+    }
+  });
 }

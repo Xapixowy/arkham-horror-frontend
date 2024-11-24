@@ -1,0 +1,32 @@
+import { FormControl } from '@angular/forms';
+import { CharacterFormControls } from '@Enums/form-controls/character-form-controls.enum';
+import { Skill } from '@Types/characters/skill.type';
+import { Expansion } from '@Enums/expansion.enum';
+
+export type CharacterForm = {
+  [CharacterFormControls.ID]: FormControl<number | null>;
+  [CharacterFormControls.EXPANSION]: FormControl<Expansion | null>;
+  [CharacterFormControls.NAME]: FormControl<string | null>;
+  [CharacterFormControls.DESCRIPTION]: FormControl<string | null>;
+  [CharacterFormControls.PROFESSION]: FormControl<string | null>;
+  [CharacterFormControls.STARTING_LOCATION]: FormControl<string | null>;
+  [CharacterFormControls.SANITY]: FormControl<number | null>;
+  [CharacterFormControls.ENDURANCE]: FormControl<number | null>;
+  [CharacterFormControls.CONCENTRATION]: FormControl<number | null>;
+  [CharacterFormControls.SKILLS]: FormControl<Skill[] | null>;
+  [CharacterFormControls.ATTRIBUTES_SPEED]: FormControl<string | null>;
+  [CharacterFormControls.ATTRIBUTES_SNEAK]: FormControl<string | null>;
+  [CharacterFormControls.ATTRIBUTES_PROWESS]: FormControl<string | null>;
+  [CharacterFormControls.ATTRIBUTES_WILL]: FormControl<string | null>;
+  [CharacterFormControls.ATTRIBUTES_KNOWLEDGE]: FormControl<string | null>;
+  [CharacterFormControls.ATTRIBUTES_LUCK]: FormControl<string | null>;
+  [CharacterFormControls.EQUIPMENT_MONEY]: FormControl<number | null>;
+  [CharacterFormControls.EQUIPMENT_CLUES]: FormControl<number | null>;
+  [CharacterFormControls.EQUIPMENT_RANDOM_COMMON_ITEMS]: FormControl<number | null>;
+  [CharacterFormControls.EQUIPMENT_RANDOM_UNIQUE_ITEMS]: FormControl<number | null>;
+  [CharacterFormControls.EQUIPMENT_RANDOM_SPELLS]: FormControl<number | null>;
+  [CharacterFormControls.EQUIPMENT_RANDOM_ABILITIES]: FormControl<number | null>;
+  [CharacterFormControls.EQUIPMENT_RANDOM_ALLIES]: FormControl<number | null>;
+  [CharacterFormControls.CARD_IDS]: FormControl<number[] | null>;
+  [CharacterFormControls.IMAGE]: FormControl<File | null>;
+};

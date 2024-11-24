@@ -57,7 +57,7 @@ export const characterReducer = createReducer(
   on(removeCharacter, (state) => ({...state, status: StateStatus.LOADING})),
   on(removeCharacterSuccess, (state, {id}) => ({
     ...state,
-    cards: state.characters.filter((character) => character.id !== id),
+    characters: state.characters.filter((character) => character.id !== id),
     status: StateStatus.SUCCESS,
     error: null,
   })),

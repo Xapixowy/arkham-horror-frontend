@@ -1,0 +1,29 @@
+<div class="character-skill-selector">
+  <p-table [value]="skills()()">
+    <ng-template pTemplate="body" let-skill>
+      <tr>
+        <td>{{ skill.name }}</td>
+        @let skillDescription = skill.description | htmlToText ;
+        <td [pTooltip]="skillDescription"
+            [tooltipDisabled]="skillDescription.length < 45">{{ skillDescription | truncate : 45 }}
+        </td>
+        <td>
+          <div class="character-skill-selector__form__actions">
+            <app-button-icon-only icon="tablerEdit" severity="secondary"
+                                  (onClick)="onSkillEdit(skill)"/>
+            <app-button-icon-only icon="tablerTrash" severity="danger"
+                                  (onClick)="onSkillRemove(skill)"/>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td [colSpan]="4">
+          <app-no-content/>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<app-character-skill-modal [isModalShown]="isModalShown()" [skills]="skills()"/>

@@ -7,4 +7,6 @@ export enum FormValidationError {
   WHITESPACE = 'whitespace',
   WHITESPACE_LEADING_TRAILING = 'whitespaceLeadingTrailing',
   STRONG_PASSWORD = 'strongPassword',
+  ARRAY_LENGTH_BIGGER = 'arrayLengthBigger',
+  ARRAY_LENGTH_SMALLER = 'arrayLengthSmaller',
 }

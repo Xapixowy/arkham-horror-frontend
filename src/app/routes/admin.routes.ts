@@ -5,6 +5,7 @@ import {AdminLayoutComponent} from '@Layouts/admin-layout/admin-layout.component
 
 const ADMIN_PAGE = () => import('@Pages/auth/login-page/login-page.component').then((m) => m.LoginPageComponent);
 const CARDS_PAGE = () => import('@Pages/admin/cards-page/cards-page.component').then((m) => m.CardsPageComponent);
+const CHARACTERS_PAGE = () => import('@Pages/admin/characters-page/characters-page.component').then((m) => m.CharactersPageComponent);
 
 export const ADMIN_ROUTES: Route[] = [
   {
@@ -20,7 +21,7 @@ export const ADMIN_ROUTES: Route[] = [
       {
         path: APP_ROUTES_CONFIG.Admin.Characters.Root,
         title: 'Characters',
-        loadComponent: ADMIN_PAGE,
+        loadComponent: CHARACTERS_PAGE,
       },
       {
         path: APP_ROUTES_CONFIG.Admin.GameSessions.Root,

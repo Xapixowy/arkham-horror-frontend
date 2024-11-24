@@ -1,0 +1,57 @@
+<div class="card-selector">
+  <p-dropdown
+    #cardDropdown
+    [options]="cards()"
+    optionLabel="name"
+    [filter]="true"
+    filterBy="name"
+    [placeholder]="'_CardSelector.Select card' | transloco"
+    appendTo="body"
+    styleClass="full-width"
+    (onChange)="onCardSelection($event, cardDropdown)"
+  >
+    <ng-template let-card pTemplate="item">
+      <div class="card-selector__dropdown-card">
+        <div class="card-selector__dropdown-card__image">
+          @if (card.front_image_path) {
+            <img [src]="card.front_image_path" [alt]="card.name"/>
+          } @else {
+            <app-img-placeholder size="4rem"/>
+          }
+        </div>
+        <div class="card-selector__dropdown-card__name" [pTooltip]="card.name"
+             [tooltipDisabled]="card.name.length <= 25">
+          {{ card.name | truncate : 25 }}
+        </div>
+      </div>
+    </ng-template>
+  </p-dropdown>
+  @if (selectedCharacterCards()().length > 0) {
+    <p-table [value]="selectedCharacterCards()()">
+      <ng-template pTemplate="body" let-characterCard>
+        <tr>
+          <td>
+            @if (characterCard.card!.front_image_path) {
+              <img class="card-selector__card__image" [src]="characterCard.card!.front_image_path"
+                   [alt]="characterCard.card!.name"/>
+            } @else {
+              <app-img-placeholder size="6rem"/>
+            }
+          </td>
+          <td class="card-selector__card__name" [pTooltip]="characterCard.card!.name"
+              [tooltipDisabled]="characterCard.card!.name <= 35">{{ characterCard.card!.name | truncate : 35 }}
+          </td>
+          <td class="card-selector__card__quantity__wrapper">
+            <div class="card-selector__card__quantity">
+              <app-button-icon-only size="small" icon="tablerMinus" severity="danger"
+                                    (onClick)="onCardQuantityChange(characterCard, -1)"/>
+              <span class="card-selector__card__quantity__value">{{ characterCard.quantity }}</span>
+              <app-button-icon-only size="small" icon="tablerPlus" severity="success"
+                                    (onClick)="onCardQuantityChange(characterCard, 1)"/>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  }
+</div>

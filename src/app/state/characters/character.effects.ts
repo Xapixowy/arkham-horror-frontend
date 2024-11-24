@@ -1,13 +1,13 @@
-import {inject, Injectable} from '@angular/core';
-import {Actions, createEffect, ofType} from '@ngrx/effects';
-import {Store} from '@ngrx/store';
-import {AppState} from '@State/app.state';
-import {catchError, concatMap, map, of, switchMap} from 'rxjs';
-import {HttpErrorResponse} from '@angular/common/http';
-import {ToastService} from '@Services/toast.service';
-import {ErrorService} from '@Services/error.service';
-import {CharactersService} from '@Services/characters.service';
-import {CharacterTranslationsService} from '@Services/character-translations.service';
+import { inject, Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { AppState } from '@State/app.state';
+import { catchError, concatMap, map, of, switchMap } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastService } from '@Services/toast.service';
+import { ErrorService } from '@Services/error.service';
+import { CharactersService } from '@Services/characters.service';
+import { CharacterTranslationsService } from '@Services/character-translations.service';
 import {
   addCharacter,
   addCharacterFailure,
@@ -32,17 +32,17 @@ import {
   updateCharacterSuccess,
   updateCharacterTranslation,
   updateCharacterTranslationFailure,
-  updateCharacterTranslationSuccess
+  updateCharacterTranslationSuccess,
 } from '@State/characters/character.actions';
-import {Character} from '@Models/character.model';
-import {CharacterTranslation} from '@Models/character-translation.model';
-import {CHARACTER_STATE_CONFIG} from '@State/characters/character.config';
+import { Character } from '@Models/character.model';
+import { CharacterTranslation } from '@Models/character-translation.model';
+import { CHARACTER_STATE_CONFIG } from '@State/characters/character.config';
 
 @Injectable()
 export class CharacterEffects {
   private readonly actions$ = inject(Actions);
   private readonly store = inject(Store<AppState>);
-  private readonly characterService = inject(CharactersService)
+  private readonly characterService = inject(CharactersService);
   private readonly characterTranslationsService = inject(CharacterTranslationsService);
   private readonly toastService = inject(ToastService);
   private readonly errorService = inject(ErrorService);
@@ -50,23 +50,26 @@ export class CharacterEffects {
   addCharacter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCharacter),
-      concatMap(({character, image}) =>
-        this.characterService.addCharacter({...character}).pipe(
+      concatMap(({ payload, image }) =>
+        this.characterService.addCharacter(payload).pipe(
           concatMap((characterResponse) =>
             (image
-                ? this.characterService.addCharacterImage(characterResponse.data.id, {file: image})
-                : of(characterResponse)
+              ? this.characterService.addCharacterImage(characterResponse.data.id, { file: image })
+              : of(characterResponse)
             ).pipe(
               map((imageResponse) => {
-                this.toastService.success(CHARACTER_STATE_CONFIG.toastTranslationKeys.characters, CHARACTER_STATE_CONFIG.toastTranslationKeys.addCharacterSuccess);
-                return addCharacterSuccess({character: Character.fromDto(imageResponse.data)});
+                this.toastService.success(
+                  CHARACTER_STATE_CONFIG.toastTranslationKeys.characters,
+                  CHARACTER_STATE_CONFIG.toastTranslationKeys.addCharacterSuccess,
+                );
+                return addCharacterSuccess({ character: Character.fromDto(imageResponse.data) });
               }),
             ),
           ),
           catchError((response: HttpErrorResponse) => {
-            const {error} = response.error;
+            const { error } = response.error;
             this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characters, response);
-            return of(addCharacterFailure({error}));
+            return of(addCharacterFailure({ error }));
           }),
         ),
       ),
@@ -76,47 +79,48 @@ export class CharacterEffects {
   updateCharacter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateCharacter),
-      concatMap(({character, image}) => {
-        const characterWithoutId = Object.fromEntries(Object.entries(character).filter(([key]) => key !== 'id')) as Omit<
-          Character,
-          'id'
-        >;
-
-        return this.characterService.updateCharacter(character.id, {...characterWithoutId}).pipe(
+      concatMap(({ characterId, payload, image }) =>
+        this.characterService.updateCharacter(characterId, payload).pipe(
           concatMap((cardResponse) =>
             (image
-                ? this.characterService.addCharacterImage(cardResponse.data.id, {file: image})
-                : this.characterService.removeCharacterImage(cardResponse.data.id)
+              ? this.characterService.addCharacterImage(cardResponse.data.id, { file: image })
+              : this.characterService.removeCharacterImage(cardResponse.data.id)
             ).pipe(
               map((imageResponse) => {
-                this.toastService.success(CHARACTER_STATE_CONFIG.toastTranslationKeys.characters, CHARACTER_STATE_CONFIG.toastTranslationKeys.updateCharacterSuccess);
-                return updateCharacterSuccess({character: Character.fromDto(imageResponse.data)});
+                this.toastService.success(
+                  CHARACTER_STATE_CONFIG.toastTranslationKeys.characters,
+                  CHARACTER_STATE_CONFIG.toastTranslationKeys.updateCharacterSuccess,
+                );
+                return updateCharacterSuccess({ character: Character.fromDto(imageResponse.data) });
               }),
             ),
           ),
           catchError((response: HttpErrorResponse) => {
-            const {error} = response.error;
+            const { error } = response.error;
             this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characters, response);
-            return of(updateCharacterFailure({error}));
+            return of(updateCharacterFailure({ error }));
           }),
-        );
-      }),
+        ),
+      ),
     ),
   );
 
   removeCharacter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(removeCharacter),
-      switchMap(({id}) =>
+      switchMap(({ id }) =>
         this.characterService.removeCharacter(id).pipe(
           map(() => {
-            this.toastService.success(CHARACTER_STATE_CONFIG.toastTranslationKeys.characters, CHARACTER_STATE_CONFIG.toastTranslationKeys.removeCharacterSuccess);
-            return removeCharacterSuccess({id});
+            this.toastService.success(
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.characters,
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.removeCharacterSuccess,
+            );
+            return removeCharacterSuccess({ id });
           }),
           catchError((response: HttpErrorResponse) => {
-            const {error} = response.error;
+            const { error } = response.error;
             this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characters, response);
-            return of(removeCharacterFailure({error}));
+            return of(removeCharacterFailure({ error }));
           }),
         ),
       ),
@@ -128,11 +132,13 @@ export class CharacterEffects {
       ofType(loadCharacters),
       switchMap(() =>
         this.characterService.getAllCharacters().pipe(
-          map((response) => loadCharactersSuccess({characters: response.data.map((character) => Character.fromDto(character))})),
+          map((response) =>
+            loadCharactersSuccess({ characters: response.data.map((character) => Character.fromDto(character)) }),
+          ),
           catchError((response: HttpErrorResponse) => {
-            const {error} = response.error;
+            const { error } = response.error;
             this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characters, response);
-            return of(loadCharactersFailure({error}));
+            return of(loadCharactersFailure({ error }));
           }),
         ),
       ),
@@ -142,19 +148,22 @@ export class CharacterEffects {
   addCharacterTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCharacterTranslation),
-      switchMap(({characterId, characterTranslation}) =>
-        this.characterTranslationsService.addCharacterTranslation(characterId, {...characterTranslation}).pipe(
+      switchMap(({ characterId, payload }) =>
+        this.characterTranslationsService.addCharacterTranslation(characterId, payload).pipe(
           map((response) => {
-            this.toastService.success(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, CHARACTER_STATE_CONFIG.toastTranslationKeys.addCharacterTranslationSuccess);
+            this.toastService.success(
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations,
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.addCharacterTranslationSuccess,
+            );
             return addCharacterTranslationSuccess({
               characterId,
               characterTranslation: CharacterTranslation.fromDto(response.data),
             });
           }),
           catchError((response: HttpErrorResponse) => {
-            const {error} = response.error;
+            const { error } = response.error;
             this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, response);
-            return of(addCharacterTranslationFailure({error}));
+            return of(addCharacterTranslationFailure({ error }));
           }),
         ),
       ),
@@ -164,44 +173,44 @@ export class CharacterEffects {
   updateCharacterTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateCharacterTranslation),
-      switchMap(({characterId, characterTranslation}) => {
-        const characterTranslationWithoutLocale = Object.fromEntries(
-          Object.entries(characterTranslation).filter(([key]) => !['locale', 'id'].includes(key)),
-        ) as Omit<CharacterTranslation, 'locale' | 'id'>;
-
-        return this.characterTranslationsService
-          .updateCharacterTranslation(characterId, characterTranslation.locale, {...characterTranslationWithoutLocale})
-          .pipe(
-            map((response) => {
-              this.toastService.success(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, CHARACTER_STATE_CONFIG.toastTranslationKeys.updateCharacterTranslationSuccess);
-              return updateCharacterTranslationSuccess({
-                characterId,
-                characterTranslation: CharacterTranslation.fromDto(response.data)
-              });
-            }),
-            catchError((response: HttpErrorResponse) => {
-              const {error} = response.error;
-              this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, response);
-              return of(updateCharacterTranslationFailure({error}));
-            }),
-          );
-      }),
+      switchMap(({ characterId, locale, payload }) =>
+        this.characterTranslationsService.updateCharacterTranslation(characterId, locale, payload).pipe(
+          map((response) => {
+            this.toastService.success(
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations,
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.updateCharacterTranslationSuccess,
+            );
+            return updateCharacterTranslationSuccess({
+              characterId,
+              characterTranslation: CharacterTranslation.fromDto(response.data),
+            });
+          }),
+          catchError((response: HttpErrorResponse) => {
+            const { error } = response.error;
+            this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, response);
+            return of(updateCharacterTranslationFailure({ error }));
+          }),
+        ),
+      ),
     ),
   );
 
   removeCardTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(removeCharacterTranslation),
-      switchMap(({characterId, locale}) =>
+      switchMap(({ characterId, locale }) =>
         this.characterTranslationsService.removeCharacterTranslation(characterId, locale).pipe(
           map(() => {
-            this.toastService.success(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, CHARACTER_STATE_CONFIG.toastTranslationKeys.removeCharacterTranslationSuccess);
-            return removeCharacterTranslationSuccess({characterId, locale});
+            this.toastService.success(
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations,
+              CHARACTER_STATE_CONFIG.toastTranslationKeys.removeCharacterTranslationSuccess,
+            );
+            return removeCharacterTranslationSuccess({ characterId, locale });
           }),
           catchError((response: HttpErrorResponse) => {
-            const {error} = response.error;
+            const { error } = response.error;
             this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, response);
-            return of(removeCharacterTranslationFailure({error}));
+            return of(removeCharacterTranslationFailure({ error }));
           }),
         ),
       ),
@@ -211,7 +220,7 @@ export class CharacterEffects {
   loadCardTranslations$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadCharacterTranslations),
-      switchMap(({characterId}) =>
+      switchMap(({ characterId }) =>
         this.characterTranslationsService.getAllCharacterTranslations(characterId).pipe(
           map((response) =>
             loadCharacterTranslationsSuccess({
@@ -220,9 +229,9 @@ export class CharacterEffects {
             }),
           ),
           catchError((response: HttpErrorResponse) => {
-            const {error} = response.error;
+            const { error } = response.error;
             this.errorService.throwError(CHARACTER_STATE_CONFIG.toastTranslationKeys.characterTranslations, response);
-            return of(loadCharacterTranslationsFailure({error}));
+            return of(loadCharacterTranslationsFailure({ error }));
           }),
         ),
       ),

@@ -38,6 +38,14 @@ export class FormValidationService {
         return this.getTranslatedMessage('Whitespace leading or trailing');
       case FormValidationError.STRONG_PASSWORD:
         return this.getTranslatedMessage('Strong password');
+      case FormValidationError.ARRAY_LENGTH_BIGGER:
+        return this.getTranslatedMessage('Array length bigger by', {
+          value: errorValue,
+        });
+      case FormValidationError.ARRAY_LENGTH_SMALLER:
+        return this.getTranslatedMessage('Array length smaller by', {
+          value: errorValue,
+        });
       default:
         return this.getTranslatedMessage('Wrong value');
     }

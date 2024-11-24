@@ -1,0 +1,34 @@
+<p-dialog [header]="heading() | transloco" [modal]="true" [visible]="isModalShown()()"
+          appendTo="body" (onHide)="onCancel()" [resizable]="false">
+  <div class="character-skill-modal">
+    <form class="character-skill-modal__form" [formGroup]="form">
+      <div class="character-skill-modal__form__group">
+        <label [for]="nameInputId">{{ '_CharacterSkillSelector.Name' | transloco }}</label>
+        <input type="text" pInputText
+               [formControlName]="CharacterSkillFormControls.NAME" [id]="nameInputId"/>
+        <app-form-validation-message [errorFormControl]="name"/>
+      </div>
+      <div class="character-skill-modal__form__group">
+        <label [for]="descriptionInputId">{{ '_CharacterSkillSelector.Description' | transloco }}</label>
+        <p-editor #descriptionEditor [formControlName]="CharacterSkillFormControls.DESCRIPTION"
+                  [id]="descriptionInputId"
+                  [style]="{ height: '10rem' }">
+          <ng-template pTemplate="header">
+            <span class="ql-formats">
+                <button type="button" class="ql-bold" aria-label="Bold"></button>
+                <button type="button" class="ql-italic" aria-label="Italic"></button>
+                <button type="button" class="ql-underline" aria-label="Underline"></button>
+            </span>
+          </ng-template>
+        </p-editor>
+        <app-form-validation-message [errorFormControl]="description"/>
+      </div>
+    </form>
+    <div class="character-skill-modal__actions">
+      <p-button [label]="'_ConfirmDialog.Save' | transloco"
+                (click)="onSave()"/>
+      <p-button severity="secondary" [outlined]="true" [label]="'_ConfirmDialog.Cancel' | transloco"
+                (click)="onCancel()"/>
+    </div>
+  </div>
+</p-dialog>

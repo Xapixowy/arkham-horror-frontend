@@ -34,6 +34,9 @@
       "@Configs/*": [
         "src/app/configs/*"
       ],
+      "@Directives/*": [
+        "src/app/directives/*"
+      ],
       "@Enums/*": [
         "src/app/enums/*"
       ],

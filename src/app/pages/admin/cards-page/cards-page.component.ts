@@ -11,7 +11,6 @@ import {provideIcons} from '@ng-icons/core';
 import {tablerEdit, tablerLanguage, tablerTrash} from '@ng-icons/tabler-icons';
 import {CardModalComponent} from '@Pages/admin/cards-page/_components/card-modal/card-modal.component';
 import {NoContentComponent} from '@Components/no-content/no-content.component';
-import {SortEvent} from 'primeng/api';
 import {Language} from '@Features/language/_enums/language.enum';
 import {StateStatus} from '@Enums/state-status.enum';
 import {
@@ -21,6 +20,8 @@ import {
   CardTranslationsModalComponent
 } from '@Pages/admin/cards-page/_components/card-translations-modal/card-translations-modal.component';
 import {ImgPlaceholderComponent} from '@Components/img-placeholder/img-placeholder.component';
+import {SortEvent} from 'primeng/api';
+import {DateHumanReadableComponent} from '@Components/date-human-readable/date-human-readable.component';
 
 @Component({
   selector: 'app-cards-page',
@@ -37,6 +38,7 @@ import {ImgPlaceholderComponent} from '@Components/img-placeholder/img-placehold
     CardTranslationModalComponent,
     CardTranslationsModalComponent,
     ImgPlaceholderComponent,
+    DateHumanReadableComponent,
   ],
   providers: [CardsPageService, provideIcons({tablerEdit, tablerTrash, tablerLanguage})],
   templateUrl: './cards-page.component.html',
@@ -48,7 +50,6 @@ export class CardsPageComponent {
 
   protected readonly CARDS_PAGE_CONFIG = CARDS_PAGE_CONFIG;
   protected readonly Language = Language;
-
   protected readonly cards = this.cardsPageService.cards;
 
   protected readonly isLoading = computed<boolean>(
@@ -73,7 +74,7 @@ export class CardsPageComponent {
     this.cardsPageService.showCardTranslationsModal(card.id);
   }
 
-  customSort(event: SortEvent): void {
+  onSort(event: SortEvent): void {
     this.cardsPageService.sortCards(event);
   }
 }

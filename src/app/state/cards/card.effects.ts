@@ -50,8 +50,8 @@ export class CardEffects {
   addCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCard),
-      concatMap(({card, frontImage, backImage}) =>
-        this.cardService.addCard({...card}).pipe(
+      concatMap(({payload, frontImage, backImage}) =>
+        this.cardService.addCard(payload).pipe(
           concatMap((cardResponse) =>
             (frontImage
                 ? this.cardService.addCardFrontImage(cardResponse.data.id, {file: frontImage})
@@ -83,13 +83,7 @@ export class CardEffects {
   updateCard$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateCard),
-      concatMap(({card, frontImage, backImage}) => {
-        const cardWithoutId = Object.fromEntries(Object.entries(card).filter(([key, value]) => key !== 'id')) as Omit<
-          Card,
-          'id'
-        >;
-
-        return this.cardService.updateCard(card.id, {...cardWithoutId}).pipe(
+      concatMap(({cardId, payload, frontImage, backImage}) => this.cardService.updateCard(cardId, payload).pipe(
           concatMap((cardResponse) =>
             (frontImage
                 ? this.cardService.addCardFrontImage(cardResponse.data.id, {file: frontImage})
@@ -113,8 +107,8 @@ export class CardEffects {
             this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cards, response);
             return of(updateCardFailure({error}));
           }),
-        );
-      }),
+        )
+      ),
     ),
   );
 
@@ -156,8 +150,8 @@ export class CardEffects {
   addCardTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(addCardTranslation),
-      switchMap(({cardId, cardTranslation}) =>
-        this.cardTranslationsService.addCardTranslation(cardId, {...cardTranslation}).pipe(
+      switchMap(({cardId, payload}) =>
+        this.cardTranslationsService.addCardTranslation(cardId, payload).pipe(
           map((response) => {
             this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, CARD_STATE_CONFIG.toastTranslationKeys.addCardTranslationSuccess);
             return addCardTranslationSuccess({
@@ -178,25 +172,20 @@ export class CardEffects {
   updateCardTranslation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateCardTranslation),
-      switchMap(({cardId, cardTranslation}) => {
-        const cardTranslationWithoutLocale = Object.fromEntries(
-          Object.entries(cardTranslation).filter(([key]) => !['locale', 'id'].includes(key)),
-        ) as Omit<CardTranslation, 'locale' | 'id'>;
-
-        return this.cardTranslationsService
-          .updateCardTranslation(cardId, cardTranslation.locale, {...cardTranslationWithoutLocale})
-          .pipe(
-            map((response) => {
-              this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, CARD_STATE_CONFIG.toastTranslationKeys.updateCardTranslationSuccess);
-              return updateCardTranslationSuccess({cardId, cardTranslation: CardTranslation.fromDto(response.data)});
-            }),
-            catchError((response: HttpErrorResponse) => {
-              const {error} = response.error;
-              this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, response);
-              return of(updateCardTranslationFailure({error}));
-            }),
-          );
-      }),
+      switchMap(({cardId, locale, payload}) => this.cardTranslationsService
+        .updateCardTranslation(cardId, locale, payload)
+        .pipe(
+          map((response) => {
+            this.toastService.success(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, CARD_STATE_CONFIG.toastTranslationKeys.updateCardTranslationSuccess);
+            return updateCardTranslationSuccess({cardId, cardTranslation: CardTranslation.fromDto(response.data)});
+          }),
+          catchError((response: HttpErrorResponse) => {
+            const {error} = response.error;
+            this.errorService.throwError(CARD_STATE_CONFIG.toastTranslationKeys.cardTranslations, response);
+            return of(updateCardTranslationFailure({error}));
+          }),
+        )
+      ),
     ),
   );
 

@@ -1,0 +1,59 @@
+.card-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  &__dropdown-card {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__image {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 4rem;
+      height: 4rem;
+
+      img {
+        max-width: 4rem;
+        max-height: 4rem;
+      }
+    }
+
+    &__name {
+      font-size: 0.75rem;
+      font-weight: 700;
+    }
+  }
+
+  &__card {
+    &__image {
+      margin: 0 auto;
+      max-width: 6rem;
+      max-height: 6rem;
+    }
+
+    &__name {
+      width: 100%;
+    }
+
+    &__quantity-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &__quantity {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &__value {
+        width: 100%;
+        text-align: center;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

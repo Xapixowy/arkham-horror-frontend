@@ -1,0 +1,246 @@
+<p-dialog [header]="heading() | transloco" [modal]="true" [(visible)]="isCharacterModalShown" appendTo="body"
+          (onHide)="onCancel()" [resizable]="false">
+  <div class="character-modal">
+    <form class="character-modal__form" [formGroup]="form">
+      <div class="character-modal__form__group">
+        <label [for]="expansionInputId">{{ '_CharactersPage.Expansion' | transloco }}</label>
+        <p-dropdown [formControlName]="CharacterFormControls.EXPANSION" [options]="expansions" appendTo="body"
+                    [showClear]="true" styleClass="full-width">
+          <ng-template pTemplate="item" let-expansion>{{ '_Expansion.' + expansion | transloco }}</ng-template>
+          <ng-template pTemplate="selectedItem" let-expansion>{{ '_Expansion.' + expansion | transloco }}</ng-template>
+        </p-dropdown>
+        <app-form-validation-message [errorFormControl]="expansion"/>
+      </div>
+      <div class="character-modal__form__group">
+        <label [for]="nameInputId">{{ '_CharactersPage.Name' | transloco }}</label>
+        <input type="text" pInputText [formControlName]="CharacterFormControls.NAME" [id]="nameInputId"/>
+        <app-form-validation-message [errorFormControl]="name"/>
+      </div>
+      <div class="character-modal__form__group">
+        <label [for]="descriptionInputId">{{ '_CharactersPage.Description' | transloco }}</label>
+        <p-editor #descriptionEditor [formControlName]="CharacterFormControls.DESCRIPTION" [id]="descriptionInputId"
+                  [style]="{ height: '10rem' }">
+          <ng-template pTemplate="header">
+            <span class="ql-formats">
+                <button type="button" class="ql-bold" aria-label="Bold"></button>
+                <button type="button" class="ql-italic" aria-label="Italic"></button>
+                <button type="button" class="ql-underline" aria-label="Underline"></button>
+            </span>
+          </ng-template>
+        </p-editor>
+        <app-form-validation-message [errorFormControl]="description"/>
+      </div>
+      <div class="character-modal__form__group">
+        <label [for]="imageInputId">{{ '_CharactersPage.Image' | transloco }}</label>
+        <div class="character-modal__form__image-wrapper">
+          @if (imageSrc()) {
+            <img [src]="imageSrc()" [alt]="'_CharactersPage.Image' | transloco"/>
+          } @else {
+            <app-img-placeholder [size]="CHARACTERS_PAGE_CONFIG.placeholderImageSize"/>
+          }
+        </div>
+        <div class="character-modal__form__file-upload-wrapper">
+          <p-fileUpload #imageFileUpload
+                        mode="basic"
+                        [chooseLabel]="'_CharactersPage.Choose file' | transloco"
+                        [id]="imageInputId"
+                        [accept]="CHARACTERS_PAGE_CONFIG.allowedCharacterImageFormats.join(', ')"
+                        [maxFileSize]="CHARACTERS_PAGE_CONFIG.maxCharacterImageFileSize"
+                        (onSelect)="onImageSelect($event)"
+                        (onBeforeUpload)="onImageRemove(imageFileUpload)"
+                        class="flex-1"
+                        styleClass="full-width"
+          >
+            <ng-template pTemplate="chooseicon">
+              <div class="character-modal__form__upload-icon">
+                <ng-icon name="tablerUpload"/>
+              </div>
+            </ng-template>
+            <ng-template pTemplate="uploadicon">
+              <div class="character-modal__form__upload-icon">
+                <ng-icon name="tablerX"/>
+              </div>
+            </ng-template>
+          </p-fileUpload>
+          <app-button-icon-only icon="tablerTrash" severity="danger"
+                                (onClick)="onImageRemove(imageFileUpload)"/>
+        </div>
+        <app-form-validation-message [errorFormControl]="image"/>
+      </div>
+      <div class="character-modal__form__group">
+        <label [for]="professionInputId">{{ '_CharactersPage.Profession' | transloco }}</label>
+        <input type="text" pInputText [formControlName]="CharacterFormControls.PROFESSION" [id]="professionInputId"/>
+        <app-form-validation-message [errorFormControl]="profession"/>
+      </div>
+      <div class="character-modal__form__group">
+        <label [for]="startingLocationInputId">{{ '_CharactersPage.Starting location' | transloco }}</label>
+        <input type="text" pInputText [formControlName]="CharacterFormControls.STARTING_LOCATION"
+               [id]="startingLocationInputId"/>
+        <app-form-validation-message [errorFormControl]="startingLocation"/>
+      </div>
+      <div class="character-modal__form__group-wrapper">
+        <div class="character-modal__form__group">
+          <label [for]="sanityInputId">{{ '_CharactersPage.Sanity' | transloco }}</label>
+          <p-inputNumber [formControlName]="CharacterFormControls.SANITY" [inputId]="sanityInputId" min="0"
+                         styleClass="full-width"/>
+          <app-form-validation-message [errorFormControl]="sanity"/>
+        </div>
+        <div class="character-modal__form__group">
+          <label [for]="enduranceInputId">{{ '_CharactersPage.Endurance' | transloco }}</label>
+          <p-inputNumber [formControlName]="CharacterFormControls.ENDURANCE" [inputId]="enduranceInputId" min="0"
+                         styleClass="full-width"/>
+          <app-form-validation-message [errorFormControl]="endurance"/>
+        </div>
+      </div>
+      <div class="character-modal__form__group">
+        <label>
+          {{ '_CharactersPage.Skills' | transloco }}
+          <app-button-icon-only icon="tablerPlus" (onClick)="onSkillAdd()"/>
+        </label>
+        <app-character-skill-selector [isModalShown]="isCharacterSkillModalShown" [skills]="skills"/>
+        <app-form-validation-message [errorFormControl]="characterSkills"/>
+      </div>
+      <div class="character-modal__form__group">
+        <label> {{ '_CharactersPage.Attributes' | transloco }}</label>
+        <div class="character-modal__form__attribute-wrapper">
+          <div class="character-modal__form__attribute">
+            <label [for]="attributesSpeedInputId">{{ '_CharactersPage.Speed' | transloco }}</label>
+            <p-inputOtp [id]="attributesSpeedInputId" [formControlName]="CharacterFormControls.ATTRIBUTES_SPEED"
+                        [integerOnly]="true"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="attributesSpeed"/>
+        </div>
+        <div class="character-modal__form__attribute-wrapper">
+          <div class="character-modal__form__attribute">
+            <label [for]="attributesSneakInputId">{{ '_CharactersPage.Sneak' | transloco }}</label>
+            <p-inputOtp [id]="attributesSneakInputId" [formControlName]="CharacterFormControls.ATTRIBUTES_SNEAK"
+                        [integerOnly]="true"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="attributesSneak"/>
+        </div>
+        <div class="character-modal__form__attribute-wrapper">
+          <div class="character-modal__form__attribute">
+            <label [for]="attributesProwessInputId">{{ '_CharactersPage.Prowess' | transloco }}</label>
+            <p-inputOtp [id]="attributesProwessInputId" [formControlName]="CharacterFormControls.ATTRIBUTES_PROWESS"
+                        [integerOnly]="true"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="attributesProwess"/>
+        </div>
+        <div class="character-modal__form__attribute-wrapper">
+          <div class="character-modal__form__attribute">
+            <label [for]="attributesWillInputId">{{ '_CharactersPage.Will' | transloco }}</label>
+            <p-inputOtp [id]="attributesWillInputId" [formControlName]="CharacterFormControls.ATTRIBUTES_WILL"
+                        [integerOnly]="true"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="attributesWill"/>
+        </div>
+        <div class="character-modal__form__attribute-wrapper">
+          <div class="character-modal__form__attribute">
+            <label [for]="attributesKnowledgeInputId">{{ '_CharactersPage.Knowledge' | transloco }}</label>
+            <p-inputOtp [id]="attributesKnowledgeInputId" [formControlName]="CharacterFormControls.ATTRIBUTES_KNOWLEDGE"
+                        [integerOnly]="true"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="attributesKnowledge"/>
+        </div>
+        <div class="character-modal__form__attribute-wrapper">
+          <div class="character-modal__form__attribute">
+            <label [for]="attributesLuckInputId">{{ '_CharactersPage.Luck' | transloco }}</label>
+            <p-inputOtp [id]="attributesLuckInputId" [formControlName]="CharacterFormControls.ATTRIBUTES_LUCK"
+                        [integerOnly]="true"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="attributesLuck"/>
+        </div>
+      </div>
+      <div class="character-modal__form__group">
+        <label [for]="concentrationInputId">{{ '_CharactersPage.Concentration' | transloco }}</label>
+        <p-inputNumber [formControlName]="CharacterFormControls.CONCENTRATION" [inputId]="concentrationInputId"
+                       min="0" styleClass="full-width"/>
+        <app-form-validation-message [errorFormControl]="concentration"/>
+      </div>
+      <div class="character-modal__form__group">
+        <label>{{ '_CharactersPage.Equipment' | transloco }}</label>
+        <div class="character-modal__form__equipment-wrapper">
+          <div class="character-modal__form__equipment">
+            <label [for]="equipmentMoneyInputId">{{ '_CharactersPage.Money' | transloco }}</label>
+            <p-inputNumber [id]="equipmentMoneyInputId" [formControlName]="CharacterFormControls.EQUIPMENT_MONEY"
+                           min="0" styleClass="full-width"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="equipmentMoney"/>
+        </div>
+        <div class="character-modal__form__equipment-wrapper">
+          <div class="character-modal__form__equipment">
+            <label [for]="equipmentCluesInputId">{{ '_CharactersPage.Clues' | transloco }}</label>
+            <p-inputNumber [id]="equipmentCluesInputId" [formControlName]="CharacterFormControls.EQUIPMENT_CLUES"
+                           min="0" styleClass="full-width"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="equipmentClues"/>
+        </div>
+        <div class="character-modal__form__equipment-wrapper">
+          <div class="character-modal__form__equipment">
+            <label [for]="equipmentRandomCommonItemsInputId">
+              {{ '_CharactersPage.Random common items' | transloco }}
+            </label>
+            <p-inputNumber [id]="equipmentRandomCommonItemsInputId"
+                           [formControlName]="CharacterFormControls.EQUIPMENT_RANDOM_COMMON_ITEMS" min="0"
+                           styleClass="full-width"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="equipmentRandomCommonItems"/>
+        </div>
+        <div class="character-modal__form__equipment-wrapper">
+          <div class="character-modal__form__equipment">
+            <label [for]="equipmentRandomUniqueItemsInputId">
+              {{ '_CharactersPage.Random unique items' | transloco }}
+            </label>
+            <p-inputNumber [id]="equipmentRandomUniqueItemsInputId"
+                           [formControlName]="CharacterFormControls.EQUIPMENT_RANDOM_UNIQUE_ITEMS" min="0"
+                           styleClass="full-width"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="equipmentRandomUniqueItems"/>
+        </div>
+        <div class="character-modal__form__equipment-wrapper">
+          <div class="character-modal__form__equipment">
+            <label [for]="equipmentRandomSpellsInputId">
+              {{ '_CharactersPage.Random spells' | transloco }}
+            </label>
+            <p-inputNumber [id]="equipmentRandomSpellsInputId"
+                           [formControlName]="CharacterFormControls.EQUIPMENT_RANDOM_SPELLS" min="0"
+                           styleClass="full-width"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="equipmentRandomSpells"/>
+        </div>
+        <div class="character-modal__form__equipment-wrapper">
+          <div class="character-modal__form__equipment">
+            <label [for]="equipmentRandomAbilitiesInputId">
+              {{ '_CharactersPage.Random abilities' | transloco }}
+            </label>
+            <p-inputNumber [id]="equipmentRandomAbilitiesInputId"
+                           [formControlName]="CharacterFormControls.EQUIPMENT_RANDOM_ABILITIES" min="0"
+                           styleClass="full-width"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="equipmentRandomAbilities"/>
+        </div>
+        <div class="character-modal__form__equipment-wrapper">
+          <div class="character-modal__form__equipment">
+            <label [for]="equipmentRandomAlliesInputId">
+              {{ '_CharactersPage.Random allies' | transloco }}
+            </label>
+            <p-inputNumber [id]="equipmentRandomAlliesInputId"
+                           [formControlName]="CharacterFormControls.EQUIPMENT_RANDOM_ALLIES" min="0"
+                           styleClass="full-width"/>
+          </div>
+          <app-form-validation-message [errorFormControl]="equipmentRandomAllies"/>
+        </div>
+      </div>
+      <div class="character-modal__form__group">
+        <label> {{ '_CharactersPage.Cards' | transloco }}</label>
+        <app-card-selector [selectedCharacterCards]="selectedCharacterCards"/>
+      </div>
+    </form>
+    <div class="character-modal__actions">
+      <p-button [label]="'_ConfirmDialog.Save' | transloco"
+                (click)="onSave()"/>
+      <p-button severity="secondary" [outlined]="true" [label]="'_ConfirmDialog.Cancel' | transloco"
+                (click)="onCancel()"/>
+    </div>
+  </div>
+</p-dialog>

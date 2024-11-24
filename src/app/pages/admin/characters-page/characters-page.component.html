@@ -1,0 +1,88 @@
+<div class="characters-page">
+  <div class="characters-page__header">
+    <p-button [label]="'_CharactersPage.Add character' | transloco" (onClick)="onCreate()"/>
+  </div>
+  <div class="characters-page__content">
+    <p-table
+      class="flex-1"
+      styleClass="full-height"
+      [value]="characters()"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [resetPageOnSort]="true"
+      (onSort)="onSort($event)"
+      [customSort]="true"
+      [loading]="isLoading()"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">{{ '_CharactersPage.ID' | transloco }}
+            <p-sortIcon field="id"/>
+          </th>
+          <th>{{ '_CharactersPage.Image' | transloco }}</th>
+          <th pSortableColumn="name">{{ '_CharactersPage.Name' | transloco }}
+            <p-sortIcon field="name"/>
+          </th>
+          <th pSortableColumn="expansion">{{ '_CharactersPage.Expansion' | transloco }}
+            <p-sortIcon field="expansion"/>
+          </th>
+          <th pSortableColumn="sanity">{{ '_CharactersPage.Sanity' | transloco }}
+            <p-sortIcon field="sanity"/>
+          </th>
+          <th pSortableColumn="endurance">{{ '_CharactersPage.Endurance' | transloco }}
+            <p-sortIcon field="endurance"/>
+          </th>
+          <th>{{ '_CharactersPage.Locale' | transloco }}</th>
+          <th pSortableColumn="updated_at">{{ '_CharactersPage.Updated at' | transloco }}
+            <p-sortIcon field="updated_at"/>
+          </th>
+          <th>{{ '_CharactersPage.Actions' | transloco }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-character>
+        <tr>
+          <td>{{ character.id }}</td>
+          <td>
+            @if (character.image_path) {
+              <img [src]="character.image_path" [alt]="character.name"/>
+            } @else {
+              <app-img-placeholder [size]="CHARACTERS_PAGE_CONFIG.placeholderImageSize"/>
+            }
+          </td>
+          <td>{{ character.name }}</td>
+          <td>{{ '_Expansion.' + character.expansion | transloco }}</td>
+          <td>{{ character.sanity }}</td>
+          <td>{{ character.endurance }}</td>
+          <td>
+            @if (character.locale === Language.ENGLISH) {
+              <span class="fi fi-gb"></span>
+            } @else {
+              <span class="fi fi-{{ character.locale }}"></span>
+            }
+          </td>
+          <td>
+            <app-date-human-readable [date]="character.updated_at"/>
+          </td>
+          <td>
+            <div class="characters-page__table__actions">
+              <app-button-icon-only icon="tablerLanguage" severity="secondary"
+                                    (onClick)="onCharacterTranslations(character)"/>
+              <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEdit(character)"/>
+              <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(character)"/>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [colSpan]="99">
+            <app-no-content/>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>
+<app-character-modal/>
+

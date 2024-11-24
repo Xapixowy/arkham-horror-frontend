@@ -1,7 +1,11 @@
-import { createAction, props } from '@ngrx/store';
-import { Card } from '@Models/card.model';
-import { CardTranslation } from '@Models/card-translation.model';
-import { Language } from '@Features/language/_enums/language.enum';
+import {createAction, props} from '@ngrx/store';
+import {Card} from '@Models/card.model';
+import {CardTranslation} from '@Models/card-translation.model';
+import {Language} from '@Features/language/_enums/language.enum';
+import {AddCardPayload} from '@Types/payloads/cards/add-card-payload.type';
+import {AddCardTranslationPayload} from '@Types/payloads/card-translations/add-card-translation-payload.type';
+import {UpdateCardTranslationPayload} from '@Types/payloads/card-translations/update-card-translation-payload.type';
+import {UpdateCardPayload} from '@Types/payloads/cards/update-card-payload.type';
 
 const cardsPageKey = '[Cards Page]';
 const cardsApiKey = '[Cards API]';
@@ -10,7 +14,7 @@ const cardTranslationsApiKey = '[Card Translations API]';
 export const addCard = createAction(
   `${cardsPageKey} Add Card`,
   props<{
-    card: Card;
+    payload: AddCardPayload;
     frontImage: File;
     backImage: File;
   }>(),
@@ -21,7 +25,8 @@ export const addCardFailure = createAction(`${cardsApiKey} Add Card Failure`, pr
 export const updateCard = createAction(
   `${cardsPageKey} Update Card`,
   props<{
-    card: Card;
+    cardId: number,
+    payload: UpdateCardPayload;
     frontImage: File;
     backImage: File;
   }>(),
@@ -39,7 +44,10 @@ export const loadCardsFailure = createAction(`${cardsApiKey} Load Cards Failure`
 
 export const addCardTranslation = createAction(
   `${cardsPageKey} Add Card Translation`,
-  props<{ cardId: number; cardTranslation: CardTranslation }>(),
+  props<{
+    cardId: number;
+    payload: AddCardTranslationPayload
+  }>(),
 );
 export const addCardTranslationSuccess = createAction(
   `${cardTranslationsApiKey} Add Card Translation Success`,
@@ -52,7 +60,11 @@ export const addCardTranslationFailure = createAction(
 
 export const updateCardTranslation = createAction(
   `${cardsPageKey} Update Card Translation`,
-  props<{ cardId: number; cardTranslation: CardTranslation }>(),
+  props<{
+    cardId: number;
+    locale: Language;
+    payload: UpdateCardTranslationPayload
+  }>(),
 );
 export const updateCardTranslationSuccess = createAction(
   `${cardTranslationsApiKey} Update Card Translation Success`,

@@ -2,6 +2,14 @@ import {createAction, props} from '@ngrx/store';
 import {Language} from '@Features/language/_enums/language.enum';
 import {Character} from '@Models/character.model';
 import {CharacterTranslation} from '@Models/character-translation.model';
+import {AddCharacterPayload} from '@Types/payloads/characters/add-character-payload.type';
+import {UpdateCharacterPayload} from '@Types/payloads/characters/update-character-payload.type';
+import {
+  AddCharacterTranslationPayload
+} from '@Types/payloads/character-translations/add-character-translation-payload.type';
+import {
+  UpdateCharacterTranslationPayload
+} from '@Types/payloads/character-translations/update-character-translation-payload.type';
 
 const charactersPageKey = '[Characters Page]';
 const charactersApiKey = '[Characters API]';
@@ -10,7 +18,7 @@ const characterTranslationsApiKey = '[Character Translations API]';
 export const addCharacter = createAction(
   `${charactersPageKey} Add Character`,
   props<{
-    character: Character;
+    payload: AddCharacterPayload;
     image: File;
   }>(),
 );
@@ -24,7 +32,8 @@ export const addCharacterFailure = createAction(`${charactersApiKey} Add Charact
 export const updateCharacter = createAction(
   `${charactersPageKey} Update Character`,
   props<{
-    character: Character;
+    characterId: number;
+    payload: UpdateCharacterPayload;
     image: File;
   }>(),
 );
@@ -53,7 +62,7 @@ export const loadCharactersFailure = createAction(`${charactersApiKey} Load Char
 
 export const addCharacterTranslation = createAction(
   `${charactersPageKey} Add Character Translation`,
-  props<{ characterId: number; characterTranslation: CharacterTranslation }>(),
+  props<{ characterId: number; payload: AddCharacterTranslationPayload }>(),
 );
 export const addCharacterTranslationSuccess = createAction(
   `${characterTranslationsApiKey} Add Character Translation Success`,
@@ -66,7 +75,7 @@ export const addCharacterTranslationFailure = createAction(
 
 export const updateCharacterTranslation = createAction(
   `${charactersPageKey} Update Character Translation`,
-  props<{ characterId: number; characterTranslation: CharacterTranslation }>(),
+  props<{ characterId: number; locale: Language; payload: UpdateCharacterTranslationPayload }>(),
 );
 export const updateCharacterTranslationSuccess = createAction(
   `${characterTranslationsApiKey} Update Character Translation Success`,

@@ -1,0 +1,10 @@
+.character-skill-selector {
+  &__form {
+    &__actions {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+  }
+}

@@ -1,11 +1,11 @@
-import {Language} from '@Features/language/_enums/language.enum';
-import {Expansion} from '@Enums/expansion.enum';
-import {Attributes} from '@Types/characters/attributes.type';
-import {Skill} from '@Types/characters/skill.type';
-import {Equipment} from '@Types/characters/equipment.type';
-import {CharacterDto} from '@Types/dtos/character-dto.type';
-import {CharacterTranslation} from '@Models/character-translation.model';
-import {CharacterCard} from '@Models/character-card.model';
+import { Language } from '@Features/language/_enums/language.enum';
+import { Expansion } from '@Enums/expansion.enum';
+import { Attributes } from '@Types/characters/attributes.type';
+import { Skill } from '@Types/characters/skill.type';
+import { Equipment } from '@Types/characters/equipment.type';
+import { CharacterDto } from '@Types/dtos/character-dto.type';
+import { CharacterTranslation } from '@Models/character-translation.model';
+import { CharacterCard } from '@Models/character-card.model';
 
 export class Character {
   constructor(
@@ -27,8 +27,7 @@ export class Character {
     public updated_at: Date,
     public characterCards?: CharacterCard[],
     public translations?: CharacterTranslation[],
-  ) {
-  }
+  ) {}
 
   static fromDto(dto: CharacterDto): Character {
     return new Character(

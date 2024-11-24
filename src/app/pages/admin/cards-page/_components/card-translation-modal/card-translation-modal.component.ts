@@ -1,18 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, viewChild } from '@angular/core';
-import { CardsPageService } from '@Pages/admin/cards-page/cards-page.service';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { ModalMode } from '@Enums/modal-mode.enum';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { textInHtmlRequiredValidator } from '@Validators/text-in-html-required.validator';
-import { CardTranslationFormControls } from '@Enums/form-controls/card-translation-form-controls.enum';
-import { Editor, EditorModule } from 'primeng/editor';
-import { DialogModule } from 'primeng/dialog';
-import { FormValidationMessageComponent } from '@Components/form-validation-message/form-validation-message.component';
-import { Button } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { Language } from '@Features/language/_enums/language.enum';
-import { APP_CONFIG } from '@Configs/app.config';
+import {ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, viewChild} from '@angular/core';
+import {CardsPageService} from '@Pages/admin/cards-page/cards-page.service';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {AbstractControl, ReactiveFormsModule} from '@angular/forms';
+import {ModalMode} from '@Enums/modal-mode.enum';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {textInHtmlRequiredValidator} from '@Validators/text-in-html-required.validator';
+import {CardTranslationFormControls} from '@Enums/form-controls/card-translation-form-controls.enum';
+import {Editor, EditorModule} from 'primeng/editor';
+import {DialogModule} from 'primeng/dialog';
+import {FormValidationMessageComponent} from '@Components/form-validation-message/form-validation-message.component';
+import {Button} from 'primeng/button';
+import {InputTextModule} from 'primeng/inputtext';
+import {Language} from '@Features/language/_enums/language.enum';
+import {APP_CONFIG} from '@Configs/app.config';
 
 @Component({
   selector: 'app-card-translation-modal',
@@ -74,7 +74,6 @@ export class CardTranslationModalComponent {
   }
 
   onCancel(): void {
-    this.cardsPageService.resetCardTranslationForm();
     this.cardsPageService.hideCardTranslationModal();
   }
 

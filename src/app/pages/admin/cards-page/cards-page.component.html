@@ -11,7 +11,7 @@
       [rows]="10"
       [rowsPerPageOptions]="[10, 25, 50]"
       [resetPageOnSort]="true"
-      (onSort)="customSort($event)"
+      (onSort)="onSort($event)"
       [customSort]="true"
       [loading]="isLoading()"
     >
@@ -32,6 +32,9 @@
             <p-sortIcon field="subtype"/>
           </th>
           <th>{{ '_CardsPage.Locale' | transloco }}
+          <th pSortableColumn="updated_at">{{ '_CardsPage.Updated at' | transloco }}
+            <p-sortIcon field="updated_at"/>
+          </th>
           <th>{{ '_CardsPage.Actions' | transloco }}</th>
         </tr>
       </ng-template>
@@ -61,6 +64,9 @@
             } @else {
               <span class="fi fi-{{ card.locale }}"></span>
             }
+          </td>
+          <td>
+            <app-date-human-readable [date]="card.updated_at"/>
           </td>
           <td>
             <div class="cards-page__table__actions">
