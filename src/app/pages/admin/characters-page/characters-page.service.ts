@@ -56,7 +56,6 @@ export class CharactersPageService {
   constructor() {
     this.subscribeForCharactersChanges();
     this.store.dispatch(loadCharacters());
-    this.showCharacterModal();
   }
 
   removeCharacter(id: number): void {
