@@ -120,7 +120,8 @@
     "success_on_4_5_6": "Kiedy rzucasz koścmi, uzyskujesz sukcesy na wynikach 4, 5 lub 6",
     "success_on_6_only": "Kiedy rzucasz koścmi, uzyskujesz sukcesy tylko na wyniku 6",
     "get_2_dollars_on_maintenance": "Otrzymujesz 2 dolary w fazie Utrzymania",
-    "cannot_spend_more_than_2_hint_tokens_for_will_test": "Nie możesz wydawać więcej niż 2 żetony Wskazówek dla testu Woli"
+    "cannot_spend_more_than_2_hint_tokens_for_will_test": "Nie możesz wydawać więcej niż 2 żetony Wskazówek dla testu Woli",
+    "one_attribute_field_change_per_turn": "Nie możesz zmienić więcej niż jednego pola atrybutu na turę"
   },
   "_CardAttributeModifier": {
     "speed_test": "Test Szybkości",
@@ -147,8 +148,7 @@
   "_CardAttributeRestriction": {
     "max_clue_tokens": "Maksymalna liczba żetonów Wskazówek",
     "max_skills_spells": "Maksymalna liczba Umiejętności i Zaklęć (w sumie)",
-    "max_common_unique_items": "Maksymalna liczba Przedmiotów Powszechnych i Unikatowych (w sumie)",
-    "max_spell_casts_per_turn": "Maksymalna liczba rzucanych Zaklęć na turę"
+    "max_common_unique_items": "Maksymalna liczba Przedmiotów Powszechnych i Unikatowych (w sumie)"
   },
   "_ConfirmDialog": {
     "Are you sure?": "Jesteś pewien?",
