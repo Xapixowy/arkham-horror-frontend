@@ -1,7 +1,7 @@
 import {inject, Injectable} from '@angular/core';
 import {Actions, createEffect, ofType} from '@ngrx/effects';
 import {Store} from '@ngrx/store';
-import {AppState} from '@State/app.state';
+import {AppState} from '../app.state';
 import {CardsService} from '@Services/cards.service';
 import {
   addCard,
@@ -28,7 +28,7 @@ import {
   updateCardTranslation,
   updateCardTranslationFailure,
   updateCardTranslationSuccess,
-} from '@State/cards/card.actions';
+} from '../cards/card.actions';
 import {catchError, concatMap, map, of, switchMap} from 'rxjs';
 import {Card} from '@Models/card.model';
 import {HttpErrorResponse} from '@angular/common/http';
@@ -36,7 +36,7 @@ import {ToastService} from '@Services/toast.service';
 import {ErrorService} from '@Services/error.service';
 import {CardTranslation} from '@Models/card-translation.model';
 import {CardTranslationsService} from '@Services/card-translations.service';
-import {CARD_STATE_CONFIG} from '@State/cards/card.config';
+import {CARD_STATE_CONFIG} from '../cards/card.config';
 
 @Injectable()
 export class CardEffects {

@@ -26,7 +26,9 @@ import {
   updateCardTranslationSuccess,
 } from './card.actions';
 import {StateStatus} from '@Enums/state-status.enum';
-import {CARD_STATE_CONFIG} from '@State/cards/card.config';
+import {CARD_STATE_CONFIG} from '../cards/card.config';
+import {Card} from '@Models/card.model';
+import {CardTranslation} from '@Models/card-translation.model';
 
 export const cardReducer = createReducer(
   CARD_STATE_CONFIG.initialState,
@@ -45,7 +47,7 @@ export const cardReducer = createReducer(
   on(updateCard, (state) => ({...state, status: StateStatus.LOADING})),
   on(updateCardSuccess, (state, {card}) => ({
     ...state,
-    cards: state.cards.map((c) => (c.id === card.id ? card : c)),
+    cards: state.cards.map((c: Card) => (c.id === card.id ? card : c)),
     status: StateStatus.SUCCESS,
     error: null,
   })),
@@ -57,7 +59,7 @@ export const cardReducer = createReducer(
   on(removeCard, (state) => ({...state, status: StateStatus.LOADING})),
   on(removeCardSuccess, (state, {id}) => ({
     ...state,
-    cards: state.cards.filter((card) => card.id !== id),
+    cards: state.cards.filter((c: Card) => c.id !== id),
     status: StateStatus.SUCCESS,
     error: null,
   })),
@@ -81,7 +83,7 @@ export const cardReducer = createReducer(
   on(addCardTranslation, (state) => ({...state, status: StateStatus.LOADING})),
   on(addCardTranslationSuccess, (state, {cardId, cardTranslation}) => ({
     ...state,
-    cards: state.cards.map((c) =>
+    cards: state.cards.map((c: Card) =>
       c.id === cardId
         ? {
           ...c,
@@ -100,11 +102,11 @@ export const cardReducer = createReducer(
   on(updateCardTranslation, (state) => ({...state, status: StateStatus.LOADING})),
   on(updateCardTranslationSuccess, (state, {cardId, cardTranslation}) => ({
     ...state,
-    cards: state.cards.map((c) =>
+    cards: state.cards.map((c: Card) =>
       c.id === cardId
         ? {
           ...c,
-          translations: (c.translations ?? []).map((t) => (t.id === cardTranslation.id ? cardTranslation : t)),
+          translations: (c.translations ?? []).map((t: CardTranslation) => (t.id === cardTranslation.id ? cardTranslation : t)),
         }
         : c,
     ),
@@ -119,11 +121,11 @@ export const cardReducer = createReducer(
   on(removeCardTranslation, (state) => ({...state, status: StateStatus.LOADING})),
   on(removeCardTranslationSuccess, (state, {cardId, locale}) => ({
     ...state,
-    cards: state.cards.map((c) =>
+    cards: state.cards.map((c: Card) =>
       c.id === cardId
         ? {
           ...c,
-          translations: c.translations?.filter((t) => t.locale !== locale),
+          translations: c.translations?.filter((t: CardTranslation) => t.locale !== locale),
         }
         : c,
     ),
@@ -138,7 +140,7 @@ export const cardReducer = createReducer(
   on(loadCardTranslations, (state) => ({...state, status: StateStatus.LOADING})),
   on(loadCardTranslationsSuccess, (state, {cardId, cardTranslations}) => ({
     ...state,
-    cards: state.cards.map((c) => (c.id === cardId ? {...c, translations: cardTranslations} : c)),
+    cards: state.cards.map((c: Card) => (c.id === cardId ? {...c, translations: cardTranslations} : c)),
     status: StateStatus.SUCCESS,
     error: null,
   })),

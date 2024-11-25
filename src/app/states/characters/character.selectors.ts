@@ -1,5 +1,6 @@
-import {AppState} from '@State/app.state';
+import {AppState} from '../app.state';
 import {createSelector} from '@ngrx/store';
+import {Character} from '@Models/character.model';
 
 export const selectCharacterState = (state: AppState) => state.characters;
 
@@ -10,4 +11,4 @@ export const selectCharacterStatus = createSelector(selectCharacterState, (state
 export const selectCharacterError = createSelector(selectCharacterState, (state) => state.error);
 
 export const selectCharacterTranslations = (characterId: number) =>
-  createSelector(selectCharacterState, (state) => state.characters.find((character) => character.id === characterId)?.translations ?? []);
+  createSelector(selectCharacterState, (state) => state.characters.find((character: Character) => character.id === characterId)?.translations ?? []);

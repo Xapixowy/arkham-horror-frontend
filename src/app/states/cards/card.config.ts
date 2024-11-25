@@ -1,4 +1,4 @@
-import {CardState} from '@State/cards/card.state';
+import {CardState} from '../cards/card.state';
 import {StateStatus} from '@Enums/state-status.enum';
 
 export const CARD_STATE_CONFIG: {

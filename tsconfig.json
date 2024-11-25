@@ -79,8 +79,8 @@
       "@Services/*": [
         "src/app/services/*"
       ],
-      "@State/*": [
-        "src/app/state/*"
+      "@States/*": [
+        "src/app/states/*"
       ],
       "@Types/*": [
         "src/app/types/*"

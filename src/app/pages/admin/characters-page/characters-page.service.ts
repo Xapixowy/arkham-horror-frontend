@@ -1,14 +1,14 @@
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { ConfirmationService, SortEvent } from 'primeng/api';
-import { Character } from '@Models/character.model';
-import { CHARACTER_STATE_CONFIG } from '@State/characters/character.config';
+import {DestroyRef, inject, Injectable, signal} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {ConfirmationService, SortEvent} from 'primeng/api';
+import {Character} from '@Models/character.model';
+import {CHARACTER_STATE_CONFIG} from '../../../states/characters/character.config';
 import {
   selectCharacters,
   selectCharacterStatus,
   selectCharacterTranslations,
-} from '@State/characters/character.selectors';
-import { StateStatus } from '@Enums/state-status.enum';
+} from '../../../states/characters/character.selectors';
+import {StateStatus} from '@Enums/state-status.enum';
 import {
   addCharacter,
   addCharacterTranslation,
@@ -18,26 +18,28 @@ import {
   removeCharacterTranslation,
   updateCharacter,
   updateCharacterTranslation,
-} from '@State/characters/character.actions';
-import { TableHelper } from '@Helpers/table.helper';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ModalMode } from '@Enums/modal-mode.enum';
-import { Skill } from '@Types/characters/skill.type';
-import { CharacterTranslation } from '@Models/character-translation.model';
-import { Observable, Subscription } from 'rxjs';
-import { getEnumValues } from 'ts-enum-helpers';
-import { FormControl, FormGroup } from '@angular/forms';
-import { CharacterForm } from '@Types/forms/character-form.type';
-import { CharacterFormControls } from '@Enums/form-controls/character-form-controls.enum';
-import { CHARACTER_FORM_VALIDATORS } from '@Configs/form-validators/character-form-validators.config';
-import { FormValidationService } from '@Services/form-validation.service';
-import { Expansion } from '@Enums/expansion.enum';
-import { CharacterCard } from '@Models/character-card.model';
-import { CardSelectorService } from '@Components/card-selector/card-selector.service';
-import { Language } from '@Features/language/_enums/language.enum';
-import { CharacterTranslationForm } from '@Types/forms/character-translation-form.type';
-import { CharacterTranslationFormControls } from '@Enums/form-controls/character-translation-form-controls.enum';
-import { CHARACTER_TRANSLATION_FORM_VALIDATORS } from '@Configs/form-validators/character-translation-form-validators.config';
+} from '@States/characters/character.actions';
+import {TableHelper} from '@Helpers/table.helper';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {ModalMode} from '@Enums/modal-mode.enum';
+import {Skill} from '@Types/characters/skill.type';
+import {CharacterTranslation} from '@Models/character-translation.model';
+import {Observable, Subscription} from 'rxjs';
+import {getEnumValues} from 'ts-enum-helpers';
+import {FormControl, FormGroup} from '@angular/forms';
+import {CharacterForm} from '@Types/forms/character-form.type';
+import {CharacterFormControls} from '@Enums/form-controls/character-form-controls.enum';
+import {CHARACTER_FORM_VALIDATORS} from '@Configs/form-validators/character-form-validators.config';
+import {FormValidationService} from '@Services/form-validation.service';
+import {Expansion} from '@Enums/expansion.enum';
+import {CharacterCard} from '@Models/character-card.model';
+import {CardSelectorService} from '@Components/card-selector/card-selector.service';
+import {Language} from '@Features/language/_enums/language.enum';
+import {CharacterTranslationForm} from '@Types/forms/character-translation-form.type';
+import {CharacterTranslationFormControls} from '@Enums/form-controls/character-translation-form-controls.enum';
+import {
+  CHARACTER_TRANSLATION_FORM_VALIDATORS
+} from '@Configs/form-validators/character-translation-form-validators.config';
 
 @Injectable({
   providedIn: 'root',
@@ -83,7 +85,7 @@ export class CharactersPageService {
       key: 'danger',
       header: '_CharactersPage.Delete character',
       message: '_CharactersPage.Are you sure you want to delete this character?',
-      accept: () => this.store.dispatch(removeCharacter({ id })),
+      accept: () => this.store.dispatch(removeCharacter({id})),
     });
   }
 
@@ -92,7 +94,7 @@ export class CharactersPageService {
       key: 'danger',
       header: '_CharactersPage.Delete character translation',
       message: '_CharactersPage.Are you sure you want to delete this character translation?',
-      accept: () => this.store.dispatch(removeCharacterTranslation({ characterId, locale })),
+      accept: () => this.store.dispatch(removeCharacterTranslation({characterId, locale})),
     });
   }
 
@@ -152,7 +154,7 @@ export class CharactersPageService {
   }
 
   showCharacterTranslationsModal(characterId: number): void {
-    this.store.dispatch(loadCharacterTranslations({ characterId }));
+    this.store.dispatch(loadCharacterTranslations({characterId}));
     this.subscribeForCharacterTranslationsChanges(this.store.select(selectCharacterTranslations(characterId)));
     this.characterTranslationsCharacterId.set(characterId);
     this.isCharacterTranslationsModalShown.set(true);

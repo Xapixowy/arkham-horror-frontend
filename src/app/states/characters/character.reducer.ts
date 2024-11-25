@@ -26,7 +26,9 @@ import {
   updateCharacterTranslationSuccess,
 } from './character.actions';
 import {StateStatus} from '@Enums/state-status.enum';
-import {CHARACTER_STATE_CONFIG} from '@State/characters/character.config';
+import {CHARACTER_STATE_CONFIG} from '../characters/character.config';
+import {Character} from '@Models/character.model';
+import {CharacterTranslation} from '@Models/character-translation.model';
 
 export const characterReducer = createReducer(
   CHARACTER_STATE_CONFIG.initialState,
@@ -45,7 +47,7 @@ export const characterReducer = createReducer(
   on(updateCharacter, (state) => ({...state, status: StateStatus.LOADING})),
   on(updateCharacterSuccess, (state, {character}) => ({
     ...state,
-    characters: state.characters.map((c) => (c.id === character.id ? character : c)),
+    characters: state.characters.map((c: Character) => (c.id === character.id ? character : c)),
     status: StateStatus.SUCCESS,
     error: null,
   })),
@@ -57,7 +59,7 @@ export const characterReducer = createReducer(
   on(removeCharacter, (state) => ({...state, status: StateStatus.LOADING})),
   on(removeCharacterSuccess, (state, {id}) => ({
     ...state,
-    characters: state.characters.filter((character) => character.id !== id),
+    characters: state.characters.filter((c: Character) => c.id !== id),
     status: StateStatus.SUCCESS,
     error: null,
   })),
@@ -81,7 +83,7 @@ export const characterReducer = createReducer(
   on(addCharacterTranslation, (state) => ({...state, status: StateStatus.LOADING})),
   on(addCharacterTranslationSuccess, (state, {characterId, characterTranslation}) => ({
     ...state,
-    characters: state.characters.map((c) =>
+    characters: state.characters.map((c: Character) =>
       c.id === characterId
         ? {
           ...c,
@@ -100,11 +102,11 @@ export const characterReducer = createReducer(
   on(updateCharacterTranslation, (state) => ({...state, status: StateStatus.LOADING})),
   on(updateCharacterTranslationSuccess, (state, {characterId, characterTranslation}) => ({
     ...state,
-    characters: state.characters.map((c) =>
+    characters: state.characters.map((c: Character) =>
       c.id === characterId
         ? {
           ...c,
-          translations: (c.translations ?? []).map((t) => (t.id === characterTranslation.id ? characterTranslation : t)),
+          translations: (c.translations ?? []).map((t: CharacterTranslation) => (t.id === characterTranslation.id ? characterTranslation : t)),
         }
         : c,
     ),
@@ -119,11 +121,11 @@ export const characterReducer = createReducer(
   on(removeCharacterTranslation, (state) => ({...state, status: StateStatus.LOADING})),
   on(removeCharacterTranslationSuccess, (state, {characterId, locale}) => ({
     ...state,
-    characters: state.characters.map((c) =>
+    characters: state.characters.map((c: Character) =>
       c.id === characterId
         ? {
           ...c,
-          translations: c.translations?.filter((t) => t.locale !== locale),
+          translations: c.translations?.filter((t: CharacterTranslation) => t.locale !== locale),
         }
         : c,
     ),
@@ -138,7 +140,10 @@ export const characterReducer = createReducer(
   on(loadCharacterTranslations, (state) => ({...state, status: StateStatus.LOADING})),
   on(loadCharacterTranslationsSuccess, (state, {characterId, characterTranslations}) => ({
     ...state,
-    characters: state.characters.map((c) => (c.id === characterId ? {...c, translations: characterTranslations} : c)),
+    characters: state.characters.map((c: Character) => (c.id === characterId ? {
+      ...c,
+      translations: characterTranslations
+    } : c)),
     status: StateStatus.SUCCESS,
     error: null,
   })),

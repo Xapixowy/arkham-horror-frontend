@@ -1,5 +1,5 @@
-import {cardReducer} from '@State/cards/card.reducer';
-import {characterReducer} from '@State/characters/character.reducer';
+import {cardReducer} from '@States/cards/card.reducer';
+import {characterReducer} from '@States/characters/character.reducer';
 
 export const STORE_PROVIDERS = {
   cards: cardReducer,

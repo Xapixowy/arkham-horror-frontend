@@ -1,4 +1,4 @@
-import {CharacterState} from '@State/characters/character.state';
+import {CharacterState} from '../characters/character.state';
 import {StateStatus} from '@Enums/state-status.enum';
 
 export const CHARACTER_STATE_CONFIG: {

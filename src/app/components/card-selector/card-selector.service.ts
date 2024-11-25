@@ -1,10 +1,10 @@
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
-import { CharacterCard } from '@Models/character-card.model';
-import { Store } from '@ngrx/store';
-import { selectCards } from '@State/cards/card.selectors';
-import { loadCards } from '@State/cards/card.actions';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Card } from '@Models/card.model';
+import {DestroyRef, inject, Injectable, signal} from '@angular/core';
+import {CharacterCard} from '@Models/character-card.model';
+import {Store} from '@ngrx/store';
+import {selectCards} from '@States/cards/card.selectors';
+import {loadCards} from '@States/cards/card.actions';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {Card} from '@Models/card.model';
 
 @Injectable()
 export class CardSelectorService {
