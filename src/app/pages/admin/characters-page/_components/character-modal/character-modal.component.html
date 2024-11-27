@@ -62,7 +62,7 @@
               </div>
             </ng-template>
           </p-fileUpload>
-          <app-button-icon-only icon="tablerTrash" severity="danger"
+          <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
                                 (onClick)="onImageRemove(imageFileUpload)"/>
         </div>
         <app-form-validation-message [errorFormControl]="image"/>
@@ -95,7 +95,7 @@
       <div class="character-modal__form__group">
         <label>
           {{ '_CharactersPage.Skills' | transloco }}
-          <app-button-icon-only icon="tablerPlus" (onClick)="onSkillAdd()"/>
+          <app-button-icon-only [pTooltip]="'_Actions.Add' | transloco" icon="tablerPlus" (onClick)="onSkillAdd()"/>
         </label>
         <app-character-skill-selector [isModalShown]="isCharacterSkillModalShown" [skills]="skills"/>
         <app-form-validation-message [errorFormControl]="characterSkills"/>

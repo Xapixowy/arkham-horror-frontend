@@ -150,6 +150,23 @@
     "max_skills_spells": "Maksymalna liczba Umiejętności i Zaklęć (w sumie)",
     "max_common_unique_items": "Maksymalna liczba Przedmiotów Powszechnych i Unikatowych (w sumie)"
   },
+  "_GameSessionPhase": {
+    "1": "Utrzymanie",
+    "2": "Ruch",
+    "3": "Spotkania w Arkham",
+    "4": "Spotkania w Innych Światach",
+    "5": "Mity"
+  },
+  "_Actions": {
+    "Add": "Dodaj",
+    "Edit": "Edytuj",
+    "Delete": "Usuń",
+    "Confirm": "Potwierdź",
+    "Cancel": "Anuluj",
+    "Increase": "Zwiększ",
+    "Decrease": "Zmniejsz",
+    "Translations": "Tłumaczenia"
+  },
   "_ConfirmDialog": {
     "Are you sure?": "Jesteś pewien?",
     "Please confirm to proceed": "Proszę potwierdzić, aby kontynuować",
@@ -259,9 +276,13 @@
     "Card translation has been deleted": "Tłumaczenie karty zostało usunięte",
     "Card and images have been added": "Karta i obrazy zostały pomyślnie dodane",
     "Card and images have been updated": "Karta i obrazy zostały pomyślnie zaktualizowane",
-    "Card has been deleted": "Karta została pomyślnie usunięta"
+    "Card has been deleted": "Karta została pomyślnie usunięta",
+    "Translations": "Tłumaczenia",
+    "Edit": "Edytuj",
+    "Delete": "Usuń"
   },
   "_CharactersPage": {
+    "Translations": "Tłumaczenia",
     "Add character": "Dodaj postać",
     "Edit character": "Edytuj postać",
     "ID": "ID",
@@ -310,5 +331,23 @@
     "Add character translation": "Dodaj tłumaczenie postaci",
     "Edit character translation": "Edytuj tłumaczenie postaci",
     "Are you sure you want to delete this character translation?": "Jesteś pewien, że chcesz usunąć tłumaczenie postaci?"
+  },
+  "_GameSessionsPage": {
+    "ID": "ID",
+    "Token": "Token",
+    "Phase": "Faza",
+    "Players": "Gracze",
+    "Updated at": "Zaktualizowano",
+    "Actions": "Akcje",
+    "Previous game phase": "Poprzednia faza gry",
+    "Next game phase": "Następna faza gry",
+    "Reset game phase": "Zresetuj fazę gry",
+    "Delete game session": "Usuń sesję gry",
+    "Are you sure you want to delete this game session?": "Jesteś pewien, że chcesz usunąć tę sesję gry?",
+    "Game Sessions": "Sesje gry",
+    "Game Session has been deleted": "Sesja gry została pomyślnie usunięta",
+    "Game Session phase has been reset": "Faza sesji gry została pomyślnie zresetowana",
+    "Game Session phase has been advanced": "Faza sesji gry została pomyślnie zmieniona",
+    "Game Session phase has been retreated": "Faza sesji gry została pomyślnie zmieniona"
   }
 }

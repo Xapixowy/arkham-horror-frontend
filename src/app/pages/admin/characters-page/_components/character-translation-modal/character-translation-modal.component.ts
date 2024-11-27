@@ -1,24 +1,27 @@
-import { ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, viewChild } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { Editor, EditorModule } from 'primeng/editor';
-import { FormValidationMessageComponent } from '@Components/form-validation-message/form-validation-message.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { PaginatorModule } from 'primeng/paginator';
-import { PrimeTemplate } from 'primeng/api';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
-import { CharacterSkillSelectorComponent } from '@Features/character-skill-selector/_components/character-skill-selector/character-skill-selector.component';
-import { CharactersPageService } from '@Pages/admin/characters-page/characters-page.service';
-import { Language } from '@Features/language/_enums/language.enum';
-import { APP_CONFIG } from '@Configs/app.config';
-import { ModalMode } from '@Enums/modal-mode.enum';
-import { CharacterTranslationFormControls } from '@Enums/form-controls/character-translation-form-controls.enum';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { textInHtmlRequiredValidator } from '@Validators/text-in-html-required.validator';
-import { provideIcons } from '@ng-icons/core';
-import { tablerPlus } from '@ng-icons/tabler-icons';
+import {ChangeDetectionStrategy, Component, computed, DestroyRef, inject, signal, viewChild} from '@angular/core';
+import {Button} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {Editor, EditorModule} from 'primeng/editor';
+import {FormValidationMessageComponent} from '@Components/form-validation-message/form-validation-message.component';
+import {InputTextModule} from 'primeng/inputtext';
+import {PaginatorModule} from 'primeng/paginator';
+import {PrimeTemplate} from 'primeng/api';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {AbstractControl, ReactiveFormsModule} from '@angular/forms';
+import {ButtonIconOnlyComponent} from '@Components/button-icon-only/button-icon-only.component';
+import {
+  CharacterSkillSelectorComponent
+} from '@Features/character-skill-selector/_components/character-skill-selector/character-skill-selector.component';
+import {CharactersPageService} from '@Pages/admin/characters-page/characters-page.service';
+import {Language} from '@Features/language/_enums/language.enum';
+import {APP_CONFIG} from '@Configs/app.config';
+import {ModalMode} from '@Enums/modal-mode.enum';
+import {CharacterTranslationFormControls} from '@Enums/form-controls/character-translation-form-controls.enum';
+import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
+import {textInHtmlRequiredValidator} from '@Validators/text-in-html-required.validator';
+import {provideIcons} from '@ng-icons/core';
+import {tablerPlus} from '@ng-icons/tabler-icons';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-character-translation-modal',
@@ -35,8 +38,9 @@ import { tablerPlus } from '@ng-icons/tabler-icons';
     ReactiveFormsModule,
     ButtonIconOnlyComponent,
     CharacterSkillSelectorComponent,
+    TooltipModule,
   ],
-  providers: [provideIcons({ tablerPlus })],
+  providers: [provideIcons({tablerPlus})],
   templateUrl: './character-translation-modal.component.html',
   styleUrl: './character-translation-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

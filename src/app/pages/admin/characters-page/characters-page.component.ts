@@ -1,22 +1,30 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { Button } from 'primeng/button';
-import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
-import { ImgPlaceholderComponent } from '@Components/img-placeholder/img-placeholder.component';
-import { NoContentComponent } from '@Components/no-content/no-content.component';
-import { PrimeTemplate, SortEvent } from 'primeng/api';
-import { TableModule } from 'primeng/table';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { CharactersPageService } from '@Pages/admin/characters-page/characters-page.service';
-import { StateStatus } from '@Enums/state-status.enum';
-import { CHARACTERS_PAGE_CONFIG } from '@Pages/admin/characters-page/characters-page.config';
-import { Character } from '@Models/character.model';
-import { Language } from '@Features/language/_enums/language.enum';
-import { provideIcons } from '@ng-icons/core';
-import { tablerEdit, tablerLanguage, tablerTrash } from '@ng-icons/tabler-icons';
-import { DateHumanReadableComponent } from '@Components/date-human-readable/date-human-readable.component';
-import { CharacterModalComponent } from '@Pages/admin/characters-page/_components/character-modal/character-modal.component';
-import { CharacterTranslationsModalComponent } from '@Pages/admin/characters-page/_components/character-translations-modal/character-translations-modal.component';
-import { CharacterTranslationModalComponent } from '@Pages/admin/characters-page/_components/character-translation-modal/character-translation-modal.component';
+import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
+import {Button} from 'primeng/button';
+import {ButtonIconOnlyComponent} from '@Components/button-icon-only/button-icon-only.component';
+import {ImgPlaceholderComponent} from '@Components/img-placeholder/img-placeholder.component';
+import {NoContentComponent} from '@Components/no-content/no-content.component';
+import {PrimeTemplate, SortEvent} from 'primeng/api';
+import {TableModule} from 'primeng/table';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {CharactersPageService} from '@Pages/admin/characters-page/characters-page.service';
+import {StateStatus} from '@Enums/state-status.enum';
+import {CHARACTERS_PAGE_CONFIG} from '@Pages/admin/characters-page/characters-page.config';
+import {Character} from '@Models/character.model';
+import {Language} from '@Features/language/_enums/language.enum';
+import {provideIcons} from '@ng-icons/core';
+import {tablerEdit, tablerLanguage, tablerTrash} from '@ng-icons/tabler-icons';
+import {DateHumanReadableComponent} from '@Components/date-human-readable/date-human-readable.component';
+import {
+  CharacterModalComponent
+} from '@Pages/admin/characters-page/_components/character-modal/character-modal.component';
+import {
+  CharacterTranslationsModalComponent
+} from '@Pages/admin/characters-page/_components/character-translations-modal/character-translations-modal.component';
+import {
+  CharacterTranslationModalComponent
+} from '@Pages/admin/characters-page/_components/character-translation-modal/character-translation-modal.component';
+import {TooltipModule} from 'primeng/tooltip';
+import {TruncatePipe} from '@Pipes/truncate.pipe';
 
 @Component({
   selector: 'app-characters-page',
@@ -33,8 +41,10 @@ import { CharacterTranslationModalComponent } from '@Pages/admin/characters-page
     CharacterModalComponent,
     CharacterTranslationsModalComponent,
     CharacterTranslationModalComponent,
+    TooltipModule,
+    TruncatePipe,
   ],
-  providers: [CharactersPageService, provideIcons({ tablerEdit, tablerTrash, tablerLanguage })],
+  providers: [CharactersPageService, provideIcons({tablerEdit, tablerTrash, tablerLanguage})],
   templateUrl: './characters-page.component.html',
   styleUrl: './characters-page.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

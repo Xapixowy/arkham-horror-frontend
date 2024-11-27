@@ -15,7 +15,9 @@
       <ng-template pTemplate="body" let-cardTranslation>
         <tr>
           <td>{{ cardTranslation.id }}</td>
-          <td>{{ cardTranslation.name }}</td>
+          <td [pTooltip]="cardTranslation.name"
+              [tooltipDisabled]="cardTranslation.name.length <= 45">{{ cardTranslation.name | truncate: 45 }}
+          </td>
           <td>
             @if (cardTranslation.locale === Language.ENGLISH) {
               <span class="fi fi-gb"></span>
@@ -28,8 +30,10 @@
           </td>
           <td>
             <div class="card-translations-modal__table__actions">
-              <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEditInit(cardTranslation)"/>
-              <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(cardTranslation)"/>
+              <app-button-icon-only [pTooltip]="'_Actions.Edit' | transloco" icon="tablerEdit" severity="secondary"
+                                    (onClick)="onEditInit(cardTranslation)"/>
+              <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
+                                    (onClick)="onDelete(cardTranslation)"/>
             </div>
           </td>
         </tr>

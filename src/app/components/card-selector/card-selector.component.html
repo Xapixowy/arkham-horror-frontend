@@ -43,10 +43,12 @@
           </td>
           <td class="card-selector__card__quantity__wrapper">
             <div class="card-selector__card__quantity">
-              <app-button-icon-only size="small" icon="tablerMinus" severity="danger"
+              <app-button-icon-only [pTooltip]="'_Actions.Decrease' | transloco" size="small" icon="tablerMinus"
+                                    severity="danger"
                                     (onClick)="onCardQuantityChange(characterCard, -1)"/>
               <span class="card-selector__card__quantity__value">{{ characterCard.quantity }}</span>
-              <app-button-icon-only size="small" icon="tablerPlus" severity="success"
+              <app-button-icon-only [pTooltip]="'_Actions.Increase' | transloco" size="small" icon="tablerPlus"
+                                    severity="success"
                                     (onClick)="onCardQuantityChange(characterCard, 1)"/>
             </div>
           </td>

@@ -1,19 +1,21 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { CardsPageService } from '@Pages/admin/cards-page/cards-page.service';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { provideIcons } from '@ng-icons/core';
-import { tablerEdit, tablerTrash } from '@ng-icons/tabler-icons';
-import { DialogModule } from 'primeng/dialog';
-import { TableModule } from 'primeng/table';
-import { Language } from '@Features/language/_enums/language.enum';
-import { NoContentComponent } from '@Components/no-content/no-content.component';
-import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
-import { CardTranslation } from '@Models/card-translation.model';
-import { StateStatus } from '@Enums/state-status.enum';
-import { Button } from 'primeng/button';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { APP_CONFIG } from '@Configs/app.config';
-import { DateHumanReadableComponent } from '@Components/date-human-readable/date-human-readable.component';
+import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
+import {CardsPageService} from '@Pages/admin/cards-page/cards-page.service';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {provideIcons} from '@ng-icons/core';
+import {tablerEdit, tablerTrash} from '@ng-icons/tabler-icons';
+import {DialogModule} from 'primeng/dialog';
+import {TableModule} from 'primeng/table';
+import {Language} from '@Features/language/_enums/language.enum';
+import {NoContentComponent} from '@Components/no-content/no-content.component';
+import {ButtonIconOnlyComponent} from '@Components/button-icon-only/button-icon-only.component';
+import {CardTranslation} from '@Models/card-translation.model';
+import {StateStatus} from '@Enums/state-status.enum';
+import {Button} from 'primeng/button';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {APP_CONFIG} from '@Configs/app.config';
+import {DateHumanReadableComponent} from '@Components/date-human-readable/date-human-readable.component';
+import {TooltipModule} from 'primeng/tooltip';
+import {TruncatePipe} from '@Pipes/truncate.pipe';
 
 @Component({
   selector: 'app-card-translations-modal',
@@ -27,8 +29,10 @@ import { DateHumanReadableComponent } from '@Components/date-human-readable/date
     Button,
     OverlayPanelModule,
     DateHumanReadableComponent,
+    TooltipModule,
+    TruncatePipe,
   ],
-  providers: [provideIcons({ tablerEdit, tablerTrash })],
+  providers: [provideIcons({tablerEdit, tablerTrash})],
   templateUrl: './card-translations-modal.component.html',
   styleUrl: './card-translations-modal.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

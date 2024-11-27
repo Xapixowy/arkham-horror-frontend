@@ -22,6 +22,8 @@ import {
 import {ImgPlaceholderComponent} from '@Components/img-placeholder/img-placeholder.component';
 import {SortEvent} from 'primeng/api';
 import {DateHumanReadableComponent} from '@Components/date-human-readable/date-human-readable.component';
+import {TruncatePipe} from '@Pipes/truncate.pipe';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-cards-page',
@@ -39,6 +41,8 @@ import {DateHumanReadableComponent} from '@Components/date-human-readable/date-h
     CardTranslationsModalComponent,
     ImgPlaceholderComponent,
     DateHumanReadableComponent,
+    TruncatePipe,
+    TooltipModule,
   ],
   providers: [CardsPageService, provideIcons({tablerEdit, tablerTrash, tablerLanguage})],
   templateUrl: './cards-page.component.html',

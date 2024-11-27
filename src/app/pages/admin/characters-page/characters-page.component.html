@@ -50,7 +50,9 @@
               <app-img-placeholder [size]="CHARACTERS_PAGE_CONFIG.placeholderImageSize"/>
             }
           </td>
-          <td>{{ character.name }}</td>
+          <td [pTooltip]="character.name"
+              [tooltipDisabled]="character.name.length <= 45">{{ character.name | truncate : 45 }}
+          </td>
           <td>{{ '_Expansion.' + character.expansion | transloco }}</td>
           <td>{{ character.sanity }}</td>
           <td>{{ character.endurance }}</td>
@@ -66,10 +68,13 @@
           </td>
           <td>
             <div class="characters-page__table__actions">
-              <app-button-icon-only icon="tablerLanguage" severity="secondary"
+              <app-button-icon-only [pTooltip]="'_CharactersPage.Translations' | transloco" icon="tablerLanguage"
+                                    severity="secondary"
                                     (onClick)="onCharacterTranslations(character)"/>
-              <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEdit(character)"/>
-              <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(character)"/>
+              <app-button-icon-only [pTooltip]="'_Actions.Edit' | transloco" icon="tablerEdit" severity="secondary"
+                                    (onClick)="onEdit(character)"/>
+              <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
+                                    (onClick)="onDelete(character)"/>
             </div>
           </td>
         </tr>

@@ -1,6 +1,6 @@
 import {DestroyRef, inject, Injectable, signal} from '@angular/core';
 import {Store} from '@ngrx/store';
-import {selectCards, selectCardStatus, selectCardTranslations} from '../../../states/cards/card.selectors';
+import {selectCards, selectCardStatus, selectCardTranslations} from '@States/cards/card.selectors';
 import {Card} from '@Models/card.model';
 import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
 import {
@@ -12,7 +12,7 @@ import {
   removeCardTranslation,
   updateCard,
   updateCardTranslation,
-} from '../../../states/cards/card.actions';
+} from '@States/cards/card.actions';
 import {ConfirmationService, SortEvent} from 'primeng/api';
 import {FormControl, FormGroup} from '@angular/forms';
 import {CardForm} from '@Types/forms/card-form.type';

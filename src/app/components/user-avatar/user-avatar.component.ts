@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
-import { AvatarModule } from 'primeng/avatar';
-import { User } from '@Models/user.model';
+import {ChangeDetectionStrategy, Component, computed, input} from '@angular/core';
+import {AvatarModule} from 'primeng/avatar';
+import {User} from '@Models/user.model';
 
 @Component({
-  selector: 'app-users-avatar',
+  selector: 'app-user-avatar',
   standalone: true,
   imports: [AvatarModule],
   templateUrl: './user-avatar.component.html',

@@ -1,22 +1,23 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { Button } from 'primeng/button';
-import { DialogModule } from 'primeng/dialog';
-import { EditorModule } from 'primeng/editor';
-import { FormValidationMessageComponent } from '@Components/form-validation-message/form-validation-message.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { PaginatorModule } from 'primeng/paginator';
-import { PrimeTemplate } from 'primeng/api';
-import { TranslocoPipe } from '@jsverse/transloco';
-import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
-import { NoContentComponent } from '@Components/no-content/no-content.component';
-import { OverlayPanelModule } from 'primeng/overlaypanel';
-import { TableModule } from 'primeng/table';
-import { CharactersPageService } from '@Pages/admin/characters-page/characters-page.service';
-import { StateStatus } from '@Enums/state-status.enum';
-import { Language } from '@Features/language/_enums/language.enum';
-import { APP_CONFIG } from '@Configs/app.config';
-import { CharacterTranslation } from '@Models/character-translation.model';
-import { DateHumanReadableComponent } from '@Components/date-human-readable/date-human-readable.component';
+import {ChangeDetectionStrategy, Component, computed, inject} from '@angular/core';
+import {Button} from 'primeng/button';
+import {DialogModule} from 'primeng/dialog';
+import {EditorModule} from 'primeng/editor';
+import {FormValidationMessageComponent} from '@Components/form-validation-message/form-validation-message.component';
+import {InputTextModule} from 'primeng/inputtext';
+import {PaginatorModule} from 'primeng/paginator';
+import {PrimeTemplate} from 'primeng/api';
+import {TranslocoPipe} from '@jsverse/transloco';
+import {ButtonIconOnlyComponent} from '@Components/button-icon-only/button-icon-only.component';
+import {NoContentComponent} from '@Components/no-content/no-content.component';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
+import {TableModule} from 'primeng/table';
+import {CharactersPageService} from '@Pages/admin/characters-page/characters-page.service';
+import {StateStatus} from '@Enums/state-status.enum';
+import {Language} from '@Features/language/_enums/language.enum';
+import {APP_CONFIG} from '@Configs/app.config';
+import {CharacterTranslation} from '@Models/character-translation.model';
+import {DateHumanReadableComponent} from '@Components/date-human-readable/date-human-readable.component';
+import {TooltipModule} from 'primeng/tooltip';
 
 @Component({
   selector: 'app-character-translations-modal',
@@ -35,6 +36,7 @@ import { DateHumanReadableComponent } from '@Components/date-human-readable/date
     OverlayPanelModule,
     TableModule,
     DateHumanReadableComponent,
+    TooltipModule,
   ],
   templateUrl: './character-translations-modal.component.html',
   styleUrl: './character-translations-modal.component.scss',

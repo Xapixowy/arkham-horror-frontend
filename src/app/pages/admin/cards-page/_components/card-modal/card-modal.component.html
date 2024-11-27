@@ -72,7 +72,7 @@
                 </div>
               </ng-template>
             </p-fileUpload>
-            <app-button-icon-only icon="tablerTrash" severity="danger"
+            <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
                                   (onClick)="onFrontImageRemove(frontImageFileUpload)"/>
           </div>
           <app-form-validation-message [errorFormControl]="frontImage"/>
@@ -109,7 +109,7 @@
                 </div>
               </ng-template>
             </p-fileUpload>
-            <app-button-icon-only icon="tablerTrash" severity="danger"
+            <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
                                   (onClick)="onBackImageRemove(backImageFileUpload)"/>
           </div>
           <app-form-validation-message [errorFormControl]="backImage"/>
@@ -169,16 +169,17 @@
             <td>
               <div class="card-modal__form__actions">
                 @if (!editing) {
-                  <app-button-icon-only icon="tablerEdit" severity="secondary"
+                  <app-button-icon-only [pTooltip]="'_Actions.Edit' | transloco" icon="tablerEdit" severity="secondary"
                                         pInitEditableRow
                                         (onClick)="onRowEditInit(attributeModifier)"/>
-                  <app-button-icon-only icon="tablerTrash" severity="danger"
+                  <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
                                         (onClick)="onRowRemove(attributeModifier)"/>
                 } @else {
-                  <app-button-icon-only icon="tablerCheck" severity="success"
+                  <app-button-icon-only [pTooltip]="'_Actions.Confirm' | transloco" icon="tablerCheck"
+                                        severity="success"
                                         pSaveEditableRow
                                         (onClick)="onRowEditSave(attributeModifier)"/>
-                  <app-button-icon-only icon="tablerX" severity="danger"
+                  <app-button-icon-only [pTooltip]="'_Actions.Cancel' | transloco" icon="tablerX" severity="danger"
                                         pCancelEditableRow
                                         (onClick)="onRowEditCancel(attributeModifier)"/>
                 }

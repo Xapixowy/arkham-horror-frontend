@@ -9,9 +9,9 @@
         </td>
         <td>
           <div class="character-skill-selector__form__actions">
-            <app-button-icon-only icon="tablerEdit" severity="secondary"
+            <app-button-icon-only [pTooltip]="'_Actions.Edit' | transloco" icon="tablerEdit" severity="secondary"
                                   (onClick)="onSkillEdit(skill)"/>
-            <app-button-icon-only icon="tablerTrash" severity="danger"
+            <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
                                   (onClick)="onSkillRemove(skill)"/>
           </div>
         </td>
