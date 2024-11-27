@@ -1,4 +1,5 @@
-import {CardEffects} from '@States/cards/card.effects';
-import {CharacterEffects} from '@States/characters/character.effects';
+import { CardEffects } from '@States/cards/card.effects';
+import { CharacterEffects } from '@States/characters/character.effects';
+import { GameSessionEffects } from '@States/game-sessions/game-session.effects';
 
-export const EFFECTS_PROVIDERS = [CardEffects, CharacterEffects];
+export const EFFECTS_PROVIDERS = [CardEffects, CharacterEffects, GameSessionEffects];

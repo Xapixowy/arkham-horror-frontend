@@ -1,1 +1,86 @@
-<p>game-sessions-page works!</p>
+<div class="game-sessions-page">
+  <div class="game-sessions-page__content">
+    <p-table
+      class="flex-1"
+      styleClass="full-height"
+      [value]="cards()"
+      [paginator]="true"
+      [rows]="10"
+      [rowsPerPageOptions]="[10, 25, 50]"
+      [resetPageOnSort]="true"
+      (onSort)="onSort($event)"
+      [customSort]="true"
+      [loading]="isLoading()"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th pSortableColumn="id">{{ '_CardsPage.ID' | transloco }}
+            <p-sortIcon field="id" />
+          </th>
+          <th>{{ '_CardsPage.Front image' | transloco }}</th>
+          <th>{{ '_CardsPage.Back image' | transloco }}</th>
+          <th pSortableColumn="name">{{ '_CardsPage.Name' | transloco }}
+            <p-sortIcon field="name" />
+          </th>
+          <th pSortableColumn="type">{{ '_CardsPage.Type' | transloco }}
+            <p-sortIcon field="type" />
+          </th>
+          <th pSortableColumn="subtype">{{ '_CardsPage.Subtype' | transloco }}
+            <p-sortIcon field="subtype" />
+          </th>
+          <th>{{ '_CardsPage.Locale' | transloco }}
+          <th pSortableColumn="updated_at">{{ '_CardsPage.Updated at' | transloco }}
+            <p-sortIcon field="updated_at" />
+          </th>
+          <th>{{ '_CardsPage.Actions' | transloco }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-card>
+        <tr>
+          <td>{{ card.id }}</td>
+          <td>
+            @if (card.front_image_path) {
+              <img [src]="card.front_image_path" [alt]="card.name" />
+            } @else {
+              <app-img-placeholder [size]="CARDS_PAGE_CONFIG.placeholderImageSize" />
+            }
+          </td>
+          <td>
+            @if (card.back_image_path) {
+              <img [src]="card.back_image_path" [alt]="card.name" />
+            } @else {
+              <app-img-placeholder [size]="CARDS_PAGE_CONFIG.placeholderImageSize" />
+            }
+          </td>
+          <td>{{ card.name }}</td>
+          <td>{{ '_CardType.' + card.type | transloco }}</td>
+          <td>{{ card.subtype ? ('_CardSubtype.' + card.subtype | transloco) : '-' }}</td>
+          <td>
+            @if (card.locale === Language.ENGLISH) {
+              <span class="fi fi-gb"></span>
+            } @else {
+              <span class="fi fi-{{ card.locale }}"></span>
+            }
+          </td>
+          <td>
+            <app-date-human-readable [date]="card.updated_at" />
+          </td>
+          <td>
+            <div class="cards-page__table__actions">
+              <app-button-icon-only icon="tablerLanguage" severity="secondary" (onClick)="onCardTranslations(card)" />
+              <app-button-icon-only icon="tablerEdit" severity="secondary" (onClick)="onEdit(card)" />
+              <app-button-icon-only icon="tablerTrash" severity="danger" (onClick)="onDelete(card)" />
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [colSpan]="99">
+            <app-no-content />
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</div>

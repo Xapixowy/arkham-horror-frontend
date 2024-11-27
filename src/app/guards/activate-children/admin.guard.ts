@@ -1,7 +1,7 @@
 import { CanActivateChildFn, Router } from '@angular/router';
 import { LocalStorageService } from '@Services/local-storage.service';
 import { inject } from '@angular/core';
-import { UserRole } from '@Enums/user/user-role.enum';
+import { UserRole } from '@Enums/users/user-role.enum';
 import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 
 export const adminGuard: CanActivateChildFn = (childRoute, state) => {

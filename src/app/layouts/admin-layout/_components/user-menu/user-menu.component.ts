@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit, signal } from '@angular/core';
-import { UserAvatarComponent } from '@Components/user-avatar/user-avatar.component';
 import { User } from '@Models/user.model';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { UserMenuAction } from '@Layouts/admin-layout/_types/user-menu-action.type';
@@ -13,9 +12,9 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { WindowEvent } from '@Enums/window-event.enum';
 
 @Component({
-  selector: 'app-user-menu',
+  selector: 'app-users-menu',
   standalone: true,
-  imports: [UserAvatarComponent, OverlayPanelModule, TranslocoPipe, NgIcon],
+  imports: [OverlayPanelModule, TranslocoPipe, NgIcon],
   providers: [provideIcons(USER_MENU_CONFIG.icons)],
   templateUrl: './user-menu.component.html',
   styleUrl: './user-menu.component.scss',

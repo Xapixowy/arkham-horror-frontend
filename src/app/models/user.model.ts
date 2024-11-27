@@ -1,4 +1,4 @@
-import { UserRole } from '@Enums/user/user-role.enum';
+import { UserRole } from '@Enums/users/user-role.enum';
 import { UserDto } from '@Types/dtos/user-dto.type';
 
 export class User {
