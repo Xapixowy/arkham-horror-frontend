@@ -26,30 +26,30 @@
       </div>
     </ng-template>
   </p-dropdown>
-  @if (selectedCharacterCards()().length > 0) {
-    <p-table [value]="selectedCharacterCards()()">
-      <ng-template pTemplate="body" let-characterCard>
+  @if (selectedCards()().length > 0) {
+    <p-table [value]="selectedCards()()">
+      <ng-template pTemplate="body" let-selectedCard>
         <tr>
           <td>
-            @if (characterCard.card!.front_image_path) {
-              <img class="card-selector__card__image" [src]="characterCard.card!.front_image_path"
-                   [alt]="characterCard.card!.name"/>
+            @if (selectedCard.card!.front_image_path) {
+              <img class="card-selector__card__image" [src]="selectedCard.card!.front_image_path"
+                   [alt]="selectedCard.card!.name"/>
             } @else {
               <app-img-placeholder size="6rem"/>
             }
           </td>
-          <td class="card-selector__card__name" [pTooltip]="characterCard.card!.name"
-              [tooltipDisabled]="characterCard.card!.name <= 35">{{ characterCard.card!.name | truncate : 35 }}
+          <td class="card-selector__card__name" [pTooltip]="selectedCard.card!.name"
+              [tooltipDisabled]="selectedCard.card!.name <= 35">{{ selectedCard.card!.name | truncate : 35 }}
           </td>
           <td class="card-selector__card__quantity__wrapper">
             <div class="card-selector__card__quantity">
               <app-button-icon-only [pTooltip]="'_Actions.Decrease' | transloco" size="small" icon="tablerMinus"
                                     severity="danger"
-                                    (onClick)="onCardQuantityChange(characterCard, -1)"/>
-              <span class="card-selector__card__quantity__value">{{ characterCard.quantity }}</span>
+                                    (onClick)="onCardQuantityChange(selectedCard, -1)"/>
+              <span class="card-selector__card__quantity__value">{{ selectedCard.quantity }}</span>
               <app-button-icon-only [pTooltip]="'_Actions.Increase' | transloco" size="small" icon="tablerPlus"
                                     severity="success"
-                                    (onClick)="onCardQuantityChange(characterCard, 1)"/>
+                                    (onClick)="onCardQuantityChange(selectedCard, 1)"/>
             </div>
           </td>
         </tr>

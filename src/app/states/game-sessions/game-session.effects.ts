@@ -1,13 +1,16 @@
-import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { GameSessionsService } from '@Services/game-sessions.service';
-import { ToastService } from '@Services/toast.service';
-import { ErrorService } from '@Services/error.service';
+import {inject, Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
+import {Store} from '@ngrx/store';
+import {GameSessionsService} from '@Services/game-sessions.service';
+import {ToastService} from '@Services/toast.service';
+import {ErrorService} from '@Services/error.service';
 import {
   loadGameSessions,
   loadGameSessionsFailure,
   loadGameSessionsSuccess,
+  loadPlayers,
+  loadPlayersFailure,
+  loadPlayersSuccess,
   nextGameSessionPhase,
   nextGameSessionPhaseFailure,
   nextGameSessionPhaseSuccess,
@@ -17,39 +20,52 @@ import {
   removeGameSession,
   removeGameSessionFailure,
   removeGameSessionSuccess,
+  removePlayer,
+  removePlayerFailure,
+  removePlayerSuccess,
+  renewPlayerCharacter,
+  renewPlayerCharacterFailure,
+  renewPlayerCharacterSuccess,
   resetGameSessionPhase,
   resetGameSessionPhaseFailure,
   resetGameSessionPhaseSuccess,
+  updatePlayer,
+  updatePlayerFailure,
+  updatePlayerSuccess,
 } from '@States/game-sessions/game-session.actions';
-import { catchError, map, of, switchMap } from 'rxjs';
-import { GAME_SESSION_STATE_CONFIG } from '@States/game-sessions/game-session.config';
-import { HttpErrorResponse } from '@angular/common/http';
-import { GameSession } from '@Models/game-session.model';
+import {catchError, concatMap, map, of, switchMap} from 'rxjs';
+import {GAME_SESSION_STATE_CONFIG} from '@States/game-sessions/game-session.config';
+import {HttpErrorResponse} from '@angular/common/http';
+import {GameSession} from '@Models/game-session.model';
+import {PlayersService} from '@Services/http/players.service';
+import {Player} from '@Models/player.model';
+import {PlayerCard} from '@Models/player-card.model';
 
 @Injectable()
 export class GameSessionEffects {
   private readonly actions$ = inject(Actions);
   private readonly store = inject(Store);
   private readonly gameSessionService = inject(GameSessionsService);
+  private readonly playersService = inject(PlayersService);
   private readonly toastService = inject(ToastService);
   private readonly errorService = inject(ErrorService);
 
   removeCharacter$ = createEffect(() =>
     this.actions$.pipe(
       ofType(removeGameSession),
-      switchMap(({ token }) =>
+      switchMap(({token}) =>
         this.gameSessionService.removeGameSession(token).pipe(
           map(() => {
             this.toastService.success(
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions,
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.removeGameSessionSuccess,
             );
-            return removeGameSessionSuccess({ token });
+            return removeGameSessionSuccess({token});
           }),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
+            const {error} = response.error;
             this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
-            return of(removeGameSessionFailure({ error }));
+            return of(removeGameSessionFailure({error}));
           }),
         ),
       ),
@@ -67,9 +83,9 @@ export class GameSessionEffects {
             }),
           ),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
+            const {error} = response.error;
             this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
-            return of(loadGameSessionsFailure({ error }));
+            return of(loadGameSessionsFailure({error}));
           }),
         ),
       ),
@@ -79,19 +95,19 @@ export class GameSessionEffects {
   resetGameSessionPhase$ = createEffect(() =>
     this.actions$.pipe(
       ofType(resetGameSessionPhase),
-      switchMap(({ token }) =>
+      switchMap(({token}) =>
         this.gameSessionService.resetGameSessionPhase(token).pipe(
           map((response) => {
             this.toastService.success(
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions,
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.resetGameSessionPhaseSuccess,
             );
-            return resetGameSessionPhaseSuccess({ gameSession: GameSession.fromDto(response.data) });
+            return resetGameSessionPhaseSuccess({gameSession: GameSession.fromDto(response.data)});
           }),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
+            const {error} = response.error;
             this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
-            return of(resetGameSessionPhaseFailure({ error }));
+            return of(resetGameSessionPhaseFailure({error}));
           }),
         ),
       ),
@@ -101,19 +117,19 @@ export class GameSessionEffects {
   nextGameSessionPhase$ = createEffect(() =>
     this.actions$.pipe(
       ofType(nextGameSessionPhase),
-      switchMap(({ token }) =>
+      switchMap(({token}) =>
         this.gameSessionService.nextGameSessionPhase(token).pipe(
           map((response) => {
             this.toastService.success(
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions,
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.nextGameSessionPhaseSuccess,
             );
-            return nextGameSessionPhaseSuccess({ gameSession: GameSession.fromDto(response.data) });
+            return nextGameSessionPhaseSuccess({gameSession: GameSession.fromDto(response.data)});
           }),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
+            const {error} = response.error;
             this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
-            return of(nextGameSessionPhaseFailure({ error }));
+            return of(nextGameSessionPhaseFailure({error}));
           }),
         ),
       ),
@@ -123,19 +139,118 @@ export class GameSessionEffects {
   previousGameSessionPhase$ = createEffect(() =>
     this.actions$.pipe(
       ofType(previousGameSessionPhase),
-      switchMap(({ token }) =>
+      switchMap(({token}) =>
         this.gameSessionService.previousGameSessionPhase(token).pipe(
           map((response) => {
             this.toastService.success(
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions,
               GAME_SESSION_STATE_CONFIG.toastTranslationKeys.previousGameSessionPhaseSuccess,
             );
-            return previousGameSessionPhaseSuccess({ gameSession: GameSession.fromDto(response.data) });
+            return previousGameSessionPhaseSuccess({gameSession: GameSession.fromDto(response.data)});
           }),
           catchError((response: HttpErrorResponse) => {
-            const { error } = response.error;
+            const {error} = response.error;
             this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
-            return of(previousGameSessionPhaseFailure({ error }));
+            return of(previousGameSessionPhaseFailure({error}));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  updatePlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updatePlayer),
+      concatMap(
+        ({gameSessionToken, playerToken, updatePlayerPayload, assignPlayerCardsPayload, removePlayerCardsPayload}) =>
+          this.playersService.updatePlayer(gameSessionToken, playerToken, updatePlayerPayload).pipe(
+            concatMap((updatePlayerResponse) => this.playersService.assignPlayerCards(gameSessionToken, playerToken, assignPlayerCardsPayload).pipe(
+                concatMap(() =>
+                  this.playersService.removePlayerCards(gameSessionToken, playerToken, removePlayerCardsPayload).pipe(
+                    map((removePlayerCardsResponse) => {
+                      this.toastService.success(
+                        GAME_SESSION_STATE_CONFIG.toastTranslationKeys.players,
+                        GAME_SESSION_STATE_CONFIG.toastTranslationKeys.updatePlayerSuccess,
+                      );
+                      return updatePlayerSuccess({
+                        gameSessionToken, player: {
+                          ...Player.fromDto(updatePlayerResponse.data),
+                          playerCards: removePlayerCardsResponse.data.map((playerCard) => PlayerCard.fromDto(playerCard))
+                        }
+                      });
+                    }),
+                    catchError((response: HttpErrorResponse) => {
+                      const {error} = response.error;
+                      this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.players, response);
+                      return of(updatePlayerFailure({error}));
+                    }),
+                  ),
+                ),
+              ),
+            ),
+          ),
+      ),
+    ),
+  );
+
+  removePlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(removePlayer),
+      switchMap(({gameSessionToken, playerToken}) =>
+        this.playersService.removePlayer(gameSessionToken, playerToken).pipe(
+          map(() => {
+            this.toastService.success(
+              GAME_SESSION_STATE_CONFIG.toastTranslationKeys.players,
+              GAME_SESSION_STATE_CONFIG.toastTranslationKeys.removePlayerSuccess,
+            );
+            return removePlayerSuccess({gameSessionToken, playerToken});
+          }),
+          catchError((response: HttpErrorResponse) => {
+            const {error} = response.error;
+            this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.players, response);
+            return of(removePlayerFailure({error}));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  renewPlayerCharacter$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(renewPlayerCharacter),
+      switchMap(({gameSessionToken, playerToken}) =>
+        this.playersService.renewPlayerCharacter(gameSessionToken, playerToken).pipe(
+          map((response) => {
+            this.toastService.success(
+              GAME_SESSION_STATE_CONFIG.toastTranslationKeys.players,
+              GAME_SESSION_STATE_CONFIG.toastTranslationKeys.renewPlayerCharacterSuccess,
+            );
+            return renewPlayerCharacterSuccess({gameSessionToken, player: Player.fromDto(response.data)});
+          }),
+          catchError((response: HttpErrorResponse) => {
+            const {error} = response.error;
+            this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.players, response);
+            return of(renewPlayerCharacterFailure({error}));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  loadPlayers$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadPlayers),
+      switchMap(({token}) =>
+        this.playersService.loadPlayers(token).pipe(
+          map((response) => loadPlayersSuccess({
+              gameSessionToken: token,
+              players: response.data.map((player) => Player.fromDto(player))
+            })
+          ),
+          catchError((response: HttpErrorResponse) => {
+            const {error} = response.error;
+            this.errorService.throwError(GAME_SESSION_STATE_CONFIG.toastTranslationKeys.players, response);
+            return of(loadPlayersFailure({error}));
           }),
         ),
       ),

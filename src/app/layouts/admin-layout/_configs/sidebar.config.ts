@@ -1,22 +1,12 @@
 import {SidebarSection} from '@Layouts/admin-layout/_types/sidebar-section.type';
 import {APP_ROUTES_CONFIG} from '@Configs/routes.config';
-import {tablerCards, tablerDeviceGamepad, tablerHome, tablerUser} from '@ng-icons/tabler-icons';
+import {tablerCards, tablerDeviceGamepad, tablerUser} from '@ng-icons/tabler-icons';
 
 export const SIDEBAR_CONFIG: {
   sections: SidebarSection[];
   icons: Record<string, string>;
 } = {
   sections: [
-    {
-      title: '_AdminSidebar.Home',
-      items: [
-        {
-          icon: 'tablerHome',
-          label: '_AdminSidebar.Dashboard',
-          route: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Admin.Root]
-        }
-      ]
-    },
     {
       title: '_AdminSidebar.Resources',
       items: [
@@ -44,7 +34,6 @@ export const SIDEBAR_CONFIG: {
     }
   ],
   icons: {
-    tablerHome,
     tablerCards,
     tablerUser,
     tablerDeviceGamepad

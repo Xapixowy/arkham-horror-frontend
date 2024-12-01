@@ -1,17 +1,17 @@
-import {DestroyRef, inject, Injectable} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {FormValidationService} from '@Services/form-validation.service';
-import {AuthService} from '@Services/auth.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {HttpErrorResponse} from '@angular/common/http';
-import {ToastService} from '@Services/toast.service';
-import {ErrorService} from '@Services/error.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import {APP_ROUTES_CONFIG} from '@Configs/routes.config';
-import {VerifyForm} from '@Types/forms/verify-form.type';
-import {VerifyFormControls} from '@Enums/form-controls/verify-form-controls.enum';
-import {VERIFY_FORM_VALIDATORS} from '@Configs/form-validators/verify-form-validators.config';
-import {VerifyPayload} from '@Types/payloads/auth/verify-payload.type';
+import { DestroyRef, inject, Injectable } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { FormValidationService } from '@Services/form-validation.service';
+import { AuthService } from '@Services/http/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastService } from '@Services/toast.service';
+import { ErrorService } from '@Services/error.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
+import { VerifyForm } from '@Types/forms/verify-form.type';
+import { VerifyFormControls } from '@Enums/form-controls/verify-form-controls.enum';
+import { VERIFY_FORM_VALIDATORS } from '@Configs/form-validators/verify-form-validators.config';
+import { VerifyPayload } from '@Types/payloads/auth/verify-payload.type';
 
 @Injectable({
   providedIn: 'root',

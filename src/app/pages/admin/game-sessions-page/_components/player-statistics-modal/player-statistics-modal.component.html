@@ -1,0 +1,27 @@
+<p-dialog [header]="'_GameSessionsPage.Player statistics' | transloco" [modal]="true"
+          [(visible)]="isPlayerStatisticsModalShown" [resizable]="false" (onHide)="onHide()"
+          appendTo="body">
+  <div class="player-statistics-modal">
+    <p-table [value]="playerStatistics()">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{ '_GameSessionsPage.Statistics' | transloco }}</th>
+          <th>{{ '_GameSessionsPage.Value' | transloco }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-statistics>
+        <tr>
+          <td>{{ '_Statistics.' + statistics.key | transloco }}</td>
+          <td>{{ statistics.value }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [colSpan]="99">
+            <app-no-content/>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-dialog>

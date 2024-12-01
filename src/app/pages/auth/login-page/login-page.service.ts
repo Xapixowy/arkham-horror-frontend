@@ -1,7 +1,7 @@
 import { DestroyRef, inject, Injectable } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormValidationService } from '@Services/form-validation.service';
-import { AuthService } from '@Services/auth.service';
+import { AuthService } from '@Services/http/auth.service';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { HttpErrorResponse } from '@angular/common/http';
 import { DataResponse } from '@Types/data-response.type';

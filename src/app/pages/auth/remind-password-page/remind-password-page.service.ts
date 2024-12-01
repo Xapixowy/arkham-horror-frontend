@@ -1,17 +1,17 @@
-import {DestroyRef, inject, Injectable} from '@angular/core';
-import {FormControl, FormGroup} from '@angular/forms';
-import {FormValidationService} from '@Services/form-validation.service';
-import {AuthService} from '@Services/auth.service';
-import {takeUntilDestroyed} from '@angular/core/rxjs-interop';
-import {HttpErrorResponse} from '@angular/common/http';
-import {ToastService} from '@Services/toast.service';
-import {ErrorService} from '@Services/error.service';
-import {Router} from '@angular/router';
-import {APP_ROUTES_CONFIG} from '@Configs/routes.config';
-import {RemindPasswordForm} from '@Types/forms/remind-password-form.type';
-import {RemindPasswordFormControls} from '@Enums/form-controls/remind-password-form-controls.enum';
-import {REMIND_PASSWORD_FORM_VALIDATORS} from '@Configs/form-validators/remind-password-form-validators.config';
-import {RemindPasswordPayload} from '@Types/payloads/auth/remind-password-payload.type';
+import { DestroyRef, inject, Injectable } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { FormValidationService } from '@Services/form-validation.service';
+import { AuthService } from '@Services/http/auth.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ToastService } from '@Services/toast.service';
+import { ErrorService } from '@Services/error.service';
+import { Router } from '@angular/router';
+import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
+import { RemindPasswordForm } from '@Types/forms/remind-password-form.type';
+import { RemindPasswordFormControls } from '@Enums/form-controls/remind-password-form-controls.enum';
+import { REMIND_PASSWORD_FORM_VALIDATORS } from '@Configs/form-validators/remind-password-form-validators.config';
+import { RemindPasswordPayload } from '@Types/payloads/auth/remind-password-payload.type';
 
 @Injectable({
   providedIn: 'root',

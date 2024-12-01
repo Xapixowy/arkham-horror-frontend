@@ -1,0 +1,50 @@
+<p-dialog [header]="'_GameSessionsPage.Players' | transloco" [modal]="true"
+          [(visible)]="isPlayersModalShown" [resizable]="false" (onHide)="onHide()"
+          appendTo="body">
+  <div class="players-modal">
+    <p-table [value]="players()" [loading]="isLoading()">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>{{ '_GameSessionsPage.ID' | transloco }}</th>
+          <th>{{ '_GameSessionsPage.Role' | transloco }}</th>
+          <th>{{ '_GameSessionsPage.User' | transloco }}</th>
+          <th>{{ '_GameSessionsPage.Character' | transloco }}</th>
+          <th>{{ '_GameSessionsPage.Updated at' | transloco }}</th>
+          <th>{{ '_GameSessionsPage.Actions' | transloco }}</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-player>
+        <tr>
+          <td>{{ player.id }}</td>
+          <td>{{ '_PlayerRole.' + player.role | transloco }}</td>
+          <td [pTooltip]="getUserEmailWithName(player.user)">{{ player.user ? player.user.email : '-' }}</td>
+          <td>{{ player.character.name }}</td>
+          <td>
+            <app-date-human-readable [date]="player.updated_at"/>
+          </td>
+          <td>
+            <div class="players-modal__table__actions">
+              <app-button-icon-only [pTooltip]="'_GameSessionsPage.Statistics' | transloco"
+                                    icon="tablerChartBar" severity="secondary"
+                                    (onClick)="onShowStatistics(player)"/>
+              <app-button-icon-only [pTooltip]="'_GameSessionsPage.Renew character' | transloco"
+                                    icon="tablerUserQuestion" severity="secondary"
+                                    (onClick)="onRenewCharacter(player)"/>
+              <app-button-icon-only [pTooltip]="'_Actions.Edit' | transloco" icon="tablerEdit" severity="secondary"
+                                    (onClick)="onEditInit(player)"/>
+              <app-button-icon-only [pTooltip]="'_Actions.Delete' | transloco" icon="tablerTrash" severity="danger"
+                                    (onClick)="onDelete(player)"/>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td [colSpan]="99">
+            <app-no-content/>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</p-dialog>

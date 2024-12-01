@@ -12,7 +12,6 @@
     "Login": "Logowanie",
     "Remind password": "Przypomnij hasło",
     "Reset password": "Resetuj hasło",
-    "Admin": "Panel administracyjny",
     "Cards": "Karty",
     "Characters": "Postacie",
     "Game sessions": "Sesje gry"
@@ -157,6 +156,10 @@
     "4": "Spotkania w Innych Światach",
     "5": "Mity"
   },
+  "_PlayerRole": {
+    "0": "Gracz",
+    "1": "Gospodarz"
+  },
   "_Actions": {
     "Add": "Dodaj",
     "Edit": "Edytuj",
@@ -166,6 +169,20 @@
     "Increase": "Zwiększ",
     "Decrease": "Zmniejsz",
     "Translations": "Tłumaczenia"
+  },
+  "_Statistics": {
+    "money_acquired": "Zdobyte pieniądze",
+    "money_lost": "Utracone pieniądze",
+    "clues_acquired": "Zdobyte wskazówki",
+    "clues_lost": "Utracone wskazówki",
+    "endurance_acquired": "Zdobyte wytrzymałości",
+    "endurance_lost": "Utracone wytrzymałości",
+    "sanity_acquired": "Zdobyte poczęcie",
+    "sanity_lost": "Utracone poczęcie",
+    "cards_acquired": "Zdobyte karty",
+    "cards_lost": "Utracone karty",
+    "phases_played": "Rozegrane fazy",
+    "characters_played": "Rozegrane postacie"
   },
   "_ConfirmDialog": {
     "Are you sure?": "Jesteś pewien?",
@@ -348,6 +365,33 @@
     "Game Session has been deleted": "Sesja gry została pomyślnie usunięta",
     "Game Session phase has been reset": "Faza sesji gry została pomyślnie zresetowana",
     "Game Session phase has been advanced": "Faza sesji gry została pomyślnie zmieniona",
-    "Game Session phase has been retreated": "Faza sesji gry została pomyślnie zmieniona"
+    "Game Session phase has been retreated": "Faza sesji gry została pomyślnie zmieniona",
+    "Role": "Rola",
+    "User": "Użytkownik",
+    "Character": "Postać",
+    "Statistics": "Statystyki",
+    "Renew character": "Odnów postać",
+    "Player has been updated": "Gracz został pomyślnie zaktualizowany",
+    "Player has been deleted": "Gracz został pomyślnie usunięty",
+    "Player character has been renewed": "Postać gracza została pomyślnie odnowiona",
+    "Delete player": "Usuń gracza",
+    "Are you sure you want to delete this player?": "Jesteś pewien, że chcesz usunąć tego gracza?",
+    "Player statistics": "Statystyki gracza",
+    "Value": "Wartość",
+    "Edit player": "Edytuj gracza",
+    "Sanity": "Poczytalność",
+    "Endurance": "Wytrzymałość",
+    "Equipment": "Ekwipunek",
+    "Money": "Pieniądze",
+    "Clues": "Wskazówki",
+    "Attributes": "Atrybuty",
+    "Speed": "Szybkość",
+    "Sneak": "Skradanie się",
+    "Prowess": "Waleczność",
+    "Will": "Wola",
+    "Knowledge": "Wiedza",
+    "Luck": "Szczęście",
+    "Cards": "Karty",
+    "Status": "Status"
   }
 }

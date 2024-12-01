@@ -75,6 +75,7 @@ export class CardTranslationModalComponent {
 
   onCancel(): void {
     this.cardsPageService.hideCardTranslationModal();
+    this.descriptionEditor()!.quill.root.innerHTML = '';
   }
 
   private subscribeToFormChanges(): void {

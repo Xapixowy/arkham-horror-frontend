@@ -112,6 +112,7 @@ export class CharacterTranslationModalComponent {
 
   onCancel(): void {
     this.charactersPageSerivce.hideCharacterTranslationModal();
+    this.descriptionEditor()!.quill.root.innerHTML = '';
   }
 
   onSkillAdd(): void {

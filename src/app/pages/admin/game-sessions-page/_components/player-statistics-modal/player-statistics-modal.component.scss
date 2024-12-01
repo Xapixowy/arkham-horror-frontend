@@ -1,0 +1,12 @@
+.player-statistics-modal {
+  width: clamp(30rem, calc(100vw - 20rem), 40rem);
+  max-height: 40rem;
+  overflow-y: auto;
+
+  &__table {
+    &__actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+  }
+}

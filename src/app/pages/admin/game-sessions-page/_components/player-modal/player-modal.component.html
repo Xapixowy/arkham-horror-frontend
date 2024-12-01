@@ -1,0 +1,77 @@
+<p-dialog [header]="'_GameSessionsPage.Edit player' | transloco" [modal]="true" [(visible)]="isPlayerModalShown"
+          appendTo="body"
+          (onHide)="onCancel()" [resizable]="false">
+  <div class="player-modal">
+    <form class="player-modal__form" [formGroup]="form">
+      <div class="player-modal__form__group">
+        <label>{{ '_GameSessionsPage.Status' | transloco }}</label>
+        <div class="player-modal__form__group-wrapper player-modal__form__status-wrapper">
+          <div class="player-modal__form__group">
+            <label [for]="statusSanityInputId">{{ '_GameSessionsPage.Sanity' | transloco }}</label>
+            <p-inputNumber [formControlName]="PlayerFormControls.STATUS_SANITY" [inputId]="statusSanityInputId" min="0"
+                           styleClass="full-width"/>
+            <app-form-validation-message [errorFormControl]="statusSanity"/>
+          </div>
+          <div class="player-modal__form__group">
+            <label [for]="statusEnduranceInputId">{{ '_GameSessionsPage.Endurance' | transloco }}</label>
+            <p-inputNumber [formControlName]="PlayerFormControls.STATUS_ENDURANCE" [inputId]="statusEnduranceInputId"
+                           min="0"
+                           styleClass="full-width"/>
+            <app-form-validation-message [errorFormControl]="statusEndurance"/>
+          </div>
+        </div>
+      </div>
+      <div class="player-modal__form__group">
+        <label> {{ '_GameSessionsPage.Equipment' | transloco }}</label>
+        <div class="player-modal__form__group-wrapper player-modal__form__equipment-wrapper">
+          <div class="player-modal__form__group">
+            <label [for]="equipmentMoneyInputId">{{ '_GameSessionsPage.Money' | transloco }}</label>
+            <p-inputNumber [formControlName]="PlayerFormControls.EQUIPMENT_MONEY" [inputId]="equipmentMoneyInputId"
+                           min="0"
+                           styleClass="full-width"/>
+            <app-form-validation-message [errorFormControl]="equipmentMoney"/>
+          </div>
+          <div class="player-modal__form__group">
+            <label [for]="equipmentCluesInputId">{{ '_GameSessionsPage.Clues' | transloco }}</label>
+            <p-inputNumber [formControlName]="PlayerFormControls.EQUIPMENT_CLUES" [inputId]="equipmentCluesInputId"
+                           min="0"
+                           styleClass="full-width"/>
+            <app-form-validation-message [errorFormControl]="equipmentClues"/>
+          </div>
+        </div>
+      </div>
+      <div class="player-modal__form__group">
+        <label> {{ '_GameSessionsPage.Attributes' | transloco }}</label>
+        <div class="player-modal__form__attribute-wrapper">
+          <div class="player-modal__form__attribute">
+            <app-attribute-slider [config]="speedSneakSliderConfig()"/>
+            <app-form-validation-message [errorFormControl]="speedSneakSliderConfig().firstAttribute.formControl"/>
+            <app-form-validation-message [errorFormControl]="speedSneakSliderConfig().secondAttribute.formControl"/>
+          </div>
+          <p-divider/>
+          <div class="player-modal__form__attribute">
+            <app-attribute-slider [config]="prowessWillSliderConfig()"/>
+            <app-form-validation-message [errorFormControl]="prowessWillSliderConfig().firstAttribute.formControl"/>
+            <app-form-validation-message [errorFormControl]="prowessWillSliderConfig().secondAttribute.formControl"/>
+          </div>
+          <p-divider/>
+          <div class="player-modal__form__attribute">
+            <app-attribute-slider [config]="knowledgeLuckSliderConfig()"/>
+            <app-form-validation-message [errorFormControl]="knowledgeLuckSliderConfig().firstAttribute.formControl"/>
+            <app-form-validation-message [errorFormControl]="knowledgeLuckSliderConfig().secondAttribute.formControl"/>
+          </div>
+        </div>
+      </div>
+      <div class="player-modal__form__group">
+        <label> {{ '_GameSessionsPage.Cards' | transloco }}</label>
+        <app-card-selector [selectedCards]="playerCards" mode="player"/>
+      </div>
+    </form>
+    <div class="player-modal__actions">
+      <p-button [label]="'_ConfirmDialog.Save' | transloco"
+                (click)="onSave()"/>
+      <p-button severity="secondary" [outlined]="true" [label]="'_ConfirmDialog.Cancel' | transloco"
+                (click)="onCancel()"/>
+    </div>
+  </div>
+</p-dialog>

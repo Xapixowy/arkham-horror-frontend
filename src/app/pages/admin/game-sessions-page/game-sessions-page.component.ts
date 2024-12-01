@@ -12,6 +12,11 @@ import {provideIcons} from '@ng-icons/core';
 import {tablerArrowLeft, tablerArrowRight, tablerRefresh, tablerTrash, tablerUsers} from '@ng-icons/tabler-icons';
 import {GameSession} from '@Models/game-session.model';
 import {TooltipModule} from 'primeng/tooltip';
+import {PlayersModalComponent} from '@Pages/admin/game-sessions-page/_components/players-modal/players-modal.component';
+import {
+  PlayerStatisticsModalComponent
+} from '@Pages/admin/game-sessions-page/_components/player-statistics-modal/player-statistics-modal.component';
+import {PlayerModalComponent} from '@Pages/admin/game-sessions-page/_components/player-modal/player-modal.component';
 
 @Component({
   selector: 'app-game-sessions-page',
@@ -25,6 +30,9 @@ import {TooltipModule} from 'primeng/tooltip';
     TableModule,
     TranslocoPipe,
     TooltipModule,
+    PlayersModalComponent,
+    PlayerStatisticsModalComponent,
+    PlayerModalComponent,
   ],
   providers: [provideIcons({
     tablerArrowLeft,

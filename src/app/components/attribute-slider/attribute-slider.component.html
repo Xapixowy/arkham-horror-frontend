@@ -1,0 +1,20 @@
+<div class="attribute-slider">
+  <label class="attribute-slider__attribute-label">{{ config().firstAttribute.label | transloco }}</label>
+  <div class="attribute-slider__attribute-values">
+    @for (value of config().firstAttribute.values; track $index) {
+      <span class="attribute-slider__attribute-value">{{ value }}</span>
+    }
+  </div>
+  <div class="attribute-slider__empty-space"></div>
+  <div class="attribute-slider__slider-wrapper">
+    <p-slider [min]="minValue" [max]="maxValue()" [step]="1" [(ngModel)]="sliderValue"
+              (onSlideEnd)="onSlideEnd($event)"/>
+  </div>
+  <label class="attribute-slider__attribute-label">{{ config().secondAttribute.label | transloco }}</label>
+  <div class="attribute-slider__attribute-values">
+    @for (value of config().secondAttribute.values; track $index) {
+      <span class="attribute-slider__attribute-value">{{ value }}</span>
+    }
+  </div>
+</div>
+
