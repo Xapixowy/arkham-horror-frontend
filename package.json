@@ -6,7 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "loc": "git ls-files | grep -vE 'package-lock.json|\\.jpg|\\.jpeg|\\.png|\\.gif|\\.svg$' | xargs wc -l | grep total"
   },
   "private": true,
   "dependencies": {
