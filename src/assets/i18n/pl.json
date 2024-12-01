@@ -54,7 +54,8 @@
     "GAME_SESSION_NOT_FOUND": "Nie znaleziono sesji gry",
     "CARD_NOT_FOUND": "Nie znaleziono karty",
     "PLAYER_NOT_FOUND": "Nie znaleziono gracza",
-    "CARD_TRANSLATION_NOT_FOUND": "Nie znaleziono tłumaczenia karty"
+    "CARD_TRANSLATION_NOT_FOUND": "Nie znaleziono tłumaczenia karty",
+    "CHARACTER_PLAYERS_EXIST": "Istnieją gracze przypisani do tej postaci"
   },
   "_AdminSidebar": {
     "Home": "Strona główna",
