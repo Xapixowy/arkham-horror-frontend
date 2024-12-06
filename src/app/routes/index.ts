@@ -1,8 +1,8 @@
-import { Route } from '@angular/router';
-import { AUTH_ROUTES } from '@Routes/auth.routes';
-import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
-import { LANDING_ROUTES } from '@Routes/landing.routes';
-import { ADMIN_ROUTES } from '@Routes/admin.routes';
+import {Route} from '@angular/router';
+import {AUTH_ROUTES} from '@Routes/auth.routes';
+import {APP_ROUTES_CONFIG} from '@Configs/routes.config';
+import {LANDING_ROUTES} from '@Routes/landing.routes';
+import {ADMIN_ROUTES} from '@Routes/admin.routes';
 
 export const APP_ROUTES: Route[] = [
   ...LANDING_ROUTES,

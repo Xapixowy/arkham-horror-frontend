@@ -1,9 +1,15 @@
+@import "./_breakpoints.scss";
+
 body {
   font-size: var(--font-size);
   font-family: var(--font-family), sans-serif;
   background-color: var(--background-color);
   background-image: var(--background-image);
   color: var(--text-color);
+
+  @include smaller-than(lg) {
+    font-size: var(--font-size-breakpoint-lg)
+  }
 }
 
 a {
@@ -15,4 +21,20 @@ a {
     opacity: 0.8;
     text-decoration: underline;
   }
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+h4 {
+  font-size: 1.25rem;
 }

@@ -2,6 +2,7 @@
   // Font
   --font-family: 'Poppins';
   --font-size: 16px;
+  --font-size-breakpoint-lg: 12px;
 
   // Background
   --background-color: var(--surface-ground);
@@ -12,8 +13,10 @@
   --text-color: var(--surface-700);
 
   // Layouts
+  --max-width: 1920px;
   --admin-sidebar-width: 16rem;
   --admin-topbar-height: 3rem;
+  --landing-topbar-height: 4rem;
 
   // Animations
   --transition-duration: 0.2s;

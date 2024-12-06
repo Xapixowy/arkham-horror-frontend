@@ -394,5 +394,15 @@
     "Luck": "Szczęście",
     "Cards": "Karty",
     "Status": "Status"
+  },
+  "_LandingLayout": {
+    "Register": "Zarejestruj się",
+    "Login": "Zaloguj się"
+  },
+  "_LandingPage": {
+    "Welcome to Arkham Horror": "Witaj w Arkham Horror",
+    "The end is near": "Koniec jest bliski!",
+    "There is 1926 Arkham Massachusetts": "Mamy rok 1926. Arkham Massachusetts. W całym mieście otwierają się wrota do niewyobrażalnie koszmarnych wymiarów. Z ich trzewi wydostają się ohydne stwory, które zaczynają nawiedzać noc. Co gorsza, jeśli otworzy się zbyt wiele bram, na świat uwolni się istota o niezgłębionej mocy.",
+    "Investigators stand against monster": "Naprzeciw tych przerażających potworów staje grupa Badaczy, zdeterminowana odeprzeć falę mrocznych sił wszechświata. Jeśli chcą mieć chociaż cień szansy na sukces, będą musieli zgłębić tajemnice Mitów i wykorzystać wszystkie swoje umiejętności, zaklęcia i broń."
   }
 }

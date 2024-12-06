@@ -3,12 +3,33 @@
   flex-direction: column;
   height: 100vh;
 
+
   &__navigation {
     display: flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-between;
     gap: 1rem;
     padding: 1rem;
+
+    &__logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--primary-color);
+      cursor: pointer;
+      transition: var(--transition-duration-fast) var(--transition-timing-function) opacity;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &__actions {
+      display: flex;
+      gap: 1rem;
+    }
   }
 
   &__content {

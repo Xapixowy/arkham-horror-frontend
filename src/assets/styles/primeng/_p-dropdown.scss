@@ -1,4 +1,6 @@
 .p-dropdown--language-switcher {
+  border-color: var(--surface-300);
+
   .p-dropdown-trigger {
     display: none;
   }
@@ -8,7 +10,8 @@
   }
 
   .p-dropdown-label {
-    background-color: var(--surface-100);
+    padding: 0.5rem;
+    background-color: var(--surface-ground);
   }
 
   .p-dropdown-items {

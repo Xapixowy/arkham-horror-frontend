@@ -1,0 +1,15 @@
+<div class="topbar">
+  <div class="topbar__logo">
+    {{ 'Arkham Horror' | transloco }}
+  </div>
+  <div class="topbar__divider"></div>
+  <div class="topbar__features">
+    <app-language-switcher/>
+  </div>
+  <div class="topbar__actions">
+    <p-button severity="secondary" [label]="'_LandingLayout.Register' | transloco"
+              [routerLink]="[APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Register]" styleClass="full-width"/>
+    <p-button [label]="'_LandingLayout.Login' | transloco"
+              [routerLink]="[APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Login]" styleClass="full-width"/>
+  </div>
+</div>

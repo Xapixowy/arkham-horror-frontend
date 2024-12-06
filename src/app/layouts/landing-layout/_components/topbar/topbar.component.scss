@@ -1,0 +1,56 @@
+@import '../../../../../assets/styles/breakpoints';
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+  background-color: var(--surface-0);
+
+  @include smaller-than(md) {
+    flex-direction: column;
+  }
+
+  &__divider {
+    flex: 1;
+
+    @include smaller-than(md) {
+      display: none;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--primary-color);
+
+    @include smaller-than(md) {
+      height: 3rem;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    @include smaller-than(md) {
+      width: 100%;
+      flex-direction: column;
+
+      * {
+        width: 100%;
+      }
+    }
+  }
+
+  &__features {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+}

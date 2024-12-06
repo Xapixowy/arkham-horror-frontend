@@ -1,0 +1,29 @@
+.p-select-button--theme-switcher {
+  background-color: var(--surface-ground);
+  border: 1px solid var(--surface-300);
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  .p-button {
+    position: relative;
+    width: 3.5rem;
+    height: 2.625rem;
+    padding: 0;
+
+    ng-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.25rem;
+    }
+  }
+
+  .p-highlight {
+    color: var(--surface-ground);
+
+    &::before {
+      background-color: var(--primary-color);
+    }
+  }
+}

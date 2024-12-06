@@ -1,0 +1,11 @@
+.landing-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  &__content {
+    padding: 2rem 4rem;
+    flex: 1;
+    overflow-y: auto;
+  }
+}

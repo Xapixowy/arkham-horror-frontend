@@ -1,0 +1,30 @@
+<main class="landing-page">
+  <section class="landing-page__info">
+    <div class="landing-page__info__image">
+      <img ngSrc="images/banner.webp" [alt]="'_LandingPage.App image' | transloco" fill priority/>
+    </div>
+    <div class="landing-page__info__text">
+      <h1>{{ '_LandingPage.Welcome to Arkham Horror' | transloco }}</h1>
+      <p><strong>{{ '_LandingPage.The end is near' | transloco }}</strong></p>
+      <p>{{ '_LandingPage.There is 1926 Arkham Massachusetts' | transloco }}</p>
+      <p>{{ '_LandingPage.Investigators stand against monster' | transloco }}</p>
+    </div>
+  </section>
+  <section class="landing-page__actions">
+
+  </section>
+  <section class="landing-page__features">
+
+  </section>
+  <footer class="landing-page__footer">
+    <p>{{ currentYear }} &copy; Arkham Horror by Xapixowy</p>
+    <div class="landing-page__footer__row">
+      <app-color-theme-switcher/>
+      <div class="landing-page__socials">
+        <a class="landing-page__social" href="https://github.com/xapixowy" target="_blank">
+          <ng-icon name="tablerBrandGithub"/>
+        </a>
+      </div>
+    </div>
+  </footer>
+</main>

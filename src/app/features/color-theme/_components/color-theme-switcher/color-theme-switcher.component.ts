@@ -1,33 +1,29 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { NgIcon, provideIcons } from '@ng-icons/core';
-import { tablerMoon } from '@ng-icons/tabler-icons';
-import { InputSwitchChangeEvent, InputSwitchModule } from 'primeng/inputswitch';
-import { ColorThemeService } from '../../../color-theme/_services/color-theme.service';
-import { FormsModule } from '@angular/forms';
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core';
+import {NgIcon, provideIcons} from '@ng-icons/core';
+import {InputSwitchModule} from 'primeng/inputswitch';
+import {ColorThemeService} from '../../../color-theme/_services/color-theme.service';
+import {FormsModule} from '@angular/forms';
+import {SelectButtonChangeEvent, SelectButtonModule} from 'primeng/selectbutton';
+import {COLOR_THEME_CONFIG} from '@Features/color-theme/_configs/color-theme.config';
+import {SwitcherOption} from '@Features/color-theme/_types/switcher-option.type';
 
 @Component({
   selector: 'app-color-theme-switcher',
   standalone: true,
-  imports: [NgIcon, InputSwitchModule, FormsModule],
+  imports: [NgIcon, InputSwitchModule, FormsModule, SelectButtonModule],
   providers: [
-    provideIcons({
-      tablerMoon,
-    }),
+    provideIcons(COLOR_THEME_CONFIG.switcherIcons),
   ],
   templateUrl: './color-theme-switcher.component.html',
-  styleUrl: './color-theme-switcher.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ColorThemeSwitcherComponent {
-  protected readonly themeSwitcherService = inject(ColorThemeService);
+  private readonly themeSwitcherService = inject(ColorThemeService);
 
-  protected readonly isDarkTheme = signal<boolean>(false);
+  protected switcherOptions = COLOR_THEME_CONFIG.switcherOptions;
+  protected readonly switcherOption = this.themeSwitcherService.switcherOption;
 
-  constructor() {
-    this.isDarkTheme.set(this.themeSwitcherService.isDarkTheme);
-  }
-
-  onChange(value: InputSwitchChangeEvent): void {
-    this.themeSwitcherService.isDarkTheme = value.checked;
+  onChange(event: SelectButtonChangeEvent): void {
+    this.themeSwitcherService.colorTheme = event.value as SwitcherOption;
   }
 }
