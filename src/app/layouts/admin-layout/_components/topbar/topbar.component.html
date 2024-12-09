@@ -4,6 +4,6 @@
     <h1 class="topbar__title">{{ title() | transloco }}</h1>
   </div>
   <div class="topbar__right">
-    <app-user-menu [user]="user"/>
+    <app-user-menu [user]="user" [config]="USER_MENU_CONFIG"/>
   </div>
 </div>

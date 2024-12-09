@@ -1,0 +1,10 @@
+<div class="game-session-section">
+  <h2>{{ '_LandingPage.Join the game' | transloco }}</h2>
+  <p>{{ '_LandingPage.Ask your friends for game session token and join the game' | transloco }}</p>
+  <form class="game-session-section__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <p-inputOtp [formControlName]="GameSessionJoinFormControls.TOKEN" [length]="6" (onChange)="onChange($event)"/>
+    <p-button [label]="'_LandingPage.Join' | transloco" type="submit"/>
+  </form>
+  <p>{{ '_LandingPage.Or' | transloco }}</p>
+  <p-button (onClick)="onCreateGameSession()" [label]="'_LandingPage.Create a new game session' | transloco"/>
+</div>

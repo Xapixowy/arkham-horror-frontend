@@ -1,15 +1,21 @@
-import {inject, Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {DataResponse} from '@Types/data-response.type';
-import {map, Observable} from 'rxjs';
-import {ENVIRONMENT} from '@Environments/environment';
-import {GameSessionDto} from '@Types/dtos/game-session-dto.type';
+import { inject, Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { DataResponse } from '@Types/data-response.type';
+import { map, Observable } from 'rxjs';
+import { ENVIRONMENT } from '@Environments/environment';
+import { GameSessionDto } from '@Types/dtos/game-session-dto.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameSessionsService {
   private readonly httpClient = inject(HttpClient);
+
+  createGameSession(): Observable<DataResponse<GameSessionDto>> {
+    return this.httpClient
+      .post(`${ENVIRONMENT.api_url}/game-sessions`, {})
+      .pipe(map((response) => response as DataResponse<GameSessionDto>));
+  }
 
   getAllGameSessions(): Observable<DataResponse<GameSessionDto[]>> {
     return this.httpClient

@@ -1,0 +1,43 @@
+<div class="navigation__backdrop" [class.navigation__backdrop--shown]="isNavigationShown()"></div>
+<div class="navigation" [class.navigation--shown]="isNavigationShown()">
+  <div class="navigation__logo">
+    {{ 'Arkham Horror' | transloco }}
+  </div>
+  <div class="navigation__sections navigation__sections--left">
+    @for (section of leftNavigationSections(); track $index) {
+      <ng-container [ngTemplateOutlet]="navigationSection" [ngTemplateOutletContext]="{items: section.items}"/>
+    }
+  </div>
+  <div class="navigation__divider"></div>
+  <div class="navigation__sections navigation__sections--right">
+    @for (section of rightNavigationSections(); track $index) {
+      <ng-container [ngTemplateOutlet]="navigationSection" [ngTemplateOutletContext]="{items: section.items}"/>
+    }
+    @if (loggedInNotAdminUser()) {
+      <app-user-menu [user]="loggedInNotAdminUser()!" [config]="userMenuConfig()" [isNameShown]="true"/>
+    }
+  </div>
+  <app-hamburger-menu [isOpened]="isNavigationShown()" (click)="toggleNavigation()" class="navigation__hamburger"/>
+</div>
+
+<ng-template #navigationSection let-items="items">
+  @if (items?.length > 0) {
+    <div class="navigation__section">
+      @for (item of items; track $index) {
+        @let label = item.label | transloco ;
+
+        @if (item.type === 'link' && item.routerLink) {
+          <a class="navigation__link" [routerLink]="item.routerLink">{{ label }}</a>
+        } @else if (item.type === 'link' && item.action) {
+          <a class="navigation__link" (click)="item.action()">{{ label }}</a>
+        } @else if (item.type === 'button' && item.routerLink) {
+          <p-button [label]="label" [routerLink]="item.routerLink" [severity]="item.severity"
+                    styleClass="full-width"/>
+        } @else if (item.type === 'button' && item.action) {
+          <p-button [label]="label" (onClick)="item.action()" [severity]="item.severity"
+                    styleClass="full-width"/>
+        }
+      }
+    </div>
+  }
+</ng-template>

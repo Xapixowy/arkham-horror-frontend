@@ -5,6 +5,7 @@ import { Language } from '@Features/language/_enums/language.enum';
 import { ColorTheme } from '@Features/color-theme/_enums/color-theme.enum';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '@Models/user.model';
+import { GameSession } from '@Models/game-session.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,11 +14,15 @@ export class LocalStorageService {
   readonly languageSubject = new BehaviorSubject<Language>(APP_CONFIG.defaultLanguage);
   readonly colorThemeSubject = new BehaviorSubject<ColorTheme>(this.getUserPreferredColorTheme());
   readonly userSubject = new BehaviorSubject<User | null>(this.getUser());
+  readonly playerTokenSubject = new BehaviorSubject<string | null>(this.getPlayerToken());
+  readonly gameSessionSubject = new BehaviorSubject<GameSession | null>(this.getGameSession());
 
   constructor() {
     this.initializeLanguage();
     this.initializeColorTheme();
     this.initializeUser();
+    this.initializePlayerToken();
+    this.initializeGameSession();
   }
 
   get language(): Language {
@@ -45,6 +50,24 @@ export class LocalStorageService {
   set user(user: User | null) {
     this.userSubject.next(user);
     this.setUser(user);
+  }
+
+  get playerToken(): string | null {
+    return this.playerTokenSubject.getValue();
+  }
+
+  set playerToken(token: string | null) {
+    this.playerTokenSubject.next(token);
+    this.setPlayerToken(token);
+  }
+
+  get gameSession(): GameSession | null {
+    return this.gameSessionSubject.getValue();
+  }
+
+  set gameSession(gameSession: GameSession | null) {
+    this.gameSessionSubject.next(gameSession);
+    this.setGameSession(gameSession);
   }
 
   private getLanguage(): Language | null {
@@ -90,5 +113,52 @@ export class LocalStorageService {
 
   private initializeUser(): void {
     this.user = this.getUser();
+  }
+
+  private getPlayerToken(): string | null {
+    return localStorage.getItem(LocalStorageKey.PLAYER_TOKEN);
+  }
+
+  private setPlayerToken(token: string | null): void {
+    if (token) {
+      localStorage.setItem(LocalStorageKey.PLAYER_TOKEN, token);
+    } else {
+      localStorage.removeItem(LocalStorageKey.PLAYER_TOKEN);
+    }
+  }
+
+  private initializePlayerToken(): void {
+    this.playerToken = this.getPlayerToken();
+  }
+
+  private getGameSession(): GameSession | null {
+    const gameSessionString = localStorage.getItem(LocalStorageKey.GAME_SESSION);
+
+    if (!gameSessionString) {
+      return null;
+    }
+
+    const parsedGameSession = JSON.parse(gameSessionString) as GameSession;
+
+    return new GameSession(
+      parsedGameSession.id,
+      parsedGameSession.token,
+      parsedGameSession.phase,
+      parsedGameSession.created_at,
+      parsedGameSession.updated_at,
+      parsedGameSession.players,
+    );
+  }
+
+  private setGameSession(gameSession: GameSession | null): void {
+    if (gameSession) {
+      localStorage.setItem(LocalStorageKey.GAME_SESSION, JSON.stringify(gameSession));
+    } else {
+      localStorage.removeItem(LocalStorageKey.GAME_SESSION);
+    }
+  }
+
+  initializeGameSession(): void {
+    this.gameSession = this.getGameSession();
   }
 }

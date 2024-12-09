@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AppState } from '../app.state';
 import { catchError, concatMap, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ToastService } from '@Services/toast.service';
@@ -41,7 +39,6 @@ import { CHARACTER_STATE_CONFIG } from '../characters/character.config';
 @Injectable()
 export class CharacterEffects {
   private readonly actions$ = inject(Actions);
-  private readonly store = inject(Store<AppState>);
   private readonly characterService = inject(CharactersService);
   private readonly characterTranslationsService = inject(CharacterTranslationsService);
   private readonly toastService = inject(ToastService);

@@ -1,0 +1,60 @@
+import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit } from '@angular/core';
+import { User } from '@Models/user.model';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { UserMenuAction } from '@Components/user-menu/_types/user-menu-action.type';
+import { UserMenuActionId } from '@Components/user-menu/_enums/user-menu-action-id.enum';
+import { LocalStorageService } from '@Services/local-storage.service';
+import { Router } from '@angular/router';
+import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
+import { TranslocoPipe } from '@jsverse/transloco';
+import { NgIcon } from '@ng-icons/core';
+import { WindowEvent } from '@Enums/window-event.enum';
+import { UserAvatarComponent } from '@Components/user-avatar/user-avatar.component';
+import { UserMenuConfig } from '@Components/user-menu/_types/user-menu-config.type';
+import { Button } from 'primeng/button';
+
+@Component({
+  selector: 'app-user-menu',
+  standalone: true,
+  imports: [OverlayPanelModule, TranslocoPipe, NgIcon, UserAvatarComponent, Button],
+  templateUrl: './user-menu.component.html',
+  styleUrl: './user-menu.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class UserMenuComponent implements OnInit {
+  private readonly localStorageService = inject(LocalStorageService);
+  private readonly router = inject(Router);
+
+  readonly user = input.required<User>();
+  readonly config = input.required<UserMenuConfig>();
+  readonly isNameShown = input<boolean>(false);
+
+  protected readonly actions = computed<UserMenuAction[]>(() =>
+    this.overrideLogoutActionFunction(this.config().actions),
+  );
+
+  ngOnInit() {
+    this.listenForLogoutUserEvent();
+  }
+
+  private overrideLogoutActionFunction(actions: UserMenuAction[]): UserMenuAction[] {
+    const logoutAction = actions.find((action) => action.id === UserMenuActionId.LOGOUT);
+
+    if (logoutAction) {
+      logoutAction.action = () => this.logoutActionFunction();
+    }
+
+    return actions;
+  }
+
+  private listenForLogoutUserEvent(): void {
+    window.addEventListener(WindowEvent.LOGOUT_USER, () => {
+      this.logoutActionFunction();
+    });
+  }
+
+  private logoutActionFunction(): void {
+    this.localStorageService.user = null;
+    this.router.navigate([APP_ROUTES_CONFIG.Default]);
+  }
+}

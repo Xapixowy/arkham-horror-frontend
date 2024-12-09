@@ -1,7 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
-import { AppState } from '../app.state';
 import { CardsService } from '@Services/http/cards.service';
 import {
   addCard,
@@ -41,7 +39,6 @@ import { CARD_STATE_CONFIG } from '../cards/card.config';
 @Injectable()
 export class CardEffects {
   private readonly actions$ = inject(Actions);
-  private readonly store = inject(Store<AppState>);
   private readonly cardService = inject(CardsService);
   private readonly cardTranslationsService = inject(CardTranslationsService);
   private readonly toastService = inject(ToastService);

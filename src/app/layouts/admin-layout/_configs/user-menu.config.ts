@@ -1,11 +1,8 @@
-import { UserMenuAction } from '@Layouts/admin-layout/_types/user-menu-action.type';
 import { tablerLogout } from '@ng-icons/tabler-icons';
-import { UserMenuActionId } from '@Layouts/admin-layout/_enums/user-menu-action-id.enum';
+import { UserMenuActionId } from '@Components/user-menu/_enums/user-menu-action-id.enum';
+import { UserMenuConfig } from '@Components/user-menu/_types/user-menu-config.type';
 
-export const USER_MENU_CONFIG: {
-  actions: UserMenuAction[];
-  icons: Record<string, string>;
-} = {
+export const USER_MENU_CONFIG: UserMenuConfig = {
   actions: [
     {
       id: UserMenuActionId.LOGOUT,

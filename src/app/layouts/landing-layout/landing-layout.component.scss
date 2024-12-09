@@ -1,3 +1,5 @@
+@import '../../../assets/styles/breakpoints';
+
 .landing-layout {
   display: flex;
   flex-direction: column;
@@ -7,5 +9,9 @@
     padding: 2rem 4rem;
     flex: 1;
     overflow-y: auto;
+
+    @include smaller-than(md) {
+      padding: 4rem 4rem;
+    }
   }
 }

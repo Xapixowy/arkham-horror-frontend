@@ -7,6 +7,9 @@ import {NgIcon, provideIcons} from '@ng-icons/core';
 import {tablerBrandGithub} from '@ng-icons/tabler-icons';
 import {NgOptimizedImage} from '@angular/common';
 import {TranslocoPipe} from '@jsverse/transloco';
+import {
+  GameSessionSectionComponent
+} from '@Pages/landing/landing-page/_components/game-session-section/game-session-section.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -16,7 +19,8 @@ import {TranslocoPipe} from '@jsverse/transloco';
     LanguageSwitcherComponent,
     NgIcon,
     NgOptimizedImage,
-    TranslocoPipe
+    TranslocoPipe,
+    GameSessionSectionComponent
   ],
   providers: [provideIcons({
     tablerBrandGithub

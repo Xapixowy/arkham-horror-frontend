@@ -33,6 +33,12 @@ export const APP_ROUTES_CONFIG = {
     GameSessions: {
       Root: 'game-sessions',
       Players: ':id/players',
-    }
+    },
+  },
+
+  Dashboard: {
+    Root: 'dashboard',
+    History: 'history',
+    Statistics: 'statistics',
   },
 };

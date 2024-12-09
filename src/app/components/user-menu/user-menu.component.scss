@@ -1,28 +1,40 @@
+@import '../../../assets/styles/breakpoints';
+
 .user-menu {
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
-  font-size: 0.875rem;
+  gap: 1rem;
 
   &__button {
+    padding: 0.75rem 1rem;
     cursor: pointer;
     user-select: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    &__name {
+      display: none;
+
+      &--shown {
+        display: block;
+      }
+    }
   }
 
   &__user-info {
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
     border-bottom: 1px solid var(--text-color);
 
     &__name {
       font-weight: 700;
     }
-
-    &__email {
-      font-size: 0.75rem;
-    }
   }
 
   &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     list-style-type: none;
     padding: 0;
   }
@@ -32,8 +44,14 @@
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
-    font-size: 0.75rem;
     transition: text-decoration var(--transition-duration-fast) var(--transition-timing-function);
+
+    @include smaller-than(md) {
+      padding: 0.75rem 1rem;
+      background-color: var(--primary-color);
+      color: var(--surface-ground);
+      border-radius: 0.5rem;
+    }
 
     &:hover {
       text-decoration: underline;

@@ -1,0 +1,22 @@
+.hamburger-menu {
+  --hamburger-size: 4rem;
+
+  position: relative;
+  width: var(--hamburger-size);
+  aspect-ratio: 1;
+  cursor: pointer;
+  font-size: calc(var(--hamburger-size) * 2 / 3);
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    opacity: 0;
+    transform: translate(-50%, -50%);
+    transition: opacity var(--transition-duration) var(--transition-timing-function);
+
+    &--active {
+      opacity: 1;
+    }
+  }
+}

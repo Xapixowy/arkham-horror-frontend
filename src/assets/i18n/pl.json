@@ -14,7 +14,9 @@
     "Reset password": "Resetuj hasło",
     "Cards": "Karty",
     "Characters": "Postacie",
-    "Game sessions": "Sesje gry"
+    "Game sessions": "Sesje gry",
+    "History": "Historia",
+    "Statistics": "Statystyki"
   },
   "_Validators": {
     "Required": "Pole wymagane",
@@ -67,6 +69,7 @@
     "Game sessions": "Sesje gry"
   },
   "_UserMenu": {
+    "Dashboard": "Panel użytkownika",
     "Logout": "Wyloguj się"
   },
   "_CardType": {
@@ -400,9 +403,20 @@
     "Login": "Zaloguj się"
   },
   "_LandingPage": {
+    "App image": "Obraz aplikacji",
     "Welcome to Arkham Horror": "Witaj w Arkham Horror",
     "The end is near": "Koniec jest bliski!",
     "There is 1926 Arkham Massachusetts": "Mamy rok 1926. Arkham Massachusetts. W całym mieście otwierają się wrota do niewyobrażalnie koszmarnych wymiarów. Z ich trzewi wydostają się ohydne stwory, które zaczynają nawiedzać noc. Co gorsza, jeśli otworzy się zbyt wiele bram, na świat uwolni się istota o niezgłębionej mocy.",
-    "Investigators stand against monster": "Naprzeciw tych przerażających potworów staje grupa Badaczy, zdeterminowana odeprzeć falę mrocznych sił wszechświata. Jeśli chcą mieć chociaż cień szansy na sukces, będą musieli zgłębić tajemnice Mitów i wykorzystać wszystkie swoje umiejętności, zaklęcia i broń."
+    "Investigators stand against monster": "Naprzeciw tych przerażających potworów staje grupa Badaczy, zdeterminowana odeprzeć falę mrocznych sił wszechświata. Jeśli chcą mieć chociaż cień szansy na sukces, będą musieli zgłębić tajemnice Mitów i wykorzystać wszystkie swoje umiejętności, zaklęcia i broń.",
+    "Join the game": "Dołącz do gry",
+    "Ask your friends for game session token and join the game": "Poproś swoich znajomych o token sesji i dołącz do gry",
+    "Join": "Dołącz",
+    "Or": "Lub",
+    "Create a new game session": "Stwórz nową sesję gry"
+  },
+  "_GameState": {
+    "Game Sessions": "Sesje gry",
+    "Players": "Gracze",
+    "Game Session has been created": "Sesja gry została utworzona"
   }
 }

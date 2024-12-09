@@ -1,7 +1,10 @@
 <div class="user-menu__button" (click)="op.toggle($event)">
   <app-user-avatar [user]="user()"/>
+  <div class="user-menu__button__name" [class.user-menu__button__name--shown]="isNameShown()">
+    {{ user().name }}
+  </div>
 </div>
-<p-overlayPanel #op appendTo="body">
+<p-overlayPanel #op appendTo="body" styleClass="p-overlaypanel--user-menu">
   <div class="user-menu">
     <div class="user-menu__user-info">
       <p class="user-menu__user-info__name">{{ user().name }}</p>
