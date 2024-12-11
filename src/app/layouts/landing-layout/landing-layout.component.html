@@ -1,8 +1,20 @@
 <div class="landing-layout">
   <div class="landing-layout__navigation">
-    <app-navigation/>
+    <app-navigation />
   </div>
   <div class="landing-layout__content">
-    <router-outlet/>
+    <router-outlet />
+    <footer class="landing-layout__footer">
+      <p>{{ currentYear }} &copy; Arkham Horror by Xapixowy</p>
+      <div class="landing-layout__footer__row">
+        <app-color-theme-switcher />
+        <app-language-switcher />
+        <div class="landing-layout__socials">
+          <a class="landing-layout__social" href="https://github.com/xapixowy" target="_blank">
+            <ng-icon name="tablerBrandGithub" />
+          </a>
+        </div>
+      </div>
+    </footer>
   </div>
 </div>

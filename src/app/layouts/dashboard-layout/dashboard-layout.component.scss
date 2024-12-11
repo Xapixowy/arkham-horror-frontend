@@ -1,0 +1,9 @@
+.dashboard-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  &__content {
+    flex: 1;
+  }
+}

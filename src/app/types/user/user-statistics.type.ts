@@ -1,4 +1,4 @@
-export type UserStatisticsDto = {
+export type UserStatistics = {
   money_acquired: number;
   money_lost: number;
   clues_acquired: number;

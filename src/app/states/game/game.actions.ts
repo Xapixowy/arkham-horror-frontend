@@ -4,7 +4,6 @@ import { Player } from '@Models/player.model';
 
 const landingPageKey = '[Landing Page]';
 const gameSessionsApiKey = '[Game Sessions API]';
-const playersApiKey = '[Players API]';
 
 export const createGameSession = createAction(`${landingPageKey} Create Game Session`);
 export const createGameSessionSuccess = createAction(

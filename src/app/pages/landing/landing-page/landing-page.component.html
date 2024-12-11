@@ -1,7 +1,7 @@
 <main class="landing-page">
   <section class="landing-page__info">
     <div class="landing-page__info__image">
-      <img ngSrc="images/banner.webp" [alt]="'_LandingPage.App image' | transloco" fill priority/>
+      <img ngSrc="images/banner.webp" [alt]="'_LandingPage.App image' | transloco" fill priority />
     </div>
     <div class="landing-page__info__text">
       <h1>{{ '_LandingPage.Welcome to Arkham Horror' | transloco }}</h1>
@@ -11,21 +11,9 @@
     </div>
   </section>
   <section class="landing-page__actions">
-    <app-game-session-section/>
+    <app-game-session-section />
   </section>
   <section class="landing-page__features">
 
   </section>
-  <footer class="landing-page__footer">
-    <p>{{ currentYear }} &copy; Arkham Horror by Xapixowy</p>
-    <div class="landing-page__footer__row">
-      <app-color-theme-switcher/>
-      <app-language-switcher/>
-      <div class="landing-page__socials">
-        <a class="landing-page__social" href="https://github.com/xapixowy" target="_blank">
-          <ng-icon name="tablerBrandGithub"/>
-        </a>
-      </div>
-    </div>
-  </footer>
 </main>
