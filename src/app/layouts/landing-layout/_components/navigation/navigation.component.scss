@@ -51,12 +51,6 @@
 
   &__logo {
     height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    text-transform: uppercase;
-    color: var(--primary-color);
 
     @include bigger-than(md) {
       height: 2rem;
@@ -81,6 +75,10 @@
         width: unset;
       }
     }
+  }
+
+  &__link {
+    padding: 0.5rem 1rem;
   }
 
   &__hamburger {

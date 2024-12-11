@@ -1,14 +1,14 @@
 <div class="auth-layout">
   <div class="auth-layout__navigation">
-    <div class="auth-layout__navigation__logo" [routerLink]="[APP_ROUTES_CONFIG.Blank]">
-      {{ 'Arkham Horror' | transloco }}
+    <div class="auth-layout__navigation__logo">
+      <app-logo />
     </div>
     <div class="auth-layout__navigation__actions">
-      <app-color-theme-switcher/>
-      <app-language-switcher/>
+      <app-color-theme-switcher />
+      <app-language-switcher />
     </div>
   </div>
   <div class="auth-layout__content">
-    <router-outlet/>
+    <router-outlet />
   </div>
 </div>

@@ -1,38 +1,28 @@
 import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { Button } from 'primeng/button';
-import { RouterLink } from '@angular/router';
-import { ColorThemeSwitcherComponent } from '@Features/color-theme/_components/color-theme-switcher/color-theme-switcher.component';
-import { LanguageSwitcherComponent } from '@Features/language/_components/language-switcher/language-switcher.component';
+import { Router } from '@angular/router';
 import { HamburgerMenuComponent } from '@Components/hamburger-menu/hamburger-menu.component';
 import { LandingLayoutService } from '@Layouts/landing-layout/landing-layout.service';
 import { NgTemplateOutlet } from '@angular/common';
 import { NavigationSection } from '@Layouts/landing-layout/_types/navigation-section.type';
-import { UserAvatarComponent } from '@Components/user-avatar/user-avatar.component';
 import { UserMenuComponent } from '@Components/user-menu/user-menu.component';
 import { USER_MENU_CONFIG } from '@Layouts/landing-layout/_configs/user-menu.config';
 import { provideIcons } from '@ng-icons/core';
+import { LogoComponent } from '@Components/logo/logo.component';
+import { NavigationItem } from '@Layouts/landing-layout/_types/navigation-item.type';
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [
-    TranslocoPipe,
-    Button,
-    RouterLink,
-    ColorThemeSwitcherComponent,
-    LanguageSwitcherComponent,
-    HamburgerMenuComponent,
-    NgTemplateOutlet,
-    UserAvatarComponent,
-    UserMenuComponent,
-  ],
+  imports: [TranslocoPipe, Button, HamburgerMenuComponent, NgTemplateOutlet, UserMenuComponent, LogoComponent],
   providers: [provideIcons(USER_MENU_CONFIG.icons)],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent {
+  private readonly router = inject(Router);
   private readonly landingLayoutService = inject(LandingLayoutService);
 
   protected readonly userMenuConfig = this.landingLayoutService.userMenuConfig;
@@ -52,6 +42,20 @@ export class NavigationComponent {
 
   toggleNavigation(): void {
     this.landingLayoutService.toggleNavigation();
+  }
+
+  onNavigationItemClick(item: NavigationItem): void {
+    if ('routerLink' in item) {
+      this.router.navigate(item.routerLink);
+    } else {
+      item.action();
+    }
+
+    this.hideNavigation();
+  }
+
+  hideNavigation(): void {
+    this.landingLayoutService.isNavigationShown.set(false);
   }
 
   private filterHiddenNavigationItems(sections: NavigationSection[]): NavigationSection[] {

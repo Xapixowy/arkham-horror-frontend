@@ -22,8 +22,10 @@ export class RouteService {
   }
 
   private initializeService(): void {
+    const title = (this.findDeepestChild(this.router.routerState.snapshot.root)?.title as string) ?? '';
+
     this.currentUrlSignal.set(this.router.url);
-    this.titleSignal.set((this.findDeepestChild(this.router.routerState.snapshot.root)?.title as string) ?? '');
+    this.titleSignal.set(this.generateTitleTranslationKey(title));
   }
 
   private subscribeForRouteChanges(): void {
@@ -31,14 +33,12 @@ export class RouteService {
       if (event instanceof ActivationEnd) {
         const routeConfig = this.findDeepestChild(event.snapshot);
 
-        this.titleSignal.set(routeConfig?.title ? `_Title.${routeConfig.title}` : '');
+        this.titleSignal.set(this.generateTitleTranslationKey((routeConfig?.title as string) ?? ''));
       }
 
       if (event instanceof NavigationEnd) {
         this.currentUrlSignal.set(event.url);
       }
-
-      console.log(this.currentUrlSignal(), this.titleSignal());
     });
   }
 
@@ -48,5 +48,9 @@ export class RouteService {
     }
 
     return route;
+  }
+
+  private generateTitleTranslationKey(title?: string): string {
+    return title ? `_Title.${title}` : '';
   }
 }

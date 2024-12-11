@@ -400,7 +400,9 @@
   },
   "_LandingLayout": {
     "Register": "Zarejestruj się",
-    "Login": "Zaloguj się"
+    "Login": "Zaloguj się",
+    "Game sessions history": "Historia sesji gier",
+    "Statistics": "Statystyki"
   },
   "_LandingPage": {
     "App image": "Obraz aplikacji",

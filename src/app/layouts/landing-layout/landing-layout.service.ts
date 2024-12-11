@@ -55,6 +55,15 @@ export class LandingLayoutService {
           })),
         };
       }
+      if (section.id === NavigationSectionEnum.DASHBOARD_LINKS) {
+        return {
+          ...section,
+          items: section.items.map((item) => ({
+            ...item,
+            hide: !user,
+          })),
+        };
+      }
       return section;
     });
   }

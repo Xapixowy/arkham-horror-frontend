@@ -11,6 +11,7 @@ a {
   color: var(--hyperlink-color);
   text-decoration: none;
   font-weight: 500;
+  cursor: pointer;
 
   &:hover {
     opacity: 0.8;

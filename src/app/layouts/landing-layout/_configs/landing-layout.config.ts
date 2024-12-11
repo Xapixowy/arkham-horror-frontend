@@ -7,6 +7,24 @@ export const LANDING_LAYOUT_CONFIG: {
 } = {
   navigation: [
     {
+      id: NavigationSectionEnum.DASHBOARD_LINKS,
+      position: 'left',
+      items: [
+        {
+          label: '_LandingLayout.Game sessions history',
+          type: 'link',
+          routerLink: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Dashboard.Root],
+          hide: true,
+        },
+        {
+          label: '_LandingLayout.Statistics',
+          type: 'link',
+          routerLink: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Dashboard.Root],
+          hide: true,
+        },
+      ],
+    },
+    {
       id: NavigationSectionEnum.AUTH_BUTTONS,
       position: 'right',
       items: [
