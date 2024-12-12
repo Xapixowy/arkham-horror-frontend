@@ -1,7 +1,15 @@
 <div class="history-page">
-  <div class="history-page__content">
+  @if (dashboardStatus() === StateStatus.LOADING) {
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+  } @else {
     @for (gameSession of gameSessions(); track gameSession.id) {
-      <app-game-session [gameSession]="gameSession" />
+      <app-game-session [gameSession]="gameSession" [user]="user"/>
+    } @empty {
+      <app-no-content/>
     }
-  </div>
+  }
 </div>

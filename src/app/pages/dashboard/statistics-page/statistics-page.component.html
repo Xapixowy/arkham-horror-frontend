@@ -1,0 +1,37 @@
+<div class="statistics-page">
+  @if (dashboardStatus() === StateStatus.LOADING) {
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="3.5rem"/>
+  } @else {
+    @for (statisticGroup of userStatisticsGroups(); track $index) {
+      <div class="statistics-page__statistic-group">
+        <p-card>
+          <ng-template pTemplate="title">
+            <div class="statistics-page__statistic-group__header">
+            <span class="statistics-page__statistic-group__header__icon">
+              <ng-icon [name]="statisticGroup.icon"/>
+            </span>
+              <span class="statistics-page__statistic-group__header__label">
+              {{ statisticGroup.label | transloco }}
+            </span>
+            </div>
+          </ng-template>
+          <div class="statistics-page__statistic-group__content">
+            @for (statistic of statisticGroup.statistics; track $index) {
+              <div class="statistics-page__statistic">
+                <div class="statistics-page__statistic__label">{{ '_UserStatistics.' + statistic.label | transloco }}:
+                </div>
+                <div class="statistics-page__statistic__value">{{ statistic.value }}</div>
+              </div>
+            }
+          </div>
+        </p-card>
+      </div>
+    } @empty {
+      <app-no-content/>
+    }
+  }
+</div>

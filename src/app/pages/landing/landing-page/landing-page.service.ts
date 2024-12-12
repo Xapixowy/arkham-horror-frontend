@@ -4,7 +4,6 @@ import { GameSessionJoinForm } from '@Types/forms/game-session-join-form.type';
 import { GameSessionJoinFormControls } from '@Enums/form-controls/game-session-join-form-controls.enum';
 import { GAME_SESSION_JOIN_FORM_VALIDATORS } from '@Configs/form-validators/game-session-join-form-validators.config';
 import { FormValidationService } from '@Services/form-validation.service';
-import { GameSessionsService } from '@Services/http/game-sessions.service';
 import { Store } from '@ngrx/store';
 import { Router } from '@angular/router';
 import { createGameSession } from '@States/game/game.actions';
@@ -16,7 +15,6 @@ import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
   providedIn: 'root',
 })
 export class LandingPageService {
-  private readonly gameSessionsService = inject(GameSessionsService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly store = inject(Store);
   private readonly router = inject(Router);

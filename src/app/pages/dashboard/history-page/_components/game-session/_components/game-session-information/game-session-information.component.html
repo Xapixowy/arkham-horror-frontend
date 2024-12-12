@@ -1,0 +1,25 @@
+<div class="game-session-content-item game-session-information">
+  <div class="game-session-information__header">
+    <ng-icon class="game-session-information__header__icon" name="tablerDeviceGamepad"/>
+    {{ '_GameSessionComponent.Game session' | transloco }}
+  </div>
+  <div class="game-session-information__content">
+    <div class="game-session-information__content__item">
+      <span class="game-session-information__content__item__label">{{ '_GameSessionComponent.Token' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ gameSession().token }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Players count' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ gameSession().players?.length }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span class="game-session-information__content__item__label">{{ '_GameSessionComponent.Phase' | transloco }}
+        :</span>
+      <span
+        class="game-session-information__content__item__value">{{ '_GameSessionPhase.' + gameSession().phase | transloco }}</span>
+    </div>
+  </div>
+</div>

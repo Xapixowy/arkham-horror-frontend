@@ -1,0 +1,55 @@
+@import '../../../../assets/styles/breakpoints';
+
+.statistics-page {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  gap: 1rem;
+
+  @include bigger-than(sm) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  @include bigger-than(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  &__statistic-group {
+    @include bigger-than(sm) {
+
+    }
+
+    &__header {
+      font-size: 1.25rem;
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-weight: 500;
+      text-transform: uppercase;
+
+      &__icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+    }
+  }
+
+  &__statistic {
+    padding-left: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    &__label {
+      font-weight: 300;
+    }
+
+    &__value {
+      font-weight: 500;
+    }
+  }
+}

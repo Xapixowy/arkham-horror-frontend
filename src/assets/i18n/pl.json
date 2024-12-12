@@ -146,7 +146,7 @@
     "will": "Wola",
     "knowledge": "Wiedza",
     "luck": "Szczęście",
-    "concentration": "Koncentracja"
+    "concentration": "Skupienie"
   },
   "_CardAttributeRestriction": {
     "max_clue_tokens": "Maksymalna liczba żetonów Wskazówek",
@@ -172,7 +172,8 @@
     "Cancel": "Anuluj",
     "Increase": "Zwiększ",
     "Decrease": "Zmniejsz",
-    "Translations": "Tłumaczenia"
+    "Translations": "Tłumaczenia",
+    "Join": "Dołącz"
   },
   "_Statistics": {
     "money_acquired": "Zdobyte pieniądze",
@@ -420,5 +421,49 @@
     "Game Sessions": "Sesje gry",
     "Players": "Gracze",
     "Game Session has been created": "Sesja gry została utworzona"
+  },
+  "_GameSessionComponent": {
+    "Game session": "Sesja gry",
+    "Token": "Token",
+    "Players count": "Liczba graczy",
+    "Phase": "Faza",
+    "Character": "Postać",
+    "Name": "Nazwa",
+    "Sanity": "Poczytalność",
+    "Endurance": "Wytrzymałość",
+    "Money": "Pieniądze",
+    "Clues": "Wskazówki",
+    "Cards": "Karty",
+    "Player": "Gracz",
+    "Statistics": "Statystyki",
+    "Money acquired": "Zdobyte pieniądze",
+    "Money lost": "Utracone pieniądze",
+    "Clues acquired": "Zdobyte wskazówki",
+    "Clues lost": "Utracone wskazówki",
+    "Endurance acquired": "Zdobyte wytrzymałości",
+    "Endurance lost": "Utracone wytrzymałości",
+    "Sanity acquired": "Zdobyte poczęcie",
+    "Sanity lost": "Utracone poczęcie",
+    "Cards acquired": "Zdobyte karty",
+    "Cards lost": "Utracone karty",
+    "Phases played": "Rozegrane fazy",
+    "Characters played": "Rozegrane postacie",
+    "Role": "Rola"
+  },
+  "_UserStatistics": {
+    "money_acquired": "Zdobyte pieniądze",
+    "money_lost": "Utracone pieniądze",
+    "clues_acquired": "Zdobyte wskazówki",
+    "clues_lost": "Utracone wskazówki",
+    "endurance_acquired": "Zdobyte wytrzymałości",
+    "endurance_lost": "Utracone wytrzymałości",
+    "sanity_acquired": "Zdobyte poczęcie",
+    "sanity_lost": "Utracone poczęcie",
+    "cards_acquired": "Zdobyte karty",
+    "cards_lost": "Utracone karty",
+    "phases_played": "Rozegrane fazy",
+    "characters_played": "Rozegrane postacie",
+    "game_session_played": "Rozegrane sesje gry",
+    "game_session_created": "Utworzone sesje gry"
   }
 }

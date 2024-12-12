@@ -1,0 +1,13 @@
+.game-session-header-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  &__label {
+    font-weight: 300;
+  }
+
+  &__value {
+    font-weight: 500;
+  }
+}

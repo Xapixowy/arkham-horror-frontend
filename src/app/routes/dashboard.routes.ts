@@ -5,6 +5,8 @@ const DASHBOARD_LAYOUT = () =>
   import('@Layouts/dashboard-layout/dashboard-layout.component').then((m) => m.DashboardLayoutComponent);
 const HISTORY_PAGE = () =>
   import('@Pages/dashboard/history-page/history-page.component').then((m) => m.HistoryPageComponent);
+const STATISTICS_PAGE = () =>
+  import('@Pages/dashboard/statistics-page/statistics-page.component').then((m) => m.StatisticsPageComponent);
 
 export const DASHBOARD_ROUTES: Route[] = [
   {
@@ -15,6 +17,11 @@ export const DASHBOARD_ROUTES: Route[] = [
         path: APP_ROUTES_CONFIG.Dashboard.History,
         loadComponent: HISTORY_PAGE,
         title: 'History',
+      },
+      {
+        path: APP_ROUTES_CONFIG.Dashboard.Statistics,
+        loadComponent: STATISTICS_PAGE,
+        title: 'Statistics',
       },
       {
         path: APP_ROUTES_CONFIG.Blank,

@@ -1,6 +1,7 @@
 :root {
   // Font
-  --font-family: 'Poppins';
+  --font-family: 'Poppins', sans-serif;
+  --font-family-mono: 'Noto Sans Mono', monospace;
   --font-size: 16px;
 
   // Background
@@ -16,6 +17,8 @@
   --admin-sidebar-width: 16rem;
   --admin-topbar-height: 3rem;
   --landing-topbar-height: 4rem;
+  --landing-footer-height: 6rem;
+  --landing-footer-margin-top: 2rem;
 
   // Animations
   --transition-duration: 0.2s;

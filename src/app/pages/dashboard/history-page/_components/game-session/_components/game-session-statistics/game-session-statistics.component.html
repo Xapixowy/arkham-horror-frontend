@@ -1,0 +1,80 @@
+<div class="game-session-content-item game-session-information">
+  <div class="game-session-information__header">
+    <ng-icon class="game-session-information__header__icon" name="tablerChartBar"/>
+    {{ '_GameSessionComponent.Statistics' | transloco }}
+  </div>
+  <div class="game-session-information__content">
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Money acquired' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().money_acquired }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Money lost' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().money_lost }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Clues acquired' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().clues_acquired }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Clues lost' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().clues_lost }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Endurance acquired' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().endurance_acquired }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Endurance lost' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().endurance_lost }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Sanity acquired' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().sanity_acquired }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Sanity lost' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().sanity_lost }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Cards acquired' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().cards_acquired }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Cards lost' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().cards_lost }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Phases played' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().phases_played }}</span>
+    </div>
+    <div class="game-session-information__content__item">
+      <span
+        class="game-session-information__content__item__label">{{ '_GameSessionComponent.Characters played' | transloco }}
+        :</span>
+      <span class="game-session-information__content__item__value">{{ statistics().characters_played }}</span>
+    </div>
+  </div>
+</div>

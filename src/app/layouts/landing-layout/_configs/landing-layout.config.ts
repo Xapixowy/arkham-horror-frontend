@@ -13,13 +13,21 @@ export const LANDING_LAYOUT_CONFIG: {
         {
           label: '_LandingLayout.Game sessions history',
           type: 'link',
-          routerLink: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Dashboard.Root],
+          routerLink: [
+            APP_ROUTES_CONFIG.Default,
+            APP_ROUTES_CONFIG.Dashboard.Root,
+            APP_ROUTES_CONFIG.Dashboard.History,
+          ],
           hide: true,
         },
         {
           label: '_LandingLayout.Statistics',
           type: 'link',
-          routerLink: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Dashboard.Root],
+          routerLink: [
+            APP_ROUTES_CONFIG.Default,
+            APP_ROUTES_CONFIG.Dashboard.Root,
+            APP_ROUTES_CONFIG.Dashboard.Statistics,
+          ],
           hide: true,
         },
       ],

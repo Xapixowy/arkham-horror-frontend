@@ -7,9 +7,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { User } from '@Models/user.model';
 import { UserMenuConfig } from '@Components/user-menu/_types/user-menu-config.type';
 import { USER_MENU_CONFIG } from '@Layouts/landing-layout/_configs/user-menu.config';
-import { UserMenuActionId } from '@Components/user-menu/_enums/user-menu-action-id.enum';
 import { Router } from '@angular/router';
-import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +17,7 @@ export class LandingLayoutService {
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
 
-  readonly userMenuConfig = signal<UserMenuConfig>(this.generateUserMenuConfig());
+  readonly userMenuConfig = signal<UserMenuConfig>(USER_MENU_CONFIG);
   readonly isNavigationShown = signal<boolean>(false);
   readonly navigationSections = signal<NavigationSection[]>(LANDING_LAYOUT_CONFIG.navigation);
   readonly loggedInNotAdminUser = signal<User | null>(null);
@@ -66,20 +64,5 @@ export class LandingLayoutService {
       }
       return section;
     });
-  }
-
-  private generateUserMenuConfig(): UserMenuConfig {
-    return {
-      ...USER_MENU_CONFIG,
-      actions: USER_MENU_CONFIG.actions.map((action) => {
-        if (action.id === UserMenuActionId.DASHBOARD) {
-          return {
-            ...action,
-            action: () => this.router.navigate([APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Dashboard.Root]),
-          };
-        }
-        return action;
-      }),
-    };
   }
 }
