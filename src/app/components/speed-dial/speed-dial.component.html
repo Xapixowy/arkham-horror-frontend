@@ -1,0 +1,16 @@
+<div class="speed-dial">
+  <div class="speed-dial__button" (click)="onButtonClick()" [class.speed-dial__button--opened]="isOpened()">
+    <ng-icon name="tablerX" class="speed-dial__button__icon speed-dial__button__icon--close"/>
+    <ng-icon [name]="icon()" class="speed-dial__button__icon speed-dial__button__icon--open"/>
+  </div>
+  <div class="speed-dial__items" [class.speed-dial__items--opened]="isOpened()">
+    @for (item of itemsToShow(); track $index) {
+      @let severity = item.severity ?? 'primary';
+      <div class="speed-dial__item" [ngClass]="'speed-dial__item--' + severity" (click)="onItemClick(item.action)"
+           [pTooltip]="item.label | transloco"
+           tooltipPosition="left">
+        <ng-icon class="speed-dial__item__icon" [name]="item.icon"/>
+      </div>
+    }
+  </div>
+</div>

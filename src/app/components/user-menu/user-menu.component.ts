@@ -29,22 +29,31 @@ export class UserMenuComponent implements OnInit {
   readonly config = input.required<UserMenuConfig>();
   readonly isNameShown = input<boolean>(false);
 
-  protected readonly actions = computed<UserMenuAction[]>(() =>
-    this.overrideLogoutActionFunction(this.config().actions),
-  );
+  protected readonly actions = computed<UserMenuAction[]>(() => {
+    const actionsWithoutHidden = this.config().actions.filter((action) => !action.hide);
+    return this.overrideActionFunctions(actionsWithoutHidden);
+  });
 
   ngOnInit() {
     this.listenForLogoutUserEvent();
   }
 
-  private overrideLogoutActionFunction(actions: UserMenuAction[]): UserMenuAction[] {
-    const logoutAction = actions.find((action) => action.id === UserMenuActionId.LOGOUT);
-
-    if (logoutAction) {
-      logoutAction.action = () => this.logoutActionFunction();
-    }
-
-    return actions;
+  private overrideActionFunctions(actions: UserMenuAction[]): UserMenuAction[] {
+    return actions.map((action) => {
+      if (action.id === UserMenuActionId.LOGOUT) {
+        return {
+          ...action,
+          action: () => this.logoutActionFunction(),
+        };
+      }
+      if (action.id === UserMenuActionId.ADMIN_DASHBOARD) {
+        return {
+          ...action,
+          action: () => this.router.navigate([APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Admin.Root]),
+        };
+      }
+      return action;
+    });
   }
 
   private listenForLogoutUserEvent(): void {

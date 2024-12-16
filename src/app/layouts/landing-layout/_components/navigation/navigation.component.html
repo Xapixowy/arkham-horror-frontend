@@ -1,23 +1,23 @@
 <div class="navigation__backdrop" [class.navigation__backdrop--shown]="isNavigationShown()"></div>
 <div class="navigation" [class.navigation--shown]="isNavigationShown()">
   <div class="navigation__logo">
-    <app-logo (onClick)="hideNavigation()" />
+    <app-logo (onClick)="hideNavigation()"/>
   </div>
   <div class="navigation__sections navigation__sections--left">
     @for (section of leftNavigationSections(); track $index) {
-      <ng-container [ngTemplateOutlet]="navigationSection" [ngTemplateOutletContext]="{items: section.items}" />
+      <ng-container [ngTemplateOutlet]="navigationSection" [ngTemplateOutletContext]="{items: section.items}"/>
     }
   </div>
   <div class="navigation__divider"></div>
   <div class="navigation__sections navigation__sections--right">
     @for (section of rightNavigationSections(); track $index) {
-      <ng-container [ngTemplateOutlet]="navigationSection" [ngTemplateOutletContext]="{items: section.items}" />
+      <ng-container [ngTemplateOutlet]="navigationSection" [ngTemplateOutletContext]="{items: section.items}"/>
     }
     @if (loggedInNotAdminUser()) {
-      <app-user-menu [user]="loggedInNotAdminUser()!" [config]="userMenuConfig()" [isNameShown]="true" />
+      <app-user-menu [user]="loggedInNotAdminUser()!" [config]="userMenuConfig()" [isNameShown]="true"/>
     }
   </div>
-  <app-hamburger-menu [isOpened]="isNavigationShown()" (click)="toggleNavigation()" class="navigation__hamburger" />
+  <app-hamburger-menu [isOpened]="isNavigationShown()" (click)="toggleNavigation()" class="navigation__hamburger"/>
 </div>
 
 <ng-template #navigationSection let-items="items">
@@ -25,12 +25,14 @@
     <div class="navigation__section">
       @for (item of items; track $index) {
         @let label = item.label | transloco;
+        @let severity = item.severity ?? 'primary';
 
         @if (item.type === 'link') {
-          <a class="navigation__link" (click)="onNavigationItemClick(item)">{{ label }}</a>
+          <a class="navigation__link" [ngClass]="'navigation__link--' + severity"
+             (click)="onNavigationItemClick(item)">{{ label }}</a>
         } @else if (item.type === 'button') {
-          <p-button [label]="label" (onClick)="onNavigationItemClick(item)" [severity]="item.severity"
-                    styleClass="full-width" />
+          <p-button [label]="label" (onClick)="onNavigationItemClick(item)" [severity]="severity"
+                    styleClass="full-width"/>
         }
       }
     </div>

@@ -1,0 +1,140 @@
+.speed-dial {
+  --button-width: 3rem;
+
+  position: relative;
+
+  &__button, &__item {
+    position: relative;
+    width: var(--button-width);
+    aspect-ratio: 1;
+    cursor: pointer;
+    font-size: calc(var(--button-width) * 2 / 3);
+    border-radius: 50%;
+    background-color: color-mix(in srgb, var(--color-primary), transparent 50%);
+    color: var(--surface-950);
+    transition: background-color var(--transition-duration-fast) var(--transition-timing-function);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-primary), transparent 60%);
+    }
+
+    &__icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__button {
+    background-color: var(--color-primary);
+    color: var(--surface-0);
+
+    &:hover {
+      background-color: color-mix(in srgb, var(--color-primary), transparent 10%);
+    }
+
+    &--opened {
+      .speed-dial__button__icon--close {
+        opacity: 1;
+      }
+
+      .speed-dial__button__icon--open {
+        opacity: 0;
+      }
+    }
+
+    &__icon {
+      transition: opacity var(--transition-duration) var(--transition-timing-function);
+
+      &--close {
+        opacity: 0;
+      }
+
+      &--open {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__item {
+    transform: translateY(0) translateX(100vw);
+    opacity: 0;
+    color: #fff;
+
+    &--secondary {
+      color: var(--surface-950);
+      background-color: color-mix(in srgb, var(--color-secondary), transparent 15%);
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--color-secondary), transparent 25%);
+      }
+    }
+
+    &--success {
+      background-color: color-mix(in srgb, var(--color-success), transparent 15%);
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--color-success), transparent 25%);
+      }
+    }
+
+    &--info {
+      background-color: color-mix(in srgb, var(--color-info), transparent 15%);
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--color-info), transparent 25%);
+      }
+    }
+
+    &--warning {
+      background-color: color-mix(in srgb, var(--color-warning), transparent 15%);
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--color-warning), transparent 25%);
+      }
+    }
+
+    &--danger {
+      background-color: color-mix(in srgb, var(--color-danger), transparent 15%);
+
+      &:hover {
+        background-color: color-mix(in srgb, var(--color-danger), transparent 25%);
+      }
+    }
+  }
+
+  &__items {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translateY(calc(-100% - 1rem));
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+
+    &--opened {
+      .speed-dial__item {
+        animation: speed-dial-item-appear var(--transition-duration-very-fast) var(--transition-timing-function) both;
+
+        @for $i from 1 through 10 {
+          &:nth-child(#{$i}) {
+            animation-delay: $i * 0.02s;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes speed-dial-item-appear {
+  from {
+    opacity: 0;
+    transform: translateY(50%)
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0)
+  }
+}

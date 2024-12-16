@@ -1,8 +1,8 @@
-import {inject, Injectable, signal} from '@angular/core';
-import {ColorTheme} from '../../color-theme/_enums/color-theme.enum';
-import {COLOR_THEME_CONFIG} from '@Features/color-theme/_configs/color-theme.config';
-import {LocalStorageService} from '@Services/local-storage.service';
-import {SwitcherOption} from '@Features/color-theme/_types/switcher-option.type';
+import { inject, Injectable, signal } from '@angular/core';
+import { ColorTheme } from '../../color-theme/_enums/color-theme.enum';
+import { COLOR_THEME_CONFIG } from '@Features/color-theme/_configs/color-theme.config';
+import { LocalStorageService } from '@Services/local-storage.service';
+import { SwitcherOption } from '@Features/color-theme/_types/switcher-option.type';
 
 const DARK_THEME_OPTION = COLOR_THEME_CONFIG.switcherOptions.find((option) => option.value === ColorTheme.DARK);
 const LIGHT_THEME_OPTION = COLOR_THEME_CONFIG.switcherOptions.find((option) => option.value === ColorTheme.LIGHT);
@@ -20,8 +20,6 @@ export class ColorThemeService {
   }
 
   get colorTheme(): SwitcherOption {
-
-
     return this.localStorageService.colorTheme === ColorTheme.DARK ? DARK_THEME_OPTION! : LIGHT_THEME_OPTION!;
   }
 
@@ -32,6 +30,8 @@ export class ColorThemeService {
   private subscribeToThemeChanges(): void {
     this.localStorageService.colorThemeSubject.subscribe((theme) => {
       this.switcherOption.set(theme === ColorTheme.DARK ? DARK_THEME_OPTION! : LIGHT_THEME_OPTION!);
+      document.body.classList.toggle('dark', theme === ColorTheme.DARK);
+      document.body.classList.toggle('light', theme === ColorTheme.LIGHT);
       this.loadTheme(theme);
     });
   }
@@ -41,9 +41,7 @@ export class ColorThemeService {
 
     if (cssLink) {
       cssLink.href =
-        theme === ColorTheme.DARK
-          ? COLOR_THEME_CONFIG.darkThemeCssFilename
-          : COLOR_THEME_CONFIG.lightThemeCssFilename;
+        theme === ColorTheme.DARK ? COLOR_THEME_CONFIG.darkThemeCssFilename : COLOR_THEME_CONFIG.lightThemeCssFilename;
     }
   }
 }

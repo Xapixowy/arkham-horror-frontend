@@ -4,7 +4,7 @@ import { Button } from 'primeng/button';
 import { Router } from '@angular/router';
 import { HamburgerMenuComponent } from '@Components/hamburger-menu/hamburger-menu.component';
 import { LandingLayoutService } from '@Layouts/landing-layout/landing-layout.service';
-import { NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgTemplateOutlet } from '@angular/common';
 import { NavigationSection } from '@Layouts/landing-layout/_types/navigation-section.type';
 import { UserMenuComponent } from '@Components/user-menu/user-menu.component';
 import { USER_MENU_CONFIG } from '@Layouts/landing-layout/_configs/user-menu.config';
@@ -15,7 +15,7 @@ import { NavigationItem } from '@Layouts/landing-layout/_types/navigation-item.t
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [TranslocoPipe, Button, HamburgerMenuComponent, NgTemplateOutlet, UserMenuComponent, LogoComponent],
+  imports: [TranslocoPipe, Button, HamburgerMenuComponent, NgTemplateOutlet, UserMenuComponent, LogoComponent, NgClass],
   providers: [provideIcons(USER_MENU_CONFIG.icons)],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss',

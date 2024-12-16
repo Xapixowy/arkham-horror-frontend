@@ -5,4 +5,5 @@ export type UserMenuAction = {
   icon: string;
   label: string;
   action: () => void;
+  hide?: boolean;
 };

@@ -14,7 +14,6 @@ import { LoginFormControls } from '@Enums/form-controls/login-form-controls.enum
 import { LoginFormValidators } from '@Configs/form-validators/login-form-validators.config';
 import { LoginPayload } from '@Types/payloads/auth/login-payload.type';
 import { LoginResponse } from '@Types/responses/auth/login-response.type';
-import { UserRole } from '@Enums/users/user-role.enum';
 import { LocalStorageService } from '@Services/local-storage.service';
 import { User } from '@Models/user.model';
 
@@ -54,10 +53,6 @@ export class LoginPageService {
         next: (response: DataResponse<LoginResponse>) => {
           this.toastService.success('_LoginPage.Login', '_LoginPage.You have been logged in successfully');
           this.localStorageService.user = User.fromDto(response.data);
-          if (response.data.role === UserRole.ADMIN) {
-            this.router.navigate([APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Admin.Root]);
-            return;
-          }
           this.router.navigate([APP_ROUTES_CONFIG.Default]);
         },
         error: (response: HttpErrorResponse) => {

@@ -33,6 +33,33 @@ export const LANDING_LAYOUT_CONFIG: {
       ],
     },
     {
+      id: NavigationSectionEnum.GAME_LINKS,
+      position: 'left',
+      items: [
+        {
+          label: '_LandingLayout.Character',
+          type: 'link',
+          routerLink: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Game.Root, APP_ROUTES_CONFIG.Game.Character],
+          severity: 'warning',
+          hide: true,
+        },
+        {
+          label: '_LandingLayout.Equipment',
+          type: 'link',
+          routerLink: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Game.Root, APP_ROUTES_CONFIG.Game.Equipment],
+          severity: 'warning',
+          hide: true,
+        },
+        {
+          label: '_LandingLayout.Players',
+          type: 'link',
+          routerLink: [APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Game.Root, APP_ROUTES_CONFIG.Game.Players],
+          severity: 'warning',
+          hide: true,
+        },
+      ],
+    },
+    {
       id: NavigationSectionEnum.AUTH_BUTTONS,
       position: 'right',
       items: [

@@ -1,0 +1,12 @@
+@import '../breakpoints';
+
+.p-toast {
+  padding: 1.5rem;
+  top: 0;
+  right: 0;
+  width: 30rem;
+
+  @include smaller-than(sm) {
+    width: 100%;
+  }
+}

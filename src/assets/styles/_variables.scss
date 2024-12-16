@@ -12,6 +12,13 @@
   --hyperlink-color: var(--primary-color);
   --text-color: var(--surface-700);
 
+  --color-primary: #020617;
+  --color-secondary: #f1f5f9;
+  --color-success: #22c55e;
+  --color-info: #0ea5e9;
+  --color-warning: #f97316;
+  --color-danger: #ef4444;
+
   // Layouts
   --max-width: 1920px;
   --admin-sidebar-width: 16rem;
@@ -23,8 +30,19 @@
   // Animations
   --transition-duration: 0.2s;
   --transition-duration-fast: 0.1s;
+  --transition-duration-very-fast: 0.05s;
   --transition-timing-function: ease-in-out;
 
   // Border radius
   --border-radius-md: 0.5rem;
+}
+
+body.dark {
+  // Colors
+  --color-primary: #fafafa;
+  --color-secondary: #27272a;
+  --color-success: #4ade80;
+  --color-info: #38bdf8;
+  --color-warning: #fb923c;
+  --color-danger: #f87171;
 }

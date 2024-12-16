@@ -16,7 +16,10 @@
     "Characters": "Postacie",
     "Game sessions": "Sesje gry",
     "History": "Historia",
-    "Statistics": "Statystyki"
+    "Statistics": "Statystyki",
+    "Character": "Postać",
+    "Equipment": "Ekwipunek",
+    "Players": "Gracze"
   },
   "_Validators": {
     "Required": "Pole wymagane",
@@ -69,7 +72,7 @@
     "Game sessions": "Sesje gry"
   },
   "_UserMenu": {
-    "Dashboard": "Panel użytkownika",
+    "Admin dashboard": "Panel administracyjny",
     "Logout": "Wyloguj się"
   },
   "_CardType": {
@@ -403,7 +406,10 @@
     "Register": "Zarejestruj się",
     "Login": "Zaloguj się",
     "Game sessions history": "Historia sesji gier",
-    "Statistics": "Statystyki"
+    "Statistics": "Statystyki",
+    "Character": "Postać",
+    "Equipment": "Ekwipunek",
+    "Players": "Gracze"
   },
   "_LandingPage": {
     "App image": "Obraz aplikacji",
@@ -465,5 +471,21 @@
     "characters_played": "Rozegrane postacie",
     "game_session_played": "Rozegrane sesje gry",
     "game_session_created": "Utworzone sesje gry"
+  },
+  "_StatisticsPage": {
+    "Money": "Pieniądze",
+    "Clues": "Wskazówki",
+    "Endurance": "Wytrzymałość",
+    "Sanity": "Poczytalność",
+    "Cards": "Karty",
+    "Phases": "Fazy",
+    "Game session": "Sesja gry",
+    "Other": "Inne"
+  },
+  "_GameLayout": {
+    "Character lore": "Opis postaci",
+    "Next game phase": "Następna faza gry",
+    "Refresh": "Zresetuj fazę gry",
+    "Previous game phase": "Poprzednia faza gry"
   }
 }

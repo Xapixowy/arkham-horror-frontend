@@ -5,6 +5,13 @@ export const APP_ROUTES_CONFIG = {
 
   Landing: '',
 
+  Game: {
+    Root: 'game',
+    Character: 'character',
+    Equipment: 'equipment',
+    Players: 'players',
+  },
+
   Auth: {
     Root: 'auth',
     Register: 'register',
