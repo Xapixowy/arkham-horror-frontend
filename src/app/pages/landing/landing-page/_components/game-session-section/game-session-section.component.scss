@@ -10,4 +10,10 @@
     align-items: center;
     gap: 1rem;
   }
+
+  &__form__actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
 }

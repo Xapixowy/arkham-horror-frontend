@@ -1,17 +1,17 @@
-import {HttpInterceptorFn} from '@angular/common/http';
-import {inject} from '@angular/core';
-import {LocalStorageService} from '@Services/local-storage.service';
+import { HttpInterceptorFn } from '@angular/common/http';
+import { inject } from '@angular/core';
+import { LocalStorageService } from '@Services/local-storage.service';
 
 export const playerTokenInterceptor: HttpInterceptorFn = (req, next) => {
   const localStorageService = inject(LocalStorageService);
 
-  if (!localStorageService.playerToken) {
+  if (!localStorageService.player) {
     return next(req);
   }
 
   const newRequest = req.clone({
     setHeaders: {
-      "Player-Token": localStorageService.playerToken,
+      'Player-Token': localStorageService.player.token,
     },
   });
 

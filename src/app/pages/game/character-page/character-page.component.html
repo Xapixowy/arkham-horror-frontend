@@ -1,1 +1,54 @@
-<p>character-page works!</p>
+<div class="character-page">
+  <div class="character">
+    <div class="character__image">
+      @if (character()?.image_path) {
+        <img [ngSrc]="character()?.image_path!" [alt]="'_CharacterPage.Character image' | transloco" fill priority/>
+      } @else {
+        <app-img-placeholder size="100%" shape="square"/>
+      }
+    </div>
+    <h1 class="character__name">
+      {{ character()?.name }}
+    </h1>
+    @if (character()?.skills) {
+      <div class="character__divider"></div>
+    }
+    <div class="character__skills">
+      @for (skill of character()?.skills; track $index) {
+        <div class="character__skill">
+          <h2 class="character__skill__name">
+            {{ skill.name }}
+          </h2>
+          <div class="character__skill__description" [innerHTML]="skill.description"></div>
+        </div>
+      }
+    </div>
+    <div class="character__divider"></div>
+    <form class="character__form">
+      <div class="character__status">
+        <div class="character__status__label">
+          {{ '_CharacterPage.Sanity' | transloco }}
+        </div>
+        <div class="character__status__input">
+          <div class="character__status__button">
+            <app-button-icon-only icon="tablerMinus" (onClick)="onSanityDecrease()"/>
+            <input type="number"/>
+            <app-button-icon-only icon="tablerPlus" (onClick)="onSanityIncrease()"/>
+          </div>
+        </div>
+      </div>
+      <div class="character__status">
+        <span class="character__status__label">
+          {{ '_CharacterPage.Endurance' | transloco }}
+        </span>
+        <div class="character__status__input">
+          <div class="character__status__button">
+            <app-button-icon-only icon="tablerMinus" (onClick)="onEnduranceDecrease()"/>
+            <input type="number"/>
+            <app-button-icon-only icon="tablerPlus" (onClick)="onEnduranceIncrease()"/>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

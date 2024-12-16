@@ -1,15 +1,13 @@
-import { DestroyRef, inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GameSessionJoinForm } from '@Types/forms/game-session-join-form.type';
 import { GameSessionJoinFormControls } from '@Enums/form-controls/game-session-join-form-controls.enum';
 import { GAME_SESSION_JOIN_FORM_VALIDATORS } from '@Configs/form-validators/game-session-join-form-validators.config';
 import { FormValidationService } from '@Services/form-validation.service';
 import { Store } from '@ngrx/store';
-import { Router } from '@angular/router';
-import { createGameSession } from '@States/game/game.actions';
-import { selectGameSession } from '@States/game/game.selectors';
+import { createGameSession, joinGameSession } from '@States/game/game.actions';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
+import { LocalStorageService } from '@Services/local-storage.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,13 +15,14 @@ import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 export class LandingPageService {
   private readonly destroyRef = inject(DestroyRef);
   private readonly store = inject(Store);
-  private readonly router = inject(Router);
+  private readonly localStorageService = inject(LocalStorageService);
+
+  readonly isGameSessionTokenInForm = signal<boolean>(false);
 
   readonly gameSessionJoinForm = this.initializeGameSessionJoinForm();
 
-  resetGameSessionJoinForm(): void {
-    this.gameSessionJoinForm.reset();
-    this.gameSessionJoinForm.markAsPristine();
+  constructor() {
+    this.listenToLocalStorageGameSessionChanges();
   }
 
   submitGameSessionJoinForm(): void {
@@ -31,21 +30,20 @@ export class LandingPageService {
       return;
     }
 
-    console.log(this.gameSessionJoinForm.value);
-    this.resetGameSessionJoinForm();
+    const gameSessionToken = this.gameSessionJoinForm.controls[GameSessionJoinFormControls.TOKEN].value;
+
+    if (gameSessionToken) {
+      this.store.dispatch(joinGameSession({ gameSessionToken }));
+    }
   }
 
   createGameSession(): void {
-    this.store
-      .select(selectGameSession)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(
-        (value) =>
-          value &&
-          this.router.navigate([APP_ROUTES_CONFIG.Default, APP_ROUTES_CONFIG.Auth.Root, APP_ROUTES_CONFIG.Auth.Login]),
-      );
-
     this.store.dispatch(createGameSession());
+  }
+
+  clearGameSession(): void {
+    this.localStorageService.gameSession = null;
+    this.localStorageService.player = null;
   }
 
   private initializeGameSessionJoinForm(): FormGroup<GameSessionJoinForm> {
@@ -53,6 +51,22 @@ export class LandingPageService {
       [GameSessionJoinFormControls.TOKEN]: new FormControl(null, {
         validators: GAME_SESSION_JOIN_FORM_VALIDATORS[GameSessionJoinFormControls.TOKEN],
       }),
+    });
+  }
+
+  private listenToLocalStorageGameSessionChanges(): void {
+    this.localStorageService.gameSessionSubject.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((gameSession) => {
+      const gameSessionFormControl = this.gameSessionJoinForm.controls[GameSessionJoinFormControls.TOKEN];
+
+      if (gameSession) {
+        gameSessionFormControl.setValue(gameSession.token);
+        this.isGameSessionTokenInForm.set(true);
+        gameSessionFormControl.disable();
+      } else {
+        gameSessionFormControl.setValue(null);
+        this.isGameSessionTokenInForm.set(false);
+        gameSessionFormControl.enable();
+      }
     });
   }
 }

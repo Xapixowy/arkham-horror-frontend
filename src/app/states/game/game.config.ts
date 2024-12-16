@@ -7,6 +7,7 @@ export const GAME_STATE_CONFIG: {
     gameSessions: string;
     players: string;
     createGameSessionSuccess: string;
+    joinGameSessionSuccess: string;
   };
 } = {
   initialState: {
@@ -19,5 +20,6 @@ export const GAME_STATE_CONFIG: {
     gameSessions: '_GameState.Game Sessions',
     players: '_GameState.Players',
     createGameSessionSuccess: '_GameState.Game Session has been created',
+    joinGameSessionSuccess: '_GameState.Game Session joined successfully',
   },
 };

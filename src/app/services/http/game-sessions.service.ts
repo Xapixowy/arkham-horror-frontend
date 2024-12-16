@@ -17,6 +17,12 @@ export class GameSessionsService {
       .pipe(map((response) => response as DataResponse<GameSessionDto>));
   }
 
+  joinGameSession(token: string): Observable<DataResponse<GameSessionDto>> {
+    return this.httpClient
+      .post(`${ENVIRONMENT.api_url}/game-sessions/${token}/join`, {})
+      .pipe(map((response) => response as DataResponse<GameSessionDto>));
+  }
+
   getAllGameSessions(): Observable<DataResponse<GameSessionDto[]>> {
     return this.httpClient
       .get(`${ENVIRONMENT.api_url}/game-sessions`)

@@ -1,7 +1,7 @@
-import {getEnumValues} from 'ts-enum-helpers';
-import {CardAttributeAbility} from '@Enums/cards/card-attribute-ability.enum';
-import {CardAttributeRestriction} from '@Enums/cards/card-attribute-restriction.enum';
-import {CardAttributeModifier} from '@Enums/cards/card-attribute-modifier.enum';
+import { getEnumValues } from 'ts-enum-helpers';
+import { CardAttributeAbility } from '@Enums/cards/card-attribute-ability.enum';
+import { CardAttributeRestriction } from '@Enums/cards/card-attribute-restriction.enum';
+import { CardAttributeModifier } from '@Enums/cards/card-attribute-modifier.enum';
 
 export const CARDS_PAGE_CONFIG: {
   placeholderImageSize: string;
@@ -17,7 +17,7 @@ export const CARDS_PAGE_CONFIG: {
   handOptions: number[];
 } = {
   placeholderImageSize: '6rem',
-  allowedCardImageFormats: ['.jpg', '.png'],
+  allowedCardImageFormats: ['.jpg', '.jpeg', '.png'],
   maxCardImageFileSize: 5 * 1024 * 1024,
   attributeModifiersSelectOptions: [
     {

@@ -6,6 +6,7 @@ import { ColorTheme } from '@Features/color-theme/_enums/color-theme.enum';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '@Models/user.model';
 import { GameSession } from '@Models/game-session.model';
+import { Player } from '@Models/player.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,14 +15,14 @@ export class LocalStorageService {
   readonly languageSubject = new BehaviorSubject<Language>(APP_CONFIG.defaultLanguage);
   readonly colorThemeSubject = new BehaviorSubject<ColorTheme>(this.getUserPreferredColorTheme());
   readonly userSubject = new BehaviorSubject<User | null>(this.getUser());
-  readonly playerTokenSubject = new BehaviorSubject<string | null>(this.getPlayerToken());
+  readonly playerSubject = new BehaviorSubject<Player | null>(this.getPlayer());
   readonly gameSessionSubject = new BehaviorSubject<GameSession | null>(this.getGameSession());
 
   constructor() {
     this.initializeLanguage();
     this.initializeColorTheme();
     this.initializeUser();
-    this.initializePlayerToken();
+    this.initializePlayer();
     this.initializeGameSession();
   }
 
@@ -52,13 +53,13 @@ export class LocalStorageService {
     this.setUser(user);
   }
 
-  get playerToken(): string | null {
-    return this.playerTokenSubject.getValue();
+  get player(): Player | null {
+    return this.playerSubject.getValue();
   }
 
-  set playerToken(token: string | null) {
-    this.playerTokenSubject.next(token);
-    this.setPlayerToken(token);
+  set player(player: Player | null) {
+    this.playerSubject.next(player);
+    this.setPlayer(player);
   }
 
   get gameSession(): GameSession | null {
@@ -115,20 +116,41 @@ export class LocalStorageService {
     this.user = this.getUser();
   }
 
-  private getPlayerToken(): string | null {
-    return localStorage.getItem(LocalStorageKey.PLAYER_TOKEN);
+  private getPlayer(): Player | null {
+    const playerString = localStorage.getItem(LocalStorageKey.PLAYER);
+
+    if (!playerString) {
+      return null;
+    }
+
+    const parsedPlayer = JSON.parse(playerString) as Player;
+
+    return new Player(
+      parsedPlayer.id,
+      parsedPlayer.token,
+      parsedPlayer.role,
+      parsedPlayer.status,
+      parsedPlayer.equipment,
+      parsedPlayer.attributes,
+      parsedPlayer.statistics,
+      parsedPlayer.created_at,
+      parsedPlayer.updated_at,
+      parsedPlayer.user,
+      parsedPlayer.character,
+      parsedPlayer.playerCards,
+    );
   }
 
-  private setPlayerToken(token: string | null): void {
-    if (token) {
-      localStorage.setItem(LocalStorageKey.PLAYER_TOKEN, token);
+  private setPlayer(player: Player | null): void {
+    if (player) {
+      localStorage.setItem(LocalStorageKey.PLAYER, JSON.stringify(player));
     } else {
-      localStorage.removeItem(LocalStorageKey.PLAYER_TOKEN);
+      localStorage.removeItem(LocalStorageKey.PLAYER);
     }
   }
 
-  private initializePlayerToken(): void {
-    this.playerToken = this.getPlayerToken();
+  private initializePlayer(): void {
+    this.player = this.getPlayer();
   }
 
   private getGameSession(): GameSession | null {

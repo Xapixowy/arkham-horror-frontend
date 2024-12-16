@@ -10,13 +10,19 @@ import { USER_MENU_CONFIG } from '@Layouts/landing-layout/_configs/user-menu.con
 import { UserMenuActionId } from '@Components/user-menu/_enums/user-menu-action-id.enum';
 import { UserRole } from '@Enums/users/user-role.enum';
 import { GameSession } from '@Models/game-session.model';
+import { selectGameSession, selectPlayer } from '@States/game/game.selectors';
+import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
+import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LandingLayoutService {
   private readonly localStorageService = inject(LocalStorageService);
+  private readonly store = inject(Store);
   private readonly destroyRef = inject(DestroyRef);
+  private readonly router = inject(Router);
 
   readonly userMenuConfig = signal<UserMenuConfig>(USER_MENU_CONFIG);
   readonly isNavigationShown = signal<boolean>(false);
@@ -24,15 +30,17 @@ export class LandingLayoutService {
   readonly loggedInNotAdminUser = signal<User | null>(null);
 
   constructor() {
-    this.listenForUserChanges();
-    this.listenForGameSessionChanges();
+    this.listenForLocalStorageUserChanges();
+    this.listenForLocalStorageGameSessionChanges();
+    this.listenToStorageGameSessionChanges();
+    this.listenToStoragePlayerChanges();
   }
 
   toggleNavigation(): void {
     this.isNavigationShown.set(!this.isNavigationShown());
   }
 
-  private listenForUserChanges(): void {
+  private listenForLocalStorageUserChanges(): void {
     this.localStorageService.userSubject.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((user) => {
       this.userMenuConfig.set(this.hideUserMenuSectionsIfUserNotAdmin(user));
       if (user) {
@@ -46,7 +54,7 @@ export class LandingLayoutService {
     });
   }
 
-  private listenForGameSessionChanges(): void {
+  private listenForLocalStorageGameSessionChanges(): void {
     this.localStorageService.gameSessionSubject.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((gameSession) => {
       this.navigationSections.update((sections) => this.hideSectionsIfGameSessionDoesNotExist(sections, gameSession));
     });
@@ -109,5 +117,41 @@ export class LandingLayoutService {
         return action;
       }),
     };
+  }
+
+  private listenToStorageGameSessionChanges(): void {
+    this.store
+      .select(selectGameSession)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        if (!value) {
+          return;
+        }
+
+        this.localStorageService.gameSession = value;
+
+        const isLandingPage = this.router.url === APP_ROUTES_CONFIG.Default;
+
+        if (isLandingPage) {
+          this.router.navigate([
+            APP_ROUTES_CONFIG.Default,
+            APP_ROUTES_CONFIG.Game.Root,
+            APP_ROUTES_CONFIG.Game.Character,
+          ]);
+        }
+      });
+  }
+
+  private listenToStoragePlayerChanges(): void {
+    this.store
+      .select(selectPlayer)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((value) => {
+        if (!value) {
+          return;
+        }
+
+        this.localStorageService.player = value;
+      });
   }
 }

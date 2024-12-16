@@ -8,8 +8,17 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { GameSession } from '@Models/game-session.model';
 import { PlayersService } from '@Services/http/players.service';
 import { Player } from '@Models/player.model';
-import { createGameSession, createGameSessionFailure, createGameSessionSuccess } from '@States/game/game.actions';
+import {
+  createGameSession,
+  createGameSessionFailure,
+  createGameSessionSuccess,
+  joinGameSession,
+  joinGameSessionFailure,
+  joinGameSessionSuccess,
+} from '@States/game/game.actions';
 import { GAME_STATE_CONFIG } from '@States/game/game.config';
+import { GameSessionDto } from '@Types/dtos/game-session-dto.type';
+import { PlayerDto } from '@Types/dtos/player-dto.type';
 
 @Injectable()
 export class GameEffects {
@@ -29,16 +38,10 @@ export class GameEffects {
               GAME_STATE_CONFIG.toastTranslationKeys.gameSessions,
               GAME_STATE_CONFIG.toastTranslationKeys.createGameSessionSuccess,
             );
-            const newestPlayer = response.data.players!.sort((a, b) => {
-              const aCreatedAt = a.created_at ?? new Date();
-              const bCreatedAt = b.created_at ?? new Date();
-
-              return bCreatedAt.getTime() - aCreatedAt.getTime();
-            })[0];
 
             return createGameSessionSuccess({
               gameSession: GameSession.fromDto(response.data),
-              player: Player.fromDto(newestPlayer),
+              player: Player.fromDto(this.getNewestPlayerFromGameSession(response.data)),
             });
           }),
           catchError((response: HttpErrorResponse) => {
@@ -50,4 +53,40 @@ export class GameEffects {
       ),
     ),
   );
+
+  joinGameSession$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(joinGameSession),
+      switchMap(({ gameSessionToken }) =>
+        this.gameSessionService.joinGameSession(gameSessionToken).pipe(
+          map((response) => {
+            this.toastService.success(
+              GAME_STATE_CONFIG.toastTranslationKeys.gameSessions,
+              GAME_STATE_CONFIG.toastTranslationKeys.joinGameSessionSuccess,
+            );
+
+            return joinGameSessionSuccess({
+              gameSession: GameSession.fromDto(response.data),
+              player: Player.fromDto(this.getNewestPlayerFromGameSession(response.data)),
+            });
+          }),
+          catchError((response: HttpErrorResponse) => {
+            console.log(response);
+            const { error } = response.error;
+            this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
+            return of(joinGameSessionFailure({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  private getNewestPlayerFromGameSession(gameSession: GameSessionDto): PlayerDto {
+    return gameSession.players!.sort((a, b) => {
+      const aCreatedAt = a.created_at ? new Date(a.created_at) : new Date();
+      const bCreatedAt = b.created_at ? new Date(b.created_at) : new Date();
+
+      return bCreatedAt.getTime() - aCreatedAt.getTime();
+    })[0];
+  }
 }

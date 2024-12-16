@@ -58,7 +58,7 @@
   }
 
   &__item {
-    transform: translateY(0) translateX(100vw);
+    transform: translateY(0);
     opacity: 0;
     color: #fff;
 
@@ -105,15 +105,17 @@
   }
 
   &__items {
+    display: none;
     position: absolute;
     top: 0;
     right: 0;
     transform: translateY(calc(-100% - 1rem));
-    display: flex;
     flex-direction: column-reverse;
     gap: 0.5rem;
 
     &--opened {
+      display: flex;
+      
       .speed-dial__item {
         animation: speed-dial-item-appear var(--transition-duration-very-fast) var(--transition-timing-function) both;
 

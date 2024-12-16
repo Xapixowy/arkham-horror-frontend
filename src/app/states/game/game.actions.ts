@@ -19,3 +19,23 @@ export const createGameSessionFailure = createAction(
     error: string;
   }>(),
 );
+
+export const joinGameSession = createAction(
+  `${landingPageKey} Join Game Session`,
+  props<{
+    gameSessionToken: string;
+  }>(),
+);
+export const joinGameSessionSuccess = createAction(
+  `${gameSessionsApiKey} Join Game Session Success`,
+  props<{
+    gameSession: GameSession;
+    player: Player;
+  }>(),
+);
+export const joinGameSessionFailure = createAction(
+  `${gameSessionsApiKey} Join Game Session Failure`,
+  props<{
+    error: string;
+  }>(),
+);

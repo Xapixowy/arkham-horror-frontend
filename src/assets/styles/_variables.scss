@@ -35,6 +35,9 @@
 
   // Border radius
   --border-radius-md: 0.5rem;
+
+  // Shadows
+  --outer-shadow: 0 0.25rem 1rem 0 color-mix(in srgb, var(--surface-900), transparent 65%);
 }
 
 body.dark {

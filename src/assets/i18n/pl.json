@@ -426,7 +426,8 @@
   "_GameState": {
     "Game Sessions": "Sesje gry",
     "Players": "Gracze",
-    "Game Session has been created": "Sesja gry została utworzona"
+    "Game Session has been created": "Sesja gry została utworzona",
+    "Game Session joined successfully": "Dołączono do sesji gry pomyślnie"
   },
   "_GameSessionComponent": {
     "Game session": "Sesja gry",
