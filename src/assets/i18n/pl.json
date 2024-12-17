@@ -488,5 +488,15 @@
     "Next game phase": "Następna faza gry",
     "Refresh": "Zresetuj fazę gry",
     "Previous game phase": "Poprzednia faza gry"
+  },
+  "_CharacterPage": {
+    "Sanity": "Poczytalność",
+    "Endurance": "Wytrzymałość",
+    "Speed": "Szybkość",
+    "Sneak": "Skradanie się",
+    "Prowess": "Waleczność",
+    "Will": "Wola",
+    "Knowledge": "Wiedza",
+    "Luck": "Szczęście"
   }
 }

@@ -2,9 +2,9 @@
   <div class="character">
     <div class="character__image">
       @if (character()?.image_path) {
-        <img [ngSrc]="character()?.image_path!" [alt]="'_CharacterPage.Character image' | transloco" fill priority/>
+        <img [ngSrc]="character()?.image_path!" [alt]="'_CharacterPage.Character image' | transloco" fill priority />
       } @else {
-        <app-img-placeholder size="100%" shape="square"/>
+        <app-img-placeholder size="100%" shape="square" />
       }
     </div>
     <h1 class="character__name">
@@ -24,17 +24,17 @@
       }
     </div>
     <div class="character__divider"></div>
-    <form class="character__form">
+    <form class="character__form" [formGroup]="form">
       <div class="character__status">
         <div class="character__status__label">
           {{ '_CharacterPage.Sanity' | transloco }}
         </div>
         <div class="character__status__input">
-          <div class="character__status__button">
-            <app-button-icon-only icon="tablerMinus" (onClick)="onSanityDecrease()"/>
-            <input type="number"/>
-            <app-button-icon-only icon="tablerPlus" (onClick)="onSanityIncrease()"/>
-          </div>
+          <app-button-icon-only icon="tablerMinus" (onClick)="onSanityDecrease()" />
+          <input class="character__status__input__value" [ngClass]="sanityInputClasses()" type="number"
+                 [id]="sanityInputId"
+                 [formControlName]="GameCharacterFormControls.SANITY" />
+          <app-button-icon-only icon="tablerPlus" (onClick)="onSanityIncrease()" />
         </div>
       </div>
       <div class="character__status">
@@ -42,11 +42,40 @@
           {{ '_CharacterPage.Endurance' | transloco }}
         </span>
         <div class="character__status__input">
-          <div class="character__status__button">
-            <app-button-icon-only icon="tablerMinus" (onClick)="onEnduranceDecrease()"/>
-            <input type="number"/>
-            <app-button-icon-only icon="tablerPlus" (onClick)="onEnduranceIncrease()"/>
-          </div>
+          <app-button-icon-only icon="tablerMinus" (onClick)="onEnduranceDecrease()" />
+          <input class="character__status__input__value" [ngClass]="enduranceInputClasses()" type="number"
+                 [id]="enduranceInputId" [formControlName]="GameCharacterFormControls.ENDURANCE" />
+          <app-button-icon-only icon="tablerPlus" (onClick)="onEnduranceIncrease()" />
+        </div>
+      </div>
+      <div class="character__divider"></div>
+      <div class="character__attribute">
+        <div class="character__attribute__label">
+          {{ speedSneakAttributeSliderConfig().firstAttribute.label | transloco }}
+        </div>
+        <app-attribute-slider [config]="speedSneakAttributeSliderConfig()" [noLabels]="true" />
+        <div class="character__attribute__label">
+          {{ speedSneakAttributeSliderConfig().secondAttribute.label | transloco }}
+        </div>
+      </div>
+      <div class="character__divider"></div>
+      <div class="character__attribute">
+        <div class="character__attribute__label">
+          {{ prowessWillAttributeSliderConfig().firstAttribute.label | transloco }}
+        </div>
+        <app-attribute-slider [config]="prowessWillAttributeSliderConfig()" [noLabels]="true" />
+        <div class="character__attribute__label">
+          {{ prowessWillAttributeSliderConfig().secondAttribute.label | transloco }}
+        </div>
+      </div>
+      <div class="character__divider"></div>
+      <div class="character__attribute">
+        <div class="character__attribute__label">
+          {{ knowledgeLuckAttributeSliderConfig().firstAttribute.label | transloco }}
+        </div>
+        <app-attribute-slider [config]="knowledgeLuckAttributeSliderConfig()" [noLabels]="true" />
+        <div class="character__attribute__label">
+          {{ knowledgeLuckAttributeSliderConfig().secondAttribute.label | transloco }}
         </div>
       </div>
     </form>

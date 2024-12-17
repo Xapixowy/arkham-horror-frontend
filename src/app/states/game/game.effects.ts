@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { GameSessionsService } from '@Services/http/game-sessions.service';
 import { ToastService } from '@Services/toast.service';
 import { ErrorService } from '@Services/error.service';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, concatMap, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GameSession } from '@Models/game-session.model';
 import { PlayersService } from '@Services/http/players.service';
@@ -15,10 +15,13 @@ import {
   joinGameSession,
   joinGameSessionFailure,
   joinGameSessionSuccess,
+  updatePlayer,
+  updatePlayerFailure,
+  updatePlayerSuccess,
 } from '@States/game/game.actions';
 import { GAME_STATE_CONFIG } from '@States/game/game.config';
-import { GameSessionDto } from '@Types/dtos/game-session-dto.type';
 import { PlayerDto } from '@Types/dtos/player-dto.type';
+import { GameSessionDto } from '@Types/dtos/game-session-dto.type';
 
 @Injectable()
 export class GameEffects {
@@ -75,6 +78,26 @@ export class GameEffects {
             const { error } = response.error;
             this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
             return of(joinGameSessionFailure({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  updatePlayer$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updatePlayer),
+      concatMap(({ gameSessionToken, playerToken, payload }) =>
+        this.playersService.updatePlayer(gameSessionToken, playerToken, payload).pipe(
+          map((response) =>
+            updatePlayerSuccess({
+              player: Player.fromDto(response.data),
+            }),
+          ),
+          catchError((response: HttpErrorResponse) => {
+            const { error } = response.error;
+            this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.players, response);
+            return of(updatePlayerFailure({ error }));
           }),
         ),
       ),

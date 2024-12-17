@@ -1,23 +1,20 @@
-import {ChangeDetectionStrategy, Component, computed, input, OnChanges, signal} from '@angular/core';
-import {AttributeSliderConfig} from '@Components/attribute-slider/_types/attribute-slider-config.type';
-import {SliderModule, SliderSlideEndEvent} from 'primeng/slider';
-import {FormsModule} from '@angular/forms';
-import {TranslocoPipe} from '@jsverse/transloco';
+import { ChangeDetectionStrategy, Component, computed, input, OnChanges, signal } from '@angular/core';
+import { AttributeSliderConfig } from '@Components/attribute-slider/_types/attribute-slider-config.type';
+import { SliderModule, SliderSlideEndEvent } from 'primeng/slider';
+import { FormsModule } from '@angular/forms';
+import { TranslocoPipe } from '@jsverse/transloco';
 
 @Component({
   selector: 'app-attribute-slider',
   standalone: true,
-  imports: [
-    SliderModule,
-    FormsModule,
-    TranslocoPipe
-  ],
+  imports: [SliderModule, FormsModule, TranslocoPipe],
   templateUrl: './attribute-slider.component.html',
   styleUrl: './attribute-slider.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AttributeSliderComponent implements OnChanges {
   readonly config = input.required<AttributeSliderConfig>();
+  readonly noLabels = input<boolean>(false);
 
   protected readonly sliderValue = signal<number>(0);
 

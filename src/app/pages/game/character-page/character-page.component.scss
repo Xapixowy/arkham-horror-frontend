@@ -1,3 +1,9 @@
+@mixin label {
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
 .character-page {
   width: 100%;
   min-height: 100%;
@@ -63,15 +69,73 @@
     gap: 0.5rem;
 
     &__name {
-      font-size: 1.25rem;
-      font-weight: 500;
-      text-transform: uppercase;
+      @include label;
     }
 
     &__description {
       font-weight: 300;
       color: var(--surface-600);
       text-align: justify;
+    }
+  }
+
+  &__form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__status {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    &__label {
+      @include label;
+      text-align: center;
+    }
+
+    &__input {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: space-between;
+
+      &__sanity {
+        color: var(--color-info);
+      }
+
+      &__endurance {
+        color: var(--color-danger);
+      }
+
+      &__value {
+        width: 2.5rem;
+        height: 2.5rem;
+        aspect-ratio: 1/1;
+        text-align: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        &--low {
+          font-weight: 400;
+        }
+
+        &--high {
+          color: var(--surface-900);
+        }
+      }
+    }
+  }
+
+  &__attribute {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    &__label {
+      @include label;
+      text-align: center;
     }
   }
 }

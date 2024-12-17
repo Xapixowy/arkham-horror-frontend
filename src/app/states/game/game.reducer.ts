@@ -8,6 +8,9 @@ import {
   joinGameSession,
   joinGameSessionFailure,
   joinGameSessionSuccess,
+  updatePlayer,
+  updatePlayerFailure,
+  updatePlayerSuccess,
 } from '@States/game/game.actions';
 
 export const gameReducer = createReducer(
@@ -35,6 +38,18 @@ export const gameReducer = createReducer(
     error: null,
   })),
   on(joinGameSessionFailure, (state, { error }) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
+  on(updatePlayer, (state) => ({ ...state, status: StateStatus.LOADING })),
+  on(updatePlayerSuccess, (state, { player }) => ({
+    ...state,
+    player,
+    status: StateStatus.SUCCESS,
+    error: null,
+  })),
+  on(updatePlayerFailure, (state, { error }) => ({
     ...state,
     status: StateStatus.ERROR,
     error,

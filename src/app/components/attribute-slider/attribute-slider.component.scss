@@ -8,6 +8,20 @@
     "second-attribute-label second-attribute-values";
   gap: 1rem 2rem;
 
+  &--no-labels {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "first-attribute-values"
+      "slider"
+      "second-attribute-values";
+
+    .attribute-slider {
+      :is(&__attribute-label, &__empty-space) {
+        display: none;
+      }
+    }
+  }
+
   &__empty-space {
     grid-area: empty-space;
   }

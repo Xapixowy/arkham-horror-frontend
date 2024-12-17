@@ -1,0 +1,23 @@
+@import '../breakpoints';
+
+.p-slider--attribute-slider {
+  .p-slider-handle::before {
+    background-color: var(--color-primary);
+  }
+
+  @include smaller-than(md) {
+    margin: 1rem 0;
+
+    .p-slider-handle {
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-top: -1.25rem;
+      margin-left: -1.25rem;
+    }
+
+    .p-slider-handle::before {
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+}
