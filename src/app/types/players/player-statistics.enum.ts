@@ -1,4 +1,4 @@
-export type Statistics = {
+export type PlayerStatistics = {
   money_acquired: number;
   money_lost: number;
   clues_acquired: number;

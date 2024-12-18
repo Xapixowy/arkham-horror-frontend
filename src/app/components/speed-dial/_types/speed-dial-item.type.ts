@@ -1,4 +1,5 @@
 export type SpeedDialItem = {
+  id: string;
   label: string;
   icon: string;
   action: () => void;

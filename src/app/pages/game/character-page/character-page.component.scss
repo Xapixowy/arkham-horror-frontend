@@ -1,3 +1,5 @@
+@import '../../../../assets/styles/breakpoints';
+
 @mixin label {
   font-size: 1.15rem;
   font-weight: 500;
@@ -6,11 +8,25 @@
 
 .character-page {
   width: 100%;
+  max-width: var(--character-page-max-width);
+  margin: 0 auto;
   min-height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  &__divider {
+    width: 100%;
+    height: 1px;
+    background-color: var(--surface-300);
+
+    @include bigger-than(lg) {
+      &--skills {
+        display: none;
+      }
+    }
+  }
 }
 
 
@@ -19,7 +35,24 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
+  gap: 1.5rem;
+
+  @include bigger-than(lg) {
+    flex-direction: row;
+    gap: 5rem;
+  }
+
+  &__column {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+
+    @include bigger-than(lg) {
+      flex: 1;
+    }
+  }
 
   &__image {
     position: relative;
@@ -28,6 +61,7 @@
     border: 2px solid var(--surface-900);
     box-shadow: var(--outer-shadow);
     width: 75%;
+    max-width: 35rem;
     aspect-ratio: 1/1;
 
     img {
@@ -48,13 +82,6 @@
     &::first-letter {
       font-size: 2em;
     }
-  }
-
-  &__divider {
-    width: 100%;
-    height: 1px;
-    background-color: var(--surface-300);
-    margin: 1rem 0;
   }
 
   &__skills {
@@ -101,21 +128,25 @@
       gap: 0.5rem;
       justify-content: space-between;
 
-      &__sanity {
-        color: var(--color-info);
-      }
-
-      &__endurance {
-        color: var(--color-danger);
-      }
-
       &__value {
+        position: relative;
         width: 2.5rem;
         height: 2.5rem;
-        aspect-ratio: 1/1;
-        text-align: center;
         font-size: 1.5rem;
         font-weight: bold;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid var(--surface-300);
+        background-color: var(--surface-200);
+
+        &--sanity {
+          color: var(--color-info);
+        }
+
+        &--endurance {
+          color: var(--color-danger);
+        }
 
         &--low {
           font-weight: 400;
@@ -138,4 +169,61 @@
       text-align: center;
     }
   }
+
+  &__concentration {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+
+    span:last-child {
+      font-weight: bold;
+    }
+  }
 }
+
+.game-layout-modal {
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--surface-300);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &__header {
+      @include label;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-weight: 300;
+      color: var(--surface-600);
+
+      &--description {
+        text-align: justify;
+      }
+    }
+  }
+
+  &__equipment {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: space-between;
+
+    span:last-child {
+      font-weight: bold;
+    }
+  }
+}
+

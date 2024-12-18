@@ -15,6 +15,15 @@ import {
   joinGameSession,
   joinGameSessionFailure,
   joinGameSessionSuccess,
+  nextGameSessionPhase,
+  nextGameSessionPhaseFailure,
+  nextGameSessionPhaseSuccess,
+  previousGameSessionPhase,
+  previousGameSessionPhaseFailure,
+  previousGameSessionPhaseSuccess,
+  resetGameSessionPhase,
+  resetGameSessionPhaseFailure,
+  resetGameSessionPhaseSuccess,
   updatePlayer,
   updatePlayerFailure,
   updatePlayerSuccess,
@@ -68,13 +77,14 @@ export class GameEffects {
               GAME_STATE_CONFIG.toastTranslationKeys.joinGameSessionSuccess,
             );
 
+            console.log(response.data.players, Player.fromDto(this.getNewestPlayerFromGameSession(response.data)));
+
             return joinGameSessionSuccess({
               gameSession: GameSession.fromDto(response.data),
               player: Player.fromDto(this.getNewestPlayerFromGameSession(response.data)),
             });
           }),
           catchError((response: HttpErrorResponse) => {
-            console.log(response);
             const { error } = response.error;
             this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
             return of(joinGameSessionFailure({ error }));
@@ -98,6 +108,78 @@ export class GameEffects {
             const { error } = response.error;
             this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.players, response);
             return of(updatePlayerFailure({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  nextGameSessionPhase$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(nextGameSessionPhase),
+      concatMap(({ gameSessionToken }) =>
+        this.gameSessionService.nextGameSessionPhase(gameSessionToken).pipe(
+          map((response) => {
+            this.toastService.success(
+              GAME_STATE_CONFIG.toastTranslationKeys.gameSessions,
+              GAME_STATE_CONFIG.toastTranslationKeys.nextGameSessionPhaseSuccess,
+            );
+            return nextGameSessionPhaseSuccess({
+              gameSession: GameSession.fromDto(response.data),
+            });
+          }),
+          catchError((response: HttpErrorResponse) => {
+            const { error } = response.error;
+            this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
+            return of(nextGameSessionPhaseFailure({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  previousGameSessionPhase$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(previousGameSessionPhase),
+      concatMap(({ gameSessionToken }) =>
+        this.gameSessionService.previousGameSessionPhase(gameSessionToken).pipe(
+          map((response) => {
+            this.toastService.success(
+              GAME_STATE_CONFIG.toastTranslationKeys.gameSessions,
+              GAME_STATE_CONFIG.toastTranslationKeys.previousGameSessionPhaseSuccess,
+            );
+            return previousGameSessionPhaseSuccess({
+              gameSession: GameSession.fromDto(response.data),
+            });
+          }),
+          catchError((response: HttpErrorResponse) => {
+            const { error } = response.error;
+            this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
+            return of(previousGameSessionPhaseFailure({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  resetGameSessionPhase$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(resetGameSessionPhase),
+      concatMap(({ gameSessionToken }) =>
+        this.gameSessionService.resetGameSessionPhase(gameSessionToken).pipe(
+          map((response) => {
+            this.toastService.success(
+              GAME_STATE_CONFIG.toastTranslationKeys.gameSessions,
+              GAME_STATE_CONFIG.toastTranslationKeys.resetGameSessionPhaseSuccess,
+            );
+            return resetGameSessionPhaseSuccess({
+              gameSession: GameSession.fromDto(response.data),
+            });
+          }),
+          catchError((response: HttpErrorResponse) => {
+            const { error } = response.error;
+            this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
+            return of(resetGameSessionPhaseFailure({ error }));
           }),
         ),
       ),

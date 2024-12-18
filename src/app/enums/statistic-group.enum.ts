@@ -1,4 +1,4 @@
-export enum UserStatisticGroup {
+export enum StatisticGroup {
   MONEY,
   CLUES,
   ENDURANCE,

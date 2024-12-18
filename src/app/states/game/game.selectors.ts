@@ -10,3 +10,5 @@ export const selectGameError = createSelector(selectGameState, (state) => state.
 export const selectGameSession = createSelector(selectGameState, (state) => state.gameSession);
 
 export const selectPlayer = createSelector(selectGameState, (state) => state.player);
+
+export const selectGameSessionPhase = createSelector(selectGameState, (state) => state.gameSession?.phase ?? null);

@@ -42,8 +42,8 @@ export class LandingPageService {
   }
 
   clearGameSession(): void {
-    this.localStorageService.gameSession = null;
-    this.localStorageService.player = null;
+    this.localStorageService.gameSessionToken = null;
+    this.localStorageService.playerToken = null;
   }
 
   private initializeGameSessionJoinForm(): FormGroup<GameSessionJoinForm> {
@@ -55,11 +55,11 @@ export class LandingPageService {
   }
 
   private listenToLocalStorageGameSessionChanges(): void {
-    this.localStorageService.gameSessionSubject.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((gameSession) => {
+    this.localStorageService.gameSessionTokenSubject.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((token) => {
       const gameSessionFormControl = this.gameSessionJoinForm.controls[GameSessionJoinFormControls.TOKEN];
 
-      if (gameSession) {
-        gameSessionFormControl.setValue(gameSession.token);
+      if (token) {
+        gameSessionFormControl.setValue(token);
         this.isGameSessionTokenInForm.set(true);
         gameSessionFormControl.disable();
       } else {

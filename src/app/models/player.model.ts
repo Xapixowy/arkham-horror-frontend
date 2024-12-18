@@ -1,13 +1,13 @@
-import {PlayerRole} from '@Enums/players/player-role.enum';
-import {Status} from '@Types/players/player-status.enum';
-import {Equipment} from '@Types/players/player-equipment.type';
-import {Attributes} from '@Types/players/player-attributes.type';
-import {Statistics} from '@Types/players/player-statistics.enum';
-import {User} from '@Models/user.model';
-import {Character} from '@Models/character.model';
-import {PlayerCard} from '@Models/player-card.model';
-import {PlayerDto} from '@Types/dtos/player-dto.type';
-import {GameSession} from '@Models/game-session.model';
+import { PlayerRole } from '@Enums/players/player-role.enum';
+import { Status } from '@Types/players/player-status.enum';
+import { Equipment } from '@Types/players/player-equipment.type';
+import { Attributes } from '@Types/players/player-attributes.type';
+import { PlayerStatistics } from '@Types/players/player-statistics.enum';
+import { User } from '@Models/user.model';
+import { Character } from '@Models/character.model';
+import { PlayerCard } from '@Models/player-card.model';
+import { PlayerDto } from '@Types/dtos/player-dto.type';
+import { GameSession } from '@Models/game-session.model';
 
 export class Player {
   constructor(
@@ -17,15 +17,14 @@ export class Player {
     public status: Status,
     public equipment: Equipment,
     public attributes: Attributes,
-    public statistics: Statistics,
+    public statistics: PlayerStatistics,
     public created_at: Date,
     public updated_at: Date,
     public user?: User,
     public character?: Character,
     public playerCards?: PlayerCard[],
     public game_session?: GameSession,
-  ) {
-  }
+  ) {}
 
   static fromDto(dto: PlayerDto): Player {
     return new Player(

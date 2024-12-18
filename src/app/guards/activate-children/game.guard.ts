@@ -7,7 +7,7 @@ export const gameGuard: CanActivateChildFn = () => {
   const localStorageService = inject(LocalStorageService);
   const router = inject(Router);
 
-  if (localStorageService.gameSession) {
+  if (localStorageService.gameSessionToken) {
     return true;
   }
 

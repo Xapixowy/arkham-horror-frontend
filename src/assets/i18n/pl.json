@@ -427,7 +427,10 @@
     "Game Sessions": "Sesje gry",
     "Players": "Gracze",
     "Game Session has been created": "Sesja gry została utworzona",
-    "Game Session joined successfully": "Dołączono do sesji gry pomyślnie"
+    "Game Session joined successfully": "Dołączono do sesji gry pomyślnie",
+    "Game Session phase has been reset": "Faza sesji gry została zresetowana",
+    "Game Session phase has been advanced": "Faza sesji gry została zmieniona",
+    "Game Session phase has been retreated": "Faza sesji gry została zmieniona"
   },
   "_GameSessionComponent": {
     "Game session": "Sesja gry",
@@ -457,15 +460,15 @@
     "Characters played": "Rozegrane postacie",
     "Role": "Rola"
   },
-  "_UserStatistics": {
+  "_UserPlayerStatistics": {
     "money_acquired": "Zdobyte pieniądze",
     "money_lost": "Utracone pieniądze",
     "clues_acquired": "Zdobyte wskazówki",
     "clues_lost": "Utracone wskazówki",
-    "endurance_acquired": "Zdobyte wytrzymałości",
-    "endurance_lost": "Utracone wytrzymałości",
-    "sanity_acquired": "Zdobyte poczęcie",
-    "sanity_lost": "Utracone poczęcie",
+    "endurance_acquired": "Zdobyta wytrzymałość",
+    "endurance_lost": "Utracona wytrzymałość",
+    "sanity_acquired": "Zdobyta poczytalność",
+    "sanity_lost": "Utracona poczytalność",
     "cards_acquired": "Zdobyte karty",
     "cards_lost": "Utracone karty",
     "phases_played": "Rozegrane fazy",
@@ -484,10 +487,13 @@
     "Other": "Inne"
   },
   "_GameLayout": {
-    "Character lore": "Opis postaci",
+    "Character details": "Szczegóły postaci",
+    "Player statistics": "Statystyki gracza",
     "Next game phase": "Następna faza gry",
-    "Refresh": "Zresetuj fazę gry",
-    "Previous game phase": "Poprzednia faza gry"
+    "Refresh game phase": "Zresetuj fazę gry",
+    "Previous game phase": "Poprzednia faza gry",
+    "Statistics": "Statystyki",
+    "Game phase": "Faza gry"
   },
   "_CharacterPage": {
     "Sanity": "Poczytalność",
@@ -497,6 +503,21 @@
     "Prowess": "Waleczność",
     "Will": "Wola",
     "Knowledge": "Wiedza",
-    "Luck": "Szczęście"
+    "Luck": "Szczęście",
+    "Expansion": "Dodatek",
+    "Profession": "Profesja",
+    "Starting location": "Początkowa lokalizacja",
+    "Starting equipment": "Początkowy ekwipunek",
+    "Money": "Pieniądze",
+    "Clues": "Wskazówki",
+    "Random common items": "Losowe Przedmioty Powszechnie",
+    "Random unique items": "Losowe Przedmioty Unikatowe",
+    "Random spells": "Losowe Zaklęcia",
+    "Random abilities": "Losowe Umiejętności",
+    "Random allies": "Losowi Sprzymierzeńcy",
+    "Description": "Opis",
+    "Character details": "Szczegóły postaci",
+    "Concentration": "Skupienie",
+    "Character image": "Obraz postaci"
   }
 }

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { TranslocoPipe } from '@jsverse/transloco';
-import { Statistics } from '@Types/players/player-statistics.enum';
+import { PlayerStatistics } from '@Types/players/player-statistics.enum';
 import { tablerChartBar } from '@ng-icons/tabler-icons';
 
 @Component({
@@ -17,5 +17,5 @@ import { tablerChartBar } from '@ng-icons/tabler-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameSessionStatisticsComponent {
-  readonly statistics = input.required<Statistics>();
+  readonly statistics = input.required<PlayerStatistics>();
 }

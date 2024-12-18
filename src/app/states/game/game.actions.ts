@@ -61,3 +61,57 @@ export const updatePlayerFailure = createAction(
     error: string;
   }>(),
 );
+export const nextGameSessionPhase = createAction(
+  `${characterPageKey} Next Game Session Phase`,
+  props<{
+    gameSessionToken: string;
+  }>(),
+);
+export const nextGameSessionPhaseSuccess = createAction(
+  `${gameSessionsApiKey} Next Game Session Phase Success`,
+  props<{
+    gameSession: GameSession;
+  }>(),
+);
+export const nextGameSessionPhaseFailure = createAction(
+  `${gameSessionsApiKey} Next Game Session Phase Failure`,
+  props<{
+    error: string;
+  }>(),
+);
+export const previousGameSessionPhase = createAction(
+  `${characterPageKey} Previous Game Session Phase`,
+  props<{
+    gameSessionToken: string;
+  }>(),
+);
+export const previousGameSessionPhaseSuccess = createAction(
+  `${gameSessionsApiKey} Previous Game Session Phase Success`,
+  props<{
+    gameSession: GameSession;
+  }>(),
+);
+export const previousGameSessionPhaseFailure = createAction(
+  `${gameSessionsApiKey} Previous Game Session Phase Failure`,
+  props<{
+    error: string;
+  }>(),
+);
+export const resetGameSessionPhase = createAction(
+  `${characterPageKey} Reset Game Session Phase`,
+  props<{
+    gameSessionToken: string;
+  }>(),
+);
+export const resetGameSessionPhaseSuccess = createAction(
+  `${gameSessionsApiKey} Reset Game Session Phase Success`,
+  props<{
+    gameSession: GameSession;
+  }>(),
+);
+export const resetGameSessionPhaseFailure = createAction(
+  `${gameSessionsApiKey} Reset Game Session Phase Failure`,
+  props<{
+    error: string;
+  }>(),
+);

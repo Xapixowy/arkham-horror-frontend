@@ -1,15 +1,18 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { LocalStorageService } from '@Services/local-storage.service';
-import { Player } from '@Models/player.model';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GameCharacterForm } from '@Types/forms/game-character-form.type';
 import { GameCharacterFormControls } from '@Enums/form-controls/game-character-form-controls.enum';
 import { CHARACTER_PAGE_CONFIG } from '@Pages/game/character-page/_configs/character-page.config';
 import { GameCharacterFormControlConfig } from '@Pages/game/character-page/_types/game-character-form-control-config.type';
-import { Character } from '@Models/character.model';
 import { UpdatePlayerPayload } from '@Types/payloads/players/update-player-payload.type';
 import { Store } from '@ngrx/store';
 import { updatePlayer } from '@States/game/game.actions';
+import { GameLayoutService } from '@Layouts/game-layout/_services/game-layout.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { distinctUntilChanged, filter, take } from 'rxjs';
+import { AttributeSliderConfig } from '@Components/attribute-slider/_types/attribute-slider-config.type';
+import { Character } from '@Models/character.model';
 
 @Injectable({
   providedIn: 'root',
@@ -17,18 +20,29 @@ import { updatePlayer } from '@States/game/game.actions';
 export class CharacterPageService {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly store = inject(Store);
+  private readonly gameLayoutService = inject(GameLayoutService);
+  private readonly destroyRef = inject(DestroyRef);
 
-  readonly player = signal<Player | null>(this.localStorageService.player);
+  readonly player = this.gameLayoutService.player;
+  readonly gameSession = this.gameLayoutService.gameSession;
+
   readonly playerStatus = {
     sanity: signal<number | null>(null),
     endurance: signal<number | null>(null),
   };
+  readonly attributeSliderConfigs = {
+    speedSneak: signal<AttributeSliderConfig | null>(null),
+    prowessWill: signal<AttributeSliderConfig | null>(null),
+    knowledgeLuck: signal<AttributeSliderConfig | null>(null),
+  };
+
   readonly character = computed<Character | null>(() => this.player()?.character ?? null);
 
   readonly gameCharacterForm = this.initializeGameCharacterForm();
   updatePlayerTimeout: ReturnType<typeof setTimeout> | null = null;
 
   constructor() {
+    this.listenToStoreChanges();
     this.listenToFormChanges();
   }
 
@@ -56,6 +70,7 @@ export class CharacterPageService {
     }
 
     const newValue = oldValue + modifier;
+
     const config = CHARACTER_PAGE_CONFIG[
       control as keyof typeof CHARACTER_PAGE_CONFIG
     ] as GameCharacterFormControlConfig;
@@ -76,35 +91,102 @@ export class CharacterPageService {
   }
 
   private listenToFormChanges(): void {
-    this.gameCharacterForm.valueChanges.subscribe((value) => {
-      this.playerStatus.sanity.set(value[GameCharacterFormControls.SANITY] ?? null);
-      this.playerStatus.endurance.set(value[GameCharacterFormControls.ENDURANCE] ?? null);
-      this.updatePlayer();
-    });
+    this.gameCharacterForm.valueChanges
+      .pipe(takeUntilDestroyed(this.destroyRef), distinctUntilChanged())
+      .subscribe((value) => {
+        this.playerStatus.sanity.set(value[GameCharacterFormControls.SANITY] ?? null);
+        this.playerStatus.endurance.set(value[GameCharacterFormControls.ENDURANCE] ?? null);
+        this.updatePlayer();
+      });
+  }
+
+  private listenToStoreChanges(): void {
+    this.gameLayoutService.player$
+      .pipe(
+        takeUntilDestroyed(this.destroyRef),
+        filter((player) => player !== null),
+        take(1),
+      )
+      .subscribe((value) => {
+        this.gameCharacterForm.setValue({
+          [GameCharacterFormControls.SANITY]: value.status.sanity,
+          [GameCharacterFormControls.ENDURANCE]: value.status.endurance,
+          [GameCharacterFormControls.ATTRIBUTES_SPEED]: value.attributes.speed,
+          [GameCharacterFormControls.ATTRIBUTES_SNEAK]: value.attributes.sneak,
+          [GameCharacterFormControls.ATTRIBUTES_PROWESS]: value.attributes.prowess,
+          [GameCharacterFormControls.ATTRIBUTES_WILL]: value.attributes.will,
+          [GameCharacterFormControls.ATTRIBUTES_KNOWLEDGE]: value.attributes.knowledge,
+          [GameCharacterFormControls.ATTRIBUTES_LUCK]: value.attributes.luck,
+        });
+        this.playerStatus.sanity.set(value.status.sanity);
+        this.playerStatus.endurance.set(value.status.endurance);
+        this.initializeAttributeSliderConfigs();
+      });
   }
 
   private initializeGameCharacterForm(): FormGroup<GameCharacterForm> {
     return new FormGroup<GameCharacterForm>({
-      [GameCharacterFormControls.SANITY]: new FormControl<number | null>(this.player()?.status.sanity ?? null),
-      [GameCharacterFormControls.ENDURANCE]: new FormControl<number | null>(this.player()?.status.endurance ?? null),
-      [GameCharacterFormControls.ATTRIBUTES_SPEED]: new FormControl<number | null>(
-        this.player()?.attributes.speed ?? null,
-      ),
-      [GameCharacterFormControls.ATTRIBUTES_SNEAK]: new FormControl<number | null>(
-        this.player()?.attributes.sneak ?? null,
-      ),
-      [GameCharacterFormControls.ATTRIBUTES_PROWESS]: new FormControl<number | null>(
-        this.player()?.attributes.prowess ?? null,
-      ),
-      [GameCharacterFormControls.ATTRIBUTES_WILL]: new FormControl<number | null>(
-        this.player()?.attributes.will ?? null,
-      ),
-      [GameCharacterFormControls.ATTRIBUTES_KNOWLEDGE]: new FormControl<number | null>(
-        this.player()?.attributes.knowledge ?? null,
-      ),
-      [GameCharacterFormControls.ATTRIBUTES_LUCK]: new FormControl<number | null>(
-        this.player()?.attributes.luck ?? null,
-      ),
+      [GameCharacterFormControls.SANITY]: new FormControl<number | null>(null),
+      [GameCharacterFormControls.ENDURANCE]: new FormControl<number | null>(null),
+      [GameCharacterFormControls.ATTRIBUTES_SPEED]: new FormControl<number | null>(null),
+      [GameCharacterFormControls.ATTRIBUTES_SNEAK]: new FormControl<number | null>(null),
+      [GameCharacterFormControls.ATTRIBUTES_PROWESS]: new FormControl<number | null>(null),
+      [GameCharacterFormControls.ATTRIBUTES_WILL]: new FormControl<number | null>(null),
+      [GameCharacterFormControls.ATTRIBUTES_KNOWLEDGE]: new FormControl<number | null>(null),
+      [GameCharacterFormControls.ATTRIBUTES_LUCK]: new FormControl<number | null>(null),
+    });
+  }
+
+  private initializeAttributeSliderConfigs(): void {
+    this.attributeSliderConfigs.speedSneak.set({
+      firstAttribute: {
+        label: '_CharacterPage.Speed',
+        formControl: this.gameCharacterForm.controls[GameCharacterFormControls.ATTRIBUTES_SPEED],
+        inputId: `${CHARACTER_PAGE_CONFIG.inputIdPrefix}-${GameCharacterFormControls.ATTRIBUTES_SPEED}`,
+        values: this.character()?.attributes.speed ?? [],
+        value: this.player()?.attributes.speed ?? 0,
+      },
+      secondAttribute: {
+        label: '_CharacterPage.Sneak',
+        formControl: this.gameCharacterForm.controls[GameCharacterFormControls.ATTRIBUTES_SNEAK],
+        inputId: `${CHARACTER_PAGE_CONFIG.inputIdPrefix}-${GameCharacterFormControls.ATTRIBUTES_SNEAK}`,
+        values: this.character()?.attributes.sneak ?? [],
+        value: this.player()?.attributes.sneak ?? 0,
+      },
+    });
+
+    this.attributeSliderConfigs.prowessWill.set({
+      firstAttribute: {
+        label: '_CharacterPage.Prowess',
+        formControl: this.gameCharacterForm.controls[GameCharacterFormControls.ATTRIBUTES_PROWESS],
+        inputId: `${CHARACTER_PAGE_CONFIG.inputIdPrefix}-${GameCharacterFormControls.ATTRIBUTES_PROWESS}`,
+        values: this.character()?.attributes.prowess ?? [],
+        value: this.player()?.attributes.prowess ?? 0,
+      },
+      secondAttribute: {
+        label: '_CharacterPage.Will',
+        formControl: this.gameCharacterForm.controls[GameCharacterFormControls.ATTRIBUTES_WILL],
+        inputId: `${CHARACTER_PAGE_CONFIG.inputIdPrefix}-${GameCharacterFormControls.ATTRIBUTES_WILL}`,
+        values: this.character()?.attributes.will ?? [],
+        value: this.player()?.attributes.will ?? 0,
+      },
+    });
+
+    this.attributeSliderConfigs.knowledgeLuck.set({
+      firstAttribute: {
+        label: '_CharacterPage.Knowledge',
+        formControl: this.gameCharacterForm.controls[GameCharacterFormControls.ATTRIBUTES_KNOWLEDGE],
+        inputId: `${CHARACTER_PAGE_CONFIG.inputIdPrefix}-${GameCharacterFormControls.ATTRIBUTES_KNOWLEDGE}`,
+        values: this.character()?.attributes.knowledge ?? [],
+        value: this.player()?.attributes.knowledge ?? 0,
+      },
+      secondAttribute: {
+        label: '_CharacterPage.Luck',
+        formControl: this.gameCharacterForm.controls[GameCharacterFormControls.ATTRIBUTES_LUCK],
+        inputId: `${CHARACTER_PAGE_CONFIG.inputIdPrefix}-${GameCharacterFormControls.ATTRIBUTES_LUCK}`,
+        values: this.character()?.attributes.luck ?? [],
+        value: this.player()?.attributes.luck ?? 0,
+      },
     });
   }
 
@@ -121,9 +203,6 @@ export class CharacterPageService {
     }
 
     this.updatePlayerTimeout = setTimeout(() => {
-      const gameSessionToken = this.localStorageService.gameSession!.token;
-      const playerToken = this.player()!.token;
-
       const payload: UpdatePlayerPayload = {
         status: {
           sanity: formValues[GameCharacterFormControls.SANITY]!,
@@ -139,7 +218,13 @@ export class CharacterPageService {
         },
       };
 
-      this.store.dispatch(updatePlayer({ gameSessionToken, playerToken, payload }));
+      this.store.dispatch(
+        updatePlayer({
+          gameSessionToken: this.gameSession()!.token,
+          playerToken: this.player()!.token,
+          payload,
+        }),
+      );
     }, CHARACTER_PAGE_CONFIG.updatePlayerDebounceTime);
   }
 }

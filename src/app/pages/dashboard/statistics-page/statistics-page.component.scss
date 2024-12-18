@@ -17,10 +17,6 @@
   }
 
   &__statistic-group {
-    @include bigger-than(sm) {
-
-    }
-
     &__header {
       font-size: 1.25rem;
       display: flex;

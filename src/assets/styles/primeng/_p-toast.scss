@@ -1,12 +1,13 @@
 @import '../breakpoints';
 
 .p-toast {
-  padding: 1.5rem;
-  top: 0;
-  right: 0;
-  width: 30rem;
+  --p-toast-mobile-padding: 1rem;
+
+  max-width: 30rem;
 
   @include smaller-than(sm) {
-    width: 100%;
+    top: var(--p-toast-mobile-padding);
+    right: var(--p-toast-mobile-padding);
+    max-width: calc(100vw - var(--p-toast-mobile-padding) * 2);
   }
 }

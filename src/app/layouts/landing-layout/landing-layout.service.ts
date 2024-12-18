@@ -9,7 +9,6 @@ import { UserMenuConfig } from '@Components/user-menu/_types/user-menu-config.ty
 import { USER_MENU_CONFIG } from '@Layouts/landing-layout/_configs/user-menu.config';
 import { UserMenuActionId } from '@Components/user-menu/_enums/user-menu-action-id.enum';
 import { UserRole } from '@Enums/users/user-role.enum';
-import { GameSession } from '@Models/game-session.model';
 import { selectGameSession, selectPlayer } from '@States/game/game.selectors';
 import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 import { Store } from '@ngrx/store';
@@ -31,7 +30,7 @@ export class LandingLayoutService {
 
   constructor() {
     this.listenForLocalStorageUserChanges();
-    this.listenForLocalStorageGameSessionChanges();
+    this.listenForLocalStorageGameSessionTokenChanges();
     this.listenToStorageGameSessionChanges();
     this.listenToStoragePlayerChanges();
   }
@@ -54,9 +53,9 @@ export class LandingLayoutService {
     });
   }
 
-  private listenForLocalStorageGameSessionChanges(): void {
-    this.localStorageService.gameSessionSubject.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((gameSession) => {
-      this.navigationSections.update((sections) => this.hideSectionsIfGameSessionDoesNotExist(sections, gameSession));
+  private listenForLocalStorageGameSessionTokenChanges(): void {
+    this.localStorageService.gameSessionTokenSubject.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((token) => {
+      this.navigationSections.update((sections) => this.hideSectionsIfGameSessionDoesNotExist(sections, token));
     });
   }
 
@@ -86,7 +85,7 @@ export class LandingLayoutService {
 
   private hideSectionsIfGameSessionDoesNotExist(
     sections: NavigationSection[],
-    gameSession: GameSession | null,
+    gameSessionToken: string | null,
   ): NavigationSection[] {
     return sections.map((section) => {
       if (section.id === NavigationSectionEnum.GAME_LINKS) {
@@ -94,7 +93,7 @@ export class LandingLayoutService {
           ...section,
           items: section.items.map((item) => ({
             ...item,
-            hide: !gameSession,
+            hide: !gameSessionToken,
           })),
         };
       }
@@ -128,7 +127,7 @@ export class LandingLayoutService {
           return;
         }
 
-        this.localStorageService.gameSession = value;
+        this.localStorageService.gameSessionToken = value.token;
 
         const isLandingPage = this.router.url === APP_ROUTES_CONFIG.Default;
 
@@ -151,7 +150,7 @@ export class LandingLayoutService {
           return;
         }
 
-        this.localStorageService.player = value;
+        this.localStorageService.playerToken = value.token;
       });
   }
 }
