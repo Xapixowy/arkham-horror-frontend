@@ -64,6 +64,8 @@ export class UserMenuComponent implements OnInit {
 
   private logoutActionFunction(): void {
     this.localStorageService.user = null;
+    this.localStorageService.gameSessionToken = null;
+    this.localStorageService.playerToken = null;
     this.router.navigate([APP_ROUTES_CONFIG.Default]);
   }
 }
