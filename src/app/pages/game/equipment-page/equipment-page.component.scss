@@ -10,23 +10,44 @@
   width: 100%;
   max-width: var(--character-page-max-width);
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "header"
+    "form"
+    "divider"
+    "card-selector";
   gap: 1rem;
+
+  @include bigger-than(lg) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "header header"
+      "form card-selector"
+      "form card-selector";
+    gap: 4rem;
+  }
+
+  &__header {
+    grid-area: header;
+  }
 
   &__divider {
     width: 100%;
     height: 1px;
     background-color: var(--surface-300);
 
-    @include bigger-than(lg) {
-      &--equipment {
+    &--equipment {
+      grid-area: divider;
+
+      @include bigger-than(lg) {
         display: none;
       }
     }
   }
 
   &__form {
+    grid-area: form;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -34,6 +55,7 @@
   }
 
   &__equipment {
+    grid-area: equipment;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -76,7 +98,7 @@
 
   &__card-selector {
     width: 100%;
-    
+
     &__skeletons {
       display: flex;
       flex-direction: column;
