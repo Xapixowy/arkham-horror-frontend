@@ -16,5 +16,5 @@ export const CHARACTER_PAGE_CONFIG: {
     max: 99,
   },
   inputIdPrefix: 'game-character',
-  updatePlayerDebounceTime: 300,
+  updatePlayerDebounceTime: 500,
 };

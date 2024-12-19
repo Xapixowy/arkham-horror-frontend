@@ -16,5 +16,5 @@ export const EQUIPMENT_PAGE_CONFIG: {
     max: 99,
   },
   inputIdPrefix: 'game-equipment',
-  updatePlayerDebounceTime: 300,
+  updatePlayerDebounceTime: 500,
 };

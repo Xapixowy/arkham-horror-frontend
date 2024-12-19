@@ -73,15 +73,17 @@ export class EquipmentPageService {
       card_ids: this.generateRemovedCardIds(this.player()!.playerCards ?? [], playerCards),
     };
 
-    this.updateCardsTimeout = setTimeout(() =>
-      this.store.dispatch(
-        updatePlayerCards({
-          gameSessionToken: this.gameSession()!.token,
-          playerToken: this.player()!.token,
-          assignPlayerCardsPayload,
-          removePlayerCardsPayload,
-        }),
-      ),
+    this.updateCardsTimeout = setTimeout(
+      () =>
+        this.store.dispatch(
+          updatePlayerCards({
+            gameSessionToken: this.gameSession()!.token,
+            playerToken: this.player()!.token,
+            assignPlayerCardsPayload,
+            removePlayerCardsPayload,
+          }),
+        ),
+      CHARACTER_PAGE_CONFIG.updatePlayerDebounceTime,
     );
   }
 
