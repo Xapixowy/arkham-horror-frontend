@@ -1,9 +1,9 @@
 import { GameCharacterFormControls } from '@Enums/form-controls/game-character-form-controls.enum';
-import { GameCharacterFormControlConfig } from '@Pages/game/character-page/_types/game-character-form-control-config.type';
+import { GameSimpleFormControlConfig } from '@Layouts/game-layout/_types/game-simple-form-control-config.type';
 
 export const CHARACTER_PAGE_CONFIG: {
-  [GameCharacterFormControls.SANITY]: GameCharacterFormControlConfig;
-  [GameCharacterFormControls.ENDURANCE]: GameCharacterFormControlConfig;
+  [GameCharacterFormControls.SANITY]: GameSimpleFormControlConfig;
+  [GameCharacterFormControls.ENDURANCE]: GameSimpleFormControlConfig;
   inputIdPrefix: string;
   updatePlayerDebounceTime: number;
 } = {

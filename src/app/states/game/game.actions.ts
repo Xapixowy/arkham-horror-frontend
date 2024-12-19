@@ -3,6 +3,10 @@ import { GameSession } from '@Models/game-session.model';
 import { Player } from '@Models/player.model';
 import { GameSessionPhase } from '@Enums/game-sessions/game-session-phase.enum';
 import { PlayerDto } from '@Types/dtos/player-dto.type';
+import { UpdatePlayerPayload } from '@Types/payloads/players/update-player-payload.type';
+import { AssignPlayerCardsPayload } from '@Types/payloads/players/assign-player-cards-payload.type';
+import { RemovePlayerCardsPayload } from '@Types/payloads/players/remove-player-cards-payload.type';
+import { PlayerCard } from '@Models/player-card.model';
 
 const landingPageKey = '[Landing Page]';
 const gameLayoutKey = '[Game Layout]';
@@ -49,7 +53,7 @@ export const updatePlayer = createAction(
   props<{
     gameSessionToken: string;
     playerToken: string;
-    payload: any;
+    payload: UpdatePlayerPayload;
   }>(),
 );
 export const updatePlayerSuccess = createAction(
@@ -154,6 +158,27 @@ export const renewPlayerCharacterSuccess = createAction(
 );
 export const renewPlayerCharacterFailure = createAction(
   `${playersApiKey} Renew Player Character Failure`,
+  props<{
+    error: string;
+  }>(),
+);
+export const updatePlayerCards = createAction(
+  `${gameLayoutKey} Update Player Cards`,
+  props<{
+    gameSessionToken: string;
+    playerToken: string;
+    assignPlayerCardsPayload: AssignPlayerCardsPayload;
+    removePlayerCardsPayload: RemovePlayerCardsPayload;
+  }>(),
+);
+export const updatePlayerCardsSuccess = createAction(
+  `${playersApiKey} Update Player Cards Success`,
+  props<{
+    cards: PlayerCard[];
+  }>(),
+);
+export const updatePlayerCardsFailure = createAction(
+  `${playersApiKey} Update Player Cards Failure`,
   props<{
     error: string;
   }>(),

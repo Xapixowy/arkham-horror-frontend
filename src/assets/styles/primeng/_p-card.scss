@@ -7,3 +7,17 @@
     gap: 0.5rem;
   }
 }
+
+.p-card--card-selector {
+  height: 100%;
+
+  .p-card-body {
+    flex: 1;
+  }
+
+  .p-card-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+}

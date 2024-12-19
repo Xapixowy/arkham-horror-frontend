@@ -1,10 +1,15 @@
 <div class="statistics-page">
   @if (dashboardStatus() === StateStatus.LOADING) {
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
+    <p-skeleton height="9.375rem"/>
   } @else {
     @for (statisticGroup of userStatisticsGroups(); track $index) {
       <div class="statistics-page__statistic-group">

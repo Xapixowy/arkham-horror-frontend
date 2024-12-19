@@ -25,6 +25,9 @@ import {
   updateGameSessionPhase,
   updateGameSessionPlayers,
   updatePlayer,
+  updatePlayerCards,
+  updatePlayerCardsFailure,
+  updatePlayerCardsSuccess,
   updatePlayerFailure,
   updatePlayerSuccess,
 } from '@States/game/game.actions';
@@ -188,4 +191,19 @@ export const gameReducer = createReducer(
       error,
     };
   }),
+  on(updatePlayerCards, (state) => ({ ...state, status: StateStatus.LOADING })),
+  on(updatePlayerCardsSuccess, (state, { cards }) => {
+    const updatedPlayer = state.player ? { ...state.player, playerCards: cards } : null;
+
+    return {
+      ...state,
+      player: updatedPlayer,
+      status: StateStatus.SUCCESS,
+    };
+  }),
+  on(updatePlayerCardsFailure, (state, { error }) => ({
+    ...state,
+    status: StateStatus.ERROR,
+    error,
+  })),
 );

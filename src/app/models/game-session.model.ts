@@ -17,8 +17,8 @@ export class GameSession {
       dto.id,
       dto.token,
       dto.phase,
-      dto.created_at,
-      dto.updated_at,
+      new Date(dto.created_at),
+      new Date(dto.updated_at),
       dto.players ? dto.players.map((player) => Player.fromDto(player)) : undefined,
     );
   }

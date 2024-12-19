@@ -3,7 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { GameCharacterForm } from '@Types/forms/game-character-form.type';
 import { GameCharacterFormControls } from '@Enums/form-controls/game-character-form-controls.enum';
 import { CHARACTER_PAGE_CONFIG } from '@Pages/game/character-page/_configs/character-page.config';
-import { GameCharacterFormControlConfig } from '@Pages/game/character-page/_types/game-character-form-control-config.type';
+import { GameSimpleFormControlConfig } from '@Layouts/game-layout/_types/game-simple-form-control-config.type';
 import { UpdatePlayerPayload } from '@Types/payloads/players/update-player-payload.type';
 import { Store } from '@ngrx/store';
 import { updatePlayer } from '@States/game/game.actions';
@@ -24,6 +24,8 @@ export class CharacterPageService {
 
   readonly player = this.gameLayoutService.player;
   readonly gameSession = this.gameLayoutService.gameSession;
+  readonly gameStatus = this.gameLayoutService.gameStatus;
+  readonly isFirstLoading = this.gameLayoutService.isFirstLoading;
 
   readonly playerStatus = {
     sanity: signal<number | null>(null),
@@ -71,9 +73,7 @@ export class CharacterPageService {
 
     const newValue = oldValue + modifier;
 
-    const config = CHARACTER_PAGE_CONFIG[
-      control as keyof typeof CHARACTER_PAGE_CONFIG
-    ] as GameCharacterFormControlConfig;
+    const config = CHARACTER_PAGE_CONFIG[control as keyof typeof CHARACTER_PAGE_CONFIG] as GameSimpleFormControlConfig;
 
     if (newValue < config.min) {
       this.gameCharacterForm.controls[control].setValue(config.min);

@@ -1,104 +1,189 @@
-<div class="character-page">
-  <div class="character">
-    <div class="character__column">
-      <div class="character__image">
-        @if (character()?.image_path) {
-          <img [ngSrc]="character()?.image_path!" [alt]="'_CharacterPage.Character image' | transloco" fill priority/>
-        } @else {
-          <app-img-placeholder size="100%" shape="square"/>
-        }
-      </div>
-      <h1 class="character__name">
-        {{ character()?.name }}
-      </h1>
-      <div class="character-page__divider"></div>
-      @if (character()?.skills) {
-        <div class="character__skills">
-          @for (skill of character()?.skills; track $index) {
-            <div class="character__skill">
-              <h2 class="character__skill__name">
-                {{ skill.name }}
-              </h2>
-              <div class="character__skill__description" [innerHTML]="skill.description"></div>
-            </div>
-          }
+@if (isLoading()) {
+  <div class="character-page">
+    <div class="character">
+      <div class="character__column">
+        <div class="character__image">
+          <p-skeleton height="100%" shape="square"/>
         </div>
-        <div class="character-page__divider character-page__divider--skills"></div>
-      }
-    </div>
-    <div class="character__column">
-      <form class="character__form" [formGroup]="form">
-        <div class="character__status">
-          <div class="character__status__label">
-            {{ '_CharacterPage.Sanity' | transloco }}
-          </div>
-          <div class="character__status__input">
-            <app-button-icon-only icon="tablerMinus" (onClick)="onSanityDecrease()"/>
-            <div class="character__status__input__value character__status__input__value--sanity"
-                 [ngClass]="sanityInputClasses()">
-              {{ playerStatus.sanity() || 0 }}
-            </div>
-            <app-button-icon-only icon="tablerPlus" (onClick)="onSanityIncrease()"/>
-          </div>
-        </div>
-        <div class="character__status">
-        <span class="character__status__label">
-          {{ '_CharacterPage.Endurance' | transloco }}
-        </span>
-          <div class="character__status__input">
-            <app-button-icon-only icon="tablerMinus" (onClick)="onEnduranceDecrease()"/>
-            <div class="character__status__input__value character__status__input__value--endurance"
-                 [ngClass]="enduranceInputClasses()">
-              {{ playerStatus.endurance() || 0 }}
-            </div>
-            <app-button-icon-only icon="tablerPlus" (onClick)="onEnduranceIncrease()"/>
-          </div>
+        <div class="character__name">
+          <p-skeleton width="100%" height="4.5rem"/>
         </div>
         <div class="character-page__divider"></div>
-        @if (attributeSliderConfigs.speedSneak()) {
-          <div class="character__attribute">
-            <div class="character__attribute__label">
-              {{ attributeSliderConfigs.speedSneak()!.firstAttribute.label | transloco }}
-            </div>
-            <app-attribute-slider [config]="attributeSliderConfigs.speedSneak()!" [noLabels]="true"/>
-            <div class="character__attribute__label">
-              {{ attributeSliderConfigs.speedSneak()!.secondAttribute.label | transloco }}
-            </div>
-          </div>
-          <div class="character-page__divider"></div>
-        }
-        @if (attributeSliderConfigs.prowessWill()) {
-          <div class="character__attribute">
-            <div class="character__attribute__label">
-              {{ attributeSliderConfigs.prowessWill()!.firstAttribute.label | transloco }}
-            </div>
-            <app-attribute-slider [config]="attributeSliderConfigs.prowessWill()!" [noLabels]="true"/>
-            <div class="character__attribute__label">
-              {{ attributeSliderConfigs.prowessWill()!.secondAttribute.label | transloco }}
+        <div class="character__skills">
+          <div class="character__skill">
+            <h2 class="character__skill__name">
+              <p-skeleton width="100%" height="1.75rem"/>
+            </h2>
+            <div class="character__skill__description">
+              <p-skeleton width="100%" height="7.5rem"/>
             </div>
           </div>
-          <div class="character-page__divider"></div>
-        }
-        @if (attributeSliderConfigs.knowledgeLuck()) {
-          <div class="character__attribute">
-            <div class="character__attribute__label">
-              {{ attributeSliderConfigs.knowledgeLuck()!.firstAttribute.label | transloco }}
-            </div>
-            <app-attribute-slider [config]="attributeSliderConfigs.knowledgeLuck()!" [noLabels]="true"/>
-            <div class="character__attribute__label">
-              {{ attributeSliderConfigs.knowledgeLuck()!.secondAttribute.label | transloco }}
-            </div>
-          </div>
-          <div class="character-page__divider"></div>
-        }
-        <div class="character__concentration">
-          <span>{{ '_CharacterPage.Concentration' | transloco }}:</span>
-          <span>{{ character()?.concentration }}</span>
         </div>
-      </form>
+        <div class="character-page__divider character-page__divider--skills"></div>
+      </div>
+      <div class="character__column">
+        <div class="character__form">
+          <div class="character__status">
+            <div class="character__status__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+            <div class="character__status__input">
+              <p-skeleton shape="circle" size="2.625rem"/>
+              <p-skeleton width="2.5rem" height="2.5rem"/>
+              <p-skeleton shape="circle" size="2.625rem"/>
+            </div>
+          </div>
+          <div class="character__status">
+            <div class="character__status__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+            <div class="character__status__input">
+              <p-skeleton shape="circle" size="2.625rem"/>
+              <p-skeleton width="2.5rem" height="2.5rem"/>
+              <p-skeleton shape="circle" size="2.625rem"/>
+            </div>
+          </div>
+          <div class="character-page__divider"></div>
+          <div class="character__attribute">
+            <div class="character__attribute__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+            <p-skeleton width="100%" height="7.25rem"/>
+            <div class="character__attribute__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+          </div>
+          <div class="character-page__divider"></div>
+          <div class="character__attribute">
+            <div class="character__attribute__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+            <p-skeleton width="100%" height="7.25rem"/>
+            <div class="character__attribute__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+          </div>
+          <div class="character-page__divider"></div>
+          <div class="character__attribute">
+            <div class="character__attribute__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+            <p-skeleton width="100%" height="7.25rem"/>
+            <div class="character__attribute__label">
+              <p-skeleton width="10rem" height="1.75rem"/>
+            </div>
+          </div>
+          <div class="character-page__divider"></div>
+          <div class="character__concentration">
+            <p-skeleton width="8rem" height="1.5rem"/>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
+} @else {
+  <div class="character-page">
+    <div class="character">
+      <div class="character__column">
+        <div class="character__image">
+          @if (character()?.image_path) {
+            <img [ngSrc]="character()?.image_path!" [alt]="'_CharacterPage.Character image' | transloco" fill priority/>
+          } @else {
+            <app-img-placeholder size="100%" shape="square"/>
+          }
+        </div>
+        <h1 class="character__name">
+          {{ character()?.name }}
+        </h1>
+        <div class="character-page__divider"></div>
+        @if (character()?.skills) {
+          <div class="character__skills">
+            @for (skill of character()?.skills; track $index) {
+              <div class="character__skill">
+                <h2 class="character__skill__name">
+                  {{ skill.name }}
+                </h2>
+                <div class="character__skill__description" [innerHTML]="skill.description"></div>
+              </div>
+            }
+          </div>
+          <div class="character-page__divider character-page__divider--skills"></div>
+        }
+      </div>
+      <div class="character__column">
+        <form class="character__form" [formGroup]="form">
+          <div class="character__status">
+            <div class="character__status__label">
+              {{ '_CharacterPage.Sanity' | transloco }}
+            </div>
+            <div class="character__status__input">
+              <app-button-icon-only icon="tablerMinus" (onClick)="onSanityDecrease()"/>
+              <div class="character__status__input__value character__status__input__value--sanity"
+                   [ngClass]="sanityInputClasses()">
+                {{ playerStatus.sanity() || 0 }}
+              </div>
+              <app-button-icon-only icon="tablerPlus" (onClick)="onSanityIncrease()"/>
+            </div>
+          </div>
+          <div class="character__status">
+          <span class="character__status__label">
+            {{ '_CharacterPage.Endurance' | transloco }}
+          </span>
+            <div class="character__status__input">
+              <app-button-icon-only icon="tablerMinus" (onClick)="onEnduranceDecrease()"/>
+              <div class="character__status__input__value character__status__input__value--endurance"
+                   [ngClass]="enduranceInputClasses()">
+                {{ playerStatus.endurance() || 0 }}
+              </div>
+              <app-button-icon-only icon="tablerPlus" (onClick)="onEnduranceIncrease()"/>
+            </div>
+          </div>
+          <div class="character-page__divider"></div>
+          @if (attributeSliderConfigs.speedSneak()) {
+            <div class="character__attribute">
+              <div class="character__attribute__label">
+                {{ attributeSliderConfigs.speedSneak()!.firstAttribute.label | transloco }}
+              </div>
+              <app-attribute-slider [config]="attributeSliderConfigs.speedSneak()!" [noLabels]="true"/>
+              <div class="character__attribute__label">
+                {{ attributeSliderConfigs.speedSneak()!.secondAttribute.label | transloco }}
+              </div>
+            </div>
+            <div class="character-page__divider"></div>
+          }
+          @if (attributeSliderConfigs.prowessWill()) {
+            <div class="character__attribute">
+              <div class="character__attribute__label">
+                {{ attributeSliderConfigs.prowessWill()!.firstAttribute.label | transloco }}
+              </div>
+              <app-attribute-slider [config]="attributeSliderConfigs.prowessWill()!" [noLabels]="true"/>
+              <div class="character__attribute__label">
+                {{ attributeSliderConfigs.prowessWill()!.secondAttribute.label | transloco }}
+              </div>
+            </div>
+            <div class="character-page__divider"></div>
+          }
+          @if (attributeSliderConfigs.knowledgeLuck()) {
+            <div class="character__attribute">
+              <div class="character__attribute__label">
+                {{ attributeSliderConfigs.knowledgeLuck()!.firstAttribute.label | transloco }}
+              </div>
+              <app-attribute-slider [config]="attributeSliderConfigs.knowledgeLuck()!" [noLabels]="true"/>
+              <div class="character__attribute__label">
+                {{ attributeSliderConfigs.knowledgeLuck()!.secondAttribute.label | transloco }}
+              </div>
+            </div>
+            <div class="character-page__divider"></div>
+          }
+          <div class="character__concentration">
+            <span>{{ '_CharacterPage.Concentration' | transloco }}:</span>
+            <span>{{ character()?.concentration }}</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
 
 <app-player-character-details-modal [visible]="isCharacterDetailsShown()" [character]="character()"
                                     (onHide)="onCloseCharacterDetails()"/>

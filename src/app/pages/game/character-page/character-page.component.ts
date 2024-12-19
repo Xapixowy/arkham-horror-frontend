@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AttributeSliderComponent } from '@Components/attribute-slider/attribute-slider.component';
 import { WindowEvent } from '@Enums/window-event.enum';
 import { PlayerCharacterDetailsModalComponent } from '@Layouts/game-layout/_components/player-character-details-modal/player-character-details-modal.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-character-page',
@@ -24,6 +25,7 @@ import { PlayerCharacterDetailsModalComponent } from '@Layouts/game-layout/_comp
     AttributeSliderComponent,
     NgIcon,
     PlayerCharacterDetailsModalComponent,
+    SkeletonModule,
   ],
   providers: [
     CharacterPageService,
@@ -44,6 +46,7 @@ export class CharacterPageComponent {
   protected readonly character = this.characterPageService.character;
   protected readonly playerStatus = this.characterPageService.playerStatus;
   protected readonly attributeSliderConfigs = this.characterPageService.attributeSliderConfigs;
+  protected readonly isLoading = this.characterPageService.isFirstLoading;
 
   protected readonly isCharacterDetailsShown = signal<boolean>(false);
 

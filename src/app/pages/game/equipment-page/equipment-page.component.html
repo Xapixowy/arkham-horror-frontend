@@ -1,0 +1,63 @@
+<div class="equipment-page">
+  <div class="equipment-page__header">
+    <h1>{{ '_EquipmentPage.Equipment' | transloco }}</h1>
+  </div>
+  <form class="equipment-page__form">
+    <div class="equipment-page__equipment">
+      <div class="equipment-page__equipment__label">
+        @if (isLoading()) {
+          <p-skeleton width="10rem" height="1.75rem"/>
+        } @else {
+          {{ '_EquipmentPage.Money' | transloco }}
+        }
+      </div>
+      <div class="equipment-page__equipment__input">
+        @if (isLoading()) {
+          <p-skeleton shape="circle" size="2.625rem"/>
+          <p-skeleton width="2.5rem" height="2.5rem"/>
+          <p-skeleton shape="circle" size="2.625rem"/>
+        } @else {
+          <app-button-icon-only icon="tablerMinus" (onClick)="onMoneyDecrease()"/>
+          <div class="equipment-page__equipment__input__value equipment-page__equipment__input__value--money">
+            {{ playerEquipment.money() || 0 }}
+          </div>
+          <app-button-icon-only icon="tablerPlus" (onClick)="onMoneyIncrease()"/>
+        }
+      </div>
+    </div>
+    <div class="equipment-page__equipment">
+        <span class="equipment-page__equipment__label">
+          @if (isLoading()) {
+            <p-skeleton width="10rem" height="1.75rem"/>
+          } @else {
+            {{ '_EquipmentPage.Clues' | transloco }}
+          }
+        </span>
+      <div class="equipment-page__equipment__input">
+        @if (isLoading()) {
+          <p-skeleton shape="circle" size="2.625rem"/>
+          <p-skeleton width="2.5rem" height="2.5rem"/>
+          <p-skeleton shape="circle" size="2.625rem"/>
+        } @else {
+          <app-button-icon-only icon="tablerMinus" (onClick)="onCluesDecrease()"/>
+          <div class="equipment-page__equipment__input__value equipment-page__equipment__input__value--clues">
+            {{ playerEquipment.clues() || 0 }}
+          </div>
+          <app-button-icon-only icon="tablerPlus" (onClick)="onCluesIncrease()"/>
+        }
+      </div>
+    </div>
+  </form>
+  <div class="equipment-page__divider equipment-page__divider--equipment"></div>
+  <div class="equipment-page__card-selector">
+    @if (isLoading()) {
+      <div class="equipment-page__card-selector__skeletons">
+        <p-skeleton width="100%" height="2.5rem"/>
+        <p-skeleton width="100%" height="15.25rem"/>
+      </div>
+    } @else {
+      <app-card-selector [selectedCards]="selectedPlayerCards" mode="player"
+                         (onSelectedCardsChange)="updatePlayerCards($event)"/>
+    }
+  </div>
+</div>

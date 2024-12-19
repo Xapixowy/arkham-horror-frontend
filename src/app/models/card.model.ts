@@ -1,9 +1,9 @@
-import {CardType} from '@Enums/cards/card-type.enum';
-import {CardSubtype} from '@Enums/cards/card-subtype.enum';
-import {AttributeModifier} from '@Types/cards/attribute-modifier.type';
-import {Language} from '@Features/language/_enums/language.enum';
-import {CardDto} from '@Types/dtos/card-dto.type';
-import {CardTranslation} from '@Models/card-translation.model';
+import { CardType } from '@Enums/cards/card-type.enum';
+import { CardSubtype } from '@Enums/cards/card-subtype.enum';
+import { AttributeModifier } from '@Types/cards/attribute-modifier.type';
+import { Language } from '@Features/language/_enums/language.enum';
+import { CardDto } from '@Types/dtos/card-dto.type';
+import { CardTranslation } from '@Models/card-translation.model';
 
 export class Card {
   constructor(
@@ -20,8 +20,7 @@ export class Card {
     public created_at: Date,
     public updated_at: Date,
     public translations?: CardTranslation[],
-  ) {
-  }
+  ) {}
 
   static fromDto(dto: CardDto): Card {
     return new Card(
@@ -36,7 +35,7 @@ export class Card {
       dto.back_image_path,
       dto.locale,
       new Date(dto.created_at),
-      new Date(dto.update_at),
+      new Date(dto.updated_at),
     );
   }
 }

@@ -3,16 +3,27 @@
     <router-outlet/>
   </div>
   <div class="game-layout__actions">
-    <app-speed-dial [items]="speedDialItems()"/>
+    @if (isLoading()) {
+      <p-skeleton shape="circle" size="3rem"/>
+    } @else {
+      <app-speed-dial [items]="speedDialItems()"/>
+    }
   </div>
-  @if (gameSessionPhase()) {
+  @if (!gameSessionPhase() && isLoading()) {
     <div class="game-layout__phase">
-      <div class="game-layout__phase__icon">
-        <ng-icon class="game-layout__phase__hourglass game-layout__phase__hourglass--high" name="tablerHourglassHigh"/>
-        <ng-icon class="game-layout__phase__hourglass game-layout__phase__hourglass--medium" name="tablerHourglass"/>
-        <ng-icon class="game-layout__phase__hourglass game-layout__phase__hourglass--low" name="tablerHourglassLow"/>
+      <p-skeleton height="3rem" width="16rem" borderRadius="100vw"/>
+    </div>
+  } @else {
+    <div class="game-layout__phase">
+      <div class="game-layout__phase__wrapper">
+        <div class="game-layout__phase__icon">
+          <ng-icon class="game-layout__phase__hourglass game-layout__phase__hourglass--high"
+                   name="tablerHourglassHigh"/>
+          <ng-icon class="game-layout__phase__hourglass game-layout__phase__hourglass--medium" name="tablerHourglass"/>
+          <ng-icon class="game-layout__phase__hourglass game-layout__phase__hourglass--low" name="tablerHourglassLow"/>
+        </div>
+        <div class="game-layout__phase__label">{{ '_GameSessionPhase.' + gameSessionPhase() | transloco }}</div>
       </div>
-      <div class="game-layout__phase__label">{{ '_GameSessionPhase.' + gameSessionPhase() | transloco }}</div>
     </div>
   }
 </div>

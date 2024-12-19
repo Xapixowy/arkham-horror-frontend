@@ -18,4 +18,5 @@ import { tablerPhotoOff } from '@ng-icons/tabler-icons';
 export class ImgPlaceholderComponent {
   readonly size = input.required<string>();
   readonly shape = input<'circle' | 'square'>('circle');
+  readonly aspectRatio = input<string>('1');
 }

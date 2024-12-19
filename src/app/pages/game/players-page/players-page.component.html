@@ -2,19 +2,30 @@
   <div class="players-page__header">
     <h1>{{ '_PlayersPage.Players' | transloco }}</h1>
   </div>
-  @if (gameSessionToken()) {
-    <div class="players-page__callout">
+  <div class="players-page__callout">
+    @if (isLoading()) {
+      <p-skeleton width="100%" height="1.5rem"/>
+    } @else {
       <span>{{ '_PlayersPage.Share this token with others so they can join your game' | transloco }}: </span>
-      <span class="players-page__callout__token">{{ gameSessionToken() }}</span>
-    </div>
-  }
+      <span class="players-page__callout__token">{{ gameSessionToken() || '-' }}</span>
+    }
+  </div>
   <div class="players-page__divider"></div>
   <div class="players-page__content">
-    @for (player of players(); track player.id) {
-      <app-player [player]="player" (onShowPlayerCharacterDetails)="onShowPlayerCharacterDetailsModal($event)"
-                  (onShowPlayerStatistics)="onShowPlayerStatistics($event)"/>
-    } @empty {
-      <app-no-content/>
+    @if (isLoading()) {
+      <p-skeleton width="100%" height="50rem"/>
+      <p-skeleton width="100%" height="50rem"/>
+      <p-skeleton width="100%" height="50rem"/>
+      <p-skeleton width="100%" height="50rem"/>
+      <p-skeleton width="100%" height="50rem"/>
+      <p-skeleton width="100%" height="50rem"/>
+    } @else {
+      @for (player of players(); track player.id) {
+        <app-player [player]="player" (onShowPlayerCharacterDetails)="onShowPlayerCharacterDetailsModal($event)"
+                    (onShowPlayerStatistics)="onShowPlayerStatistics($event)"/>
+      } @empty {
+        <app-no-content/>
+      }
     }
   </div>
 </div>

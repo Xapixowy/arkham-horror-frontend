@@ -15,5 +15,5 @@ export type CardDto = {
   back_image_path: string | null;
   locale: Language;
   created_at: string;
-  update_at: string;
+  updated_at: string;
 };

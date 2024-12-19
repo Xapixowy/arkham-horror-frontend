@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { GameSessionsService } from '@Services/http/game-sessions.service';
 import { ToastService } from '@Services/toast.service';
 import { ErrorService } from '@Services/error.service';
-import { catchError, map, of, switchMap } from 'rxjs';
+import { catchError, concatMap, map, of, switchMap } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GameSession } from '@Models/game-session.model';
 import { PlayersService } from '@Services/http/players.service';
@@ -28,12 +28,16 @@ import {
   resetGameSessionPhaseFailure,
   resetGameSessionPhaseSuccess,
   updatePlayer,
+  updatePlayerCards,
+  updatePlayerCardsFailure,
+  updatePlayerCardsSuccess,
   updatePlayerFailure,
   updatePlayerSuccess,
 } from '@States/game/game.actions';
 import { GAME_STATE_CONFIG } from '@States/game/game.config';
 import { PlayerDto } from '@Types/dtos/player-dto.type';
 import { GameSessionDto } from '@Types/dtos/game-session-dto.type';
+import { PlayerCard } from '@Models/player-card.model';
 
 @Injectable()
 export class GameEffects {
@@ -206,6 +210,30 @@ export class GameEffects {
             const { error } = response.error;
             this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.players, response);
             return of(renewPlayerCharacterFailure({ error }));
+          }),
+        ),
+      ),
+    ),
+  );
+
+  updatePlayerCards$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updatePlayerCards),
+      concatMap(({ gameSessionToken, playerToken, assignPlayerCardsPayload, removePlayerCardsPayload }) =>
+        this.playersService.assignPlayerCards(gameSessionToken, playerToken, assignPlayerCardsPayload).pipe(
+          concatMap(() =>
+            this.playersService.removePlayerCards(gameSessionToken, playerToken, removePlayerCardsPayload).pipe(
+              map((response) =>
+                updatePlayerCardsSuccess({
+                  cards: response.data.map((playerCard) => PlayerCard.fromDto(playerCard)),
+                }),
+              ),
+            ),
+          ),
+          catchError((response: HttpErrorResponse) => {
+            const { error } = response.error;
+            this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.players, response);
+            return of(updatePlayerCardsFailure({ error }));
           }),
         ),
       ),

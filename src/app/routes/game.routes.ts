@@ -8,6 +8,8 @@ const CHARACTER_PAGE = () =>
   import('@Pages/game/character-page/character-page.component').then((m) => m.CharacterPageComponent);
 const PLAYERS_PAGE = () =>
   import('@Pages/game/players-page/players-page.component').then((m) => m.PlayersPageComponent);
+const EQUIPMENT_PAGE = () =>
+  import('@Pages/game/equipment-page/equipment-page.component').then((m) => m.EquipmentPageComponent);
 
 export const GAME_ROUTES: Route[] = [
   {
@@ -22,7 +24,7 @@ export const GAME_ROUTES: Route[] = [
       },
       {
         path: APP_ROUTES_CONFIG.Game.Equipment,
-        loadComponent: CHARACTER_PAGE,
+        loadComponent: EQUIPMENT_PAGE,
         title: 'Equipment',
       },
       {

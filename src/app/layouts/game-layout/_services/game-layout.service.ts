@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { SpeedDialItem } from '@Components/speed-dial/_types/speed-dial-item.type';
 import { GAME_LAYOUT_CONFIG } from '@Layouts/game-layout/_configs/game-layout.config';
 import { NavigationEnd, Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 import { GameSpeedDialId } from '@Layouts/game-layout/_enums/game-speed-dial-id.enum';
 import { WindowEvent } from '@Enums/window-event.enum';
 import { Store } from '@ngrx/store';
-import { selectGameSession, selectGameSessionPhase, selectPlayer } from '@States/game/game.selectors';
+import { selectGameSession, selectGameSessionPhase, selectGameStatus, selectPlayer } from '@States/game/game.selectors';
 import { Player } from '@Models/player.model';
 import { GameSession } from '@Models/game-session.model';
 import { GameSessionPhase } from '@Enums/game-sessions/game-session-phase.enum';
@@ -30,6 +30,7 @@ import { DataResponse } from '@Types/data-response.type';
 import { GameSessionPhaseUpdatedResponse } from '@Types/responses/websockets/game-sessions/game-session-phase-updated-response.type';
 import { ConfirmationService } from 'primeng/api';
 import { PlayerJoinedResponse } from '@Types/responses/websockets/game-sessions/player-joined-response.type';
+import { StateStatus } from '@Enums/state-status.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -46,11 +47,18 @@ export class GameLayoutService {
   readonly player = signal<Player | null>(null);
   readonly gameSession = signal<GameSession | null>(null);
   readonly gameSessionPhase = signal<GameSessionPhase | null>(null);
-  readonly user = this.localStorageService.user;
+  readonly gameStatus = signal<StateStatus>(StateStatus.PENDING);
+
+  readonly isFirstLoading = computed<boolean>(
+    () => this.gameStatus() === StateStatus.LOADING && this.player() === null && this.gameSession() === null,
+  );
 
   readonly player$ = this.store.select(selectPlayer);
   private readonly gameSession$ = this.store.select(selectGameSession);
   private readonly gameSessionPhase$ = this.store.select(selectGameSessionPhase);
+  private readonly gameStatus$ = this.store.select(selectGameStatus);
+
+  readonly user = this.localStorageService.user;
 
   constructor() {
     this.listenToUrlChanges();
@@ -169,6 +177,7 @@ export class GameLayoutService {
     this.gameSessionPhase$
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((value) => this.gameSessionPhase.set(value));
+    this.gameStatus$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => this.gameStatus.set(value));
   }
 
   private listenToWebsocketEvents(): void {

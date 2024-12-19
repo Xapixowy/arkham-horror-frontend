@@ -12,16 +12,19 @@
     position: fixed;
     bottom: 1rem;
     left: 1rem;
-    height: 3rem;
-    max-width: 16rem;
-    background-color: var(--color-primary);
-    color: var(--surface-ground);
-    border-radius: 100vw;
-    padding: 0.25rem 1rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
     z-index: var(--game-phase-z-index);
+
+    &__wrapper {
+      height: 3rem;
+      max-width: 16rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.25rem 1rem;
+      border-radius: 100vw;
+      background-color: var(--color-primary);
+      color: var(--surface-ground);
+    }
 
     &__icon {
       font-size: 1.5rem;

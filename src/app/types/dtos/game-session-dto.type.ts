@@ -5,7 +5,7 @@ export type GameSessionDto = {
   id: number;
   token: string;
   phase: GameSessionPhase;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   players?: PlayerDto[];
 };

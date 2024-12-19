@@ -7,6 +7,7 @@ import { Player } from '@Models/player.model';
 import { Character } from '@Models/character.model';
 import { PlayerStatisticsDialogComponent } from '@Layouts/game-layout/_components/player-statistics-dialog/player-statistics-dialog.component';
 import { PlayerCharacterDetailsModalComponent } from '@Layouts/game-layout/_components/player-character-details-modal/player-character-details-modal.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-players-page',
@@ -17,6 +18,7 @@ import { PlayerCharacterDetailsModalComponent } from '@Layouts/game-layout/_comp
     TranslocoPipe,
     PlayerStatisticsDialogComponent,
     PlayerCharacterDetailsModalComponent,
+    SkeletonModule,
   ],
   providers: [PlayerPageService],
   templateUrl: './players-page.component.html',
@@ -31,6 +33,7 @@ export class PlayersPageComponent {
   protected readonly isPlayerCharacterDetailsModalShown = this.playerPageService.isPlayerCharacterDetailsModalShown;
   protected readonly isPlayerStatisticsModalShown = this.playerPageService.isPlayerStatisticsModalShown;
   protected readonly modalPlayer = this.playerPageService.modalPlayer;
+  protected readonly isLoading = this.playerPageService.isFirstLoading;
 
   protected readonly character = computed<Character | null>(
     () => this.playerPageService.modalPlayer()?.character ?? null,

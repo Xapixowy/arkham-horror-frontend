@@ -8,6 +8,8 @@ import { Player } from '@Models/player.model';
 export class PlayerPageService {
   private readonly gameLayoutService = inject(GameLayoutService);
 
+  readonly isFirstLoading = this.gameLayoutService.isFirstLoading;
+
   readonly isPlayerStatisticsModalShown = signal<boolean>(false);
   readonly isPlayerCharacterDetailsModalShown = signal<boolean>(false);
   readonly modalPlayer = signal<Player | null>(null);

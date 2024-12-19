@@ -15,6 +15,7 @@ import { PrimeTemplate } from 'primeng/api';
 import { NoContentComponent } from '@Components/no-content/no-content.component';
 import { WebsocketService } from '@Services/websocket.service';
 import { PlayerStatisticsDialogComponent } from '@Layouts/game-layout/_components/player-statistics-dialog/player-statistics-dialog.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @Component({
   selector: 'app-game-layout',
@@ -29,6 +30,7 @@ import { PlayerStatisticsDialogComponent } from '@Layouts/game-layout/_component
     PrimeTemplate,
     NoContentComponent,
     PlayerStatisticsDialogComponent,
+    SkeletonModule,
   ],
   providers: [GameLayoutService, WebsocketService, provideIcons(GAME_LAYOUT_CONFIG.icons)],
   templateUrl: './game-layout.component.html',
@@ -45,6 +47,7 @@ export class GameLayoutComponent {
   protected readonly player = this.gameLayoutService.player;
   protected readonly gameSession = this.gameLayoutService.gameSession;
   protected readonly gameSessionPhase = this.gameLayoutService.gameSessionPhase;
+  protected readonly isLoading = this.gameLayoutService.isFirstLoading;
 
   protected readonly isPlayerStatisticsShown = signal<boolean>(false);
 

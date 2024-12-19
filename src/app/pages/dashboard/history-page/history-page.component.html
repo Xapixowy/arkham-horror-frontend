@@ -1,10 +1,29 @@
 <div class="history-page">
   @if (dashboardStatus() === StateStatus.LOADING) {
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
-    <p-skeleton height="3.5rem"/>
+    <div class="history-page__skeletons history-page__skeletons--mobile">
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+      <p-skeleton height="7rem"/>
+    </div>
+    <div class="history-page__skeletons history-page__skeletons--desktop">
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+      <p-skeleton height="3.5rem"/>
+    </div>
   } @else {
     @for (gameSession of gameSessions(); track gameSession.id) {
       <app-game-session [gameSession]="gameSession" [user]="user"/>

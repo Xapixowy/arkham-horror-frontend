@@ -199,7 +199,8 @@
     "Cancel": "Anuluj"
   },
   "_CardSelector": {
-    "Select card": "Wybierz kartę"
+    "Select card": "Wybierz kartę",
+    "No card selected": "Nie wybrano karty"
   },
   "_CharacterSkillSelector": {
     "Name": "Nazwa",
@@ -542,5 +543,10 @@
     "Knowledge": "Wiedza",
     "Luck": "Szczęście",
     "Guest": "Gość"
+  },
+  "_EquipmentPage": {
+    "Equipment": "Ekwipunek",
+    "Money": "Pieniądze",
+    "Clues": "Wskazówki"
   }
 }
