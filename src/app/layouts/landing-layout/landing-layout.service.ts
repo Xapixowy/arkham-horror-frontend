@@ -130,8 +130,11 @@ export class LandingLayoutService {
         this.localStorageService.gameSessionToken = value.token;
 
         const isLandingPage = this.router.url === APP_ROUTES_CONFIG.Default;
+        const isHistoryPage = this.router.url.includes(
+          `${APP_ROUTES_CONFIG.Dashboard.Root}/${APP_ROUTES_CONFIG.Dashboard.History}`,
+        );
 
-        if (isLandingPage) {
+        if (isLandingPage || isHistoryPage) {
           this.router.navigate([
             APP_ROUTES_CONFIG.Default,
             APP_ROUTES_CONFIG.Game.Root,

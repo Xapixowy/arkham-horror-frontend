@@ -9,9 +9,11 @@
           <div class="game-session__panel__header__content__item">
             {{ gameSession().token }}
           </div>
-          <div class="game-session__panel__header__content__item">
-            {{ player().character!.name }}
-          </div>
+          @if (player()) {
+            <div class="game-session__panel__header__content__item">
+              {{ player()!.character!.name }}
+            </div>
+          }
           <div class="game-session__panel__header__content__item">
             <app-date-human-readable [date]="gameSession().updated_at"/>
           </div>
@@ -27,8 +29,10 @@
     </ng-template>
     <div class="game-session__panel__content">
       <app-game-session-information [gameSession]="gameSession()"/>
-      <app-game-session-player [player]="player()"/>
-      <app-game-session-statistics [statistics]="player().statistics"/>
+      @if (player()) {
+        <app-game-session-player [player]="player()!"/>
+        <app-game-session-statistics [statistics]="player()!.statistics"/>
+      }
     </div>
   </p-panel>
 </div>

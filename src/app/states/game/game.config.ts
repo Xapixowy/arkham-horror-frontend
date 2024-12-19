@@ -11,6 +11,7 @@ export const GAME_STATE_CONFIG: {
     resetGameSessionPhaseSuccess: string;
     nextGameSessionPhaseSuccess: string;
     previousGameSessionPhaseSuccess: string;
+    renewPlayerCharacterSuccess: string;
   };
 } = {
   initialState: {
@@ -27,5 +28,6 @@ export const GAME_STATE_CONFIG: {
     resetGameSessionPhaseSuccess: '_GameState.Game Session phase has been reset',
     nextGameSessionPhaseSuccess: '_GameState.Game Session phase has been advanced',
     previousGameSessionPhaseSuccess: '_GameState.Game Session phase has been retreated',
+    renewPlayerCharacterSuccess: '_GameState.Player character has been renewed',
   },
 };

@@ -14,6 +14,7 @@ import {
   tablerInfoCircle,
   tablerQuestionMark,
   tablerRefresh,
+  tablerUserQuestion,
   tablerX,
   tablerZoom,
 } from '@ng-icons/tabler-icons';
@@ -34,6 +35,13 @@ export const GAME_LAYOUT_CONFIG: {
       id: GameSpeedDialId.PLAYER_STATISTICS,
       label: '_GameLayout.Player statistics',
       icon: 'tablerChartBar',
+      action: () => {},
+    },
+    {
+      id: GameSpeedDialId.RENEW_CHARACTER,
+      label: '_GameLayout.Renew character',
+      icon: 'tablerUserQuestion',
+      severity: 'warning',
       action: () => {},
     },
     {
@@ -67,6 +75,7 @@ export const GAME_LAYOUT_CONFIG: {
     tablerArrowRight,
     tablerInfoCircle,
     tablerChartBar,
+    tablerUserQuestion,
     tablerCoin,
     tablerZoom,
     tablerHeart,

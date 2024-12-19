@@ -1,0 +1,96 @@
+<p-card [subheader]="user()?.name ?? ('_PlayersPage.Guest' | transloco)"
+        styleClass="p-card--game-player">
+  <ng-template pTemplate="header">
+    @if (character()?.image_path) {
+      <img [alt]="'_PlayersPage.Character image' | transloco" [src]="character()!.image_path"/>
+    } @else {
+      <app-img-placeholder size="100%" shape="square"/>
+    }
+  </ng-template>
+  <ng-template pTemplate="title">
+    <div class="player__title">
+      <span>{{ character()?.name }}</span>
+      @if (player().role === PlayerRole.HOST) {
+        <ng-icon name="tablerTool"/>
+      }
+    </div>
+  </ng-template>
+  <div class="player__content">
+    <div class="player__section">
+      <div class="player__section__label">
+        <ng-icon name="tablerBrain"/>
+        <span>{{ '_PlayersPage.Sanity' | transloco }}</span>
+      </div>
+      <div class="player__section__value player__section__value--sanity">{{ player().status.sanity }}</div>
+    </div>
+    <div class="player__section">
+      <div class="player__section__label">
+        <ng-icon name="tablerHeart"/>
+        <span>{{ '_PlayersPage.Endurance' | transloco }}</span>
+      </div>
+      <div class="player__section__value player__section__value--endurance">{{ player().status.endurance }}</div>
+    </div>
+    <div class="player__divider"></div>
+    <div class="player__section">
+      <div class="player__section__label">
+        <ng-icon name="tablerCoin"/>
+        <span>{{ '_PlayersPage.Money' | transloco }}</span>
+      </div>
+      <div class="player__section__value player__section__value--money">{{ player().equipment.money }}</div>
+    </div>
+    <div class="player__section">
+      <div class="player__section__label">
+        <ng-icon name="tablerSearch"/>
+        <span>{{ '_PlayersPage.Clues' | transloco }}</span>
+      </div>
+      <div class="player__section__value player__section__value--clues">{{ player().equipment.clues }}</div>
+    </div>
+    <div class="player__divider"></div>
+    <div class="player__section">
+      <div class="player__section__label">
+        {{ '_PlayersPage.Speed' | transloco }}
+      </div>
+      <div class="player__section__value">{{ player().attributes.speed }}</div>
+    </div>
+    <div class="player__section">
+      <div class="player__section__label">
+        {{ '_PlayersPage.Sneak' | transloco }}
+      </div>
+      <div class="player__section__value">{{ player().attributes.sneak }}</div>
+    </div>
+    <div class="player__section">
+      <div class="player__section__label">
+        {{ '_PlayersPage.Prowess' | transloco }}
+      </div>
+      <div class="player__section__value">{{ player().attributes.prowess }}</div>
+    </div>
+    <div class="player__section">
+      <div class="player__section__label">
+        {{ '_PlayersPage.Will' | transloco }}
+      </div>
+      <div class="player__section__value">{{ player().attributes.will }}</div>
+    </div>
+    <div class="player__section">
+      <div class="player__section__label">
+        {{ '_PlayersPage.Knowledge' | transloco }}
+      </div>
+      <div class="player__section__value">{{ player().attributes.knowledge }}</div>
+    </div>
+    <div class="player__section">
+      <div class="player__section__label">
+        {{ '_PlayersPage.Luck' | transloco }}
+      </div>
+      <div class="player__section__value">{{ player().attributes.luck }}</div>
+    </div>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="player__actions">
+      <app-date-human-readable [date]="player().created_at"/>
+      <div class="player__actions__divider"></div>
+      <app-button-icon-only [pTooltip]="'_PlayersPage.Character details' | transloco" icon="tablerInfoCircle"
+                            (onClick)="showPlayerCharacterDetails()"/>
+      <app-button-icon-only [pTooltip]="'_PlayersPage.Statistics' | transloco" icon="tablerChartBar"
+                            (onClick)="showPlayerStatistics()" severity="secondary"/>
+    </div>
+  </ng-template>
+</p-card>

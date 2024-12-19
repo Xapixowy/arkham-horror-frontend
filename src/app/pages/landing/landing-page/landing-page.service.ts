@@ -5,7 +5,7 @@ import { GameSessionJoinFormControls } from '@Enums/form-controls/game-session-j
 import { GAME_SESSION_JOIN_FORM_VALIDATORS } from '@Configs/form-validators/game-session-join-form-validators.config';
 import { FormValidationService } from '@Services/form-validation.service';
 import { Store } from '@ngrx/store';
-import { createGameSession, joinGameSession } from '@States/game/game.actions';
+import { clearState, createGameSession, joinGameSession } from '@States/game/game.actions';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { LocalStorageService } from '@Services/local-storage.service';
 
@@ -44,6 +44,11 @@ export class LandingPageService {
   clearGameSession(): void {
     this.localStorageService.gameSessionToken = null;
     this.localStorageService.playerToken = null;
+    this.clearGameStorage();
+  }
+
+  clearGameStorage(): void {
+    this.store.dispatch(clearState());
   }
 
   private initializeGameSessionJoinForm(): FormGroup<GameSessionJoinForm> {

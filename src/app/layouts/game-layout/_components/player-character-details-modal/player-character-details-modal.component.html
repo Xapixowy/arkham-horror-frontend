@@ -1,0 +1,82 @@
+<p-dialog [header]="'_GameLayout.Character details' | transloco" [modal]="true"
+          [visible]="visible()"
+          (visibleChange)="hideHandler()" styleClass="p-dialog--player-character-details-modal">
+  <div class="player-character-details-modal">
+    @if (character()) {
+      <div class="player-character-details-modal__section">
+        <div class="player-character-details-modal__section__header">
+          <ng-icon name="tablerPuzzle"/>
+          <span>{{ '_CharacterPage.Expansion' | transloco }}</span>
+        </div>
+        <div class="player-character-details-modal__section__content">
+          {{ '_Expansion.' + character()!.expansion | transloco }}
+        </div>
+      </div>
+      <div class="player-character-details-modal__section">
+        <div class="player-character-details-modal__section__header">
+          <ng-icon name="tablerBriefcase2"/>
+          <span>{{ '_CharacterPage.Profession' | transloco }}</span>
+        </div>
+        <div class="player-character-details-modal__section__content">
+          {{ character()!.profession }}
+        </div>
+      </div>
+      <div class="player-character-details-modal__section">
+        <div class="player-character-details-modal__section__header">
+          <ng-icon name="tablerPin"/>
+          <span>{{ '_CharacterPage.Starting location' | transloco }}</span>
+        </div>
+        <div class="player-character-details-modal__section__content">
+          {{ character()!.starting_location }}
+        </div>
+      </div>
+      <div class="player-character-details-modal__section">
+        <div class="player-character-details-modal__section__header">
+          <ng-icon name="tablerBackpack"/>
+          <span>{{ '_CharacterPage.Starting equipment' | transloco }}</span>
+        </div>
+        <div class="player-character-details-modal__section__content">
+          <p class="player-character-details-modal__equipment">
+            <span>{{ '_CharacterPage.Money' | transloco }}:</span>
+            <span>{{ character()!.equipment.money }}</span>
+          </p>
+          <p class="player-character-details-modal__equipment">
+            <span>{{ '_CharacterPage.Clues' | transloco }}:</span>
+            <span>{{ character()!.equipment.clues }}</span>
+          </p>
+          <p class="player-character-details-modal__equipment">
+            <span>{{ '_CharacterPage.Random common items' | transloco }}:</span>
+            <span>{{ character()!.equipment.random.common_items }}</span>
+          </p>
+          <p class="player-character-details-modal__equipment">
+            <span>{{ '_CharacterPage.Random unique items' | transloco }}:</span>
+            <span>{{ character()!.equipment.random.unique_items }}</span>
+          </p>
+          <p class="player-character-details-modal__equipment">
+            <span>{{ '_CharacterPage.Random spells' | transloco }}:</span>
+            <span>{{ character()!.equipment.random.spells }}</span>
+          </p>
+          <p class="player-character-details-modal__equipment">
+            <span>{{ '_CharacterPage.Random abilities' | transloco }}:</span>
+            <span>{{ character()!.equipment.random.abilities }}</span>
+          </p>
+          <p class="player-character-details-modal__equipment">
+            <span>{{ '_CharacterPage.Random allies' | transloco }}:</span>
+            <span>{{ character()!.equipment.random.allies }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="player-character-details-modal__section">
+        <div class="player-character-details-modal__section__header">
+          <ng-icon name="tablerScript"/>
+          <span>{{ '_CharacterPage.Description' | transloco }}</span>
+        </div>
+        <div
+          class="player-character-details-modal__section__content player-character-details-modal__section__content--description"
+          [innerHTML]="character()!.description"></div>
+      </div>
+    } @else {
+      <app-no-content/>
+    }
+  </div>
+</p-dialog>

@@ -1,0 +1,38 @@
+<p-dialog [header]="'_GameLayout.Statistics' | transloco" [modal]="true" [visible]="visible()"
+          (visibleChange)="hideHandler()" styleClass="p-dialog--player-statistics-dialog">
+  <div class="player-statistics-dialog">
+    @if (player()) {
+      @for (statisticGroup of statisticsGroups(); track $index) {
+        <div class="player-statistics-dialog__statistic-group">
+          <p-card>
+            <ng-template pTemplate="title">
+              <div class="player-statistics-dialog__statistic-group__header">
+            <span class="player-statistics-dialog__statistic-group__header__icon">
+              <ng-icon [name]="statisticGroup.icon"/>
+            </span>
+                <span class="player-statistics-dialog__statistic-group__header__label">
+              {{ '_StatisticsPage.' + statisticGroup.label | transloco }}
+            </span>
+              </div>
+            </ng-template>
+            <div class="player-statistics-dialog__statistic-group__content">
+              @for (statistic of statisticGroup.statistics; track $index) {
+                <div class="player-statistics-dialog__statistic">
+                  <div
+                    class="player-statistics-dialog__statistic__label">{{ '_UserPlayerStatistics.' + statistic.label | transloco }}
+                    :
+                  </div>
+                  <div class="player-statistics-dialog__statistic__value">{{ statistic.value }}</div>
+                </div>
+              }
+            </div>
+          </p-card>
+        </div>
+      } @empty {
+        <app-no-content/>
+      }
+    } @else {
+      <app-no-content/>
+    }
+  </div>
+</p-dialog>

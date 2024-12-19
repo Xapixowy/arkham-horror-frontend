@@ -15,43 +15,7 @@
       <div class="game-layout__phase__label">{{ '_GameSessionPhase.' + gameSessionPhase() | transloco }}</div>
     </div>
   }
-  <div class="game-layout-modal" [class.game-layout-modal--shown]="isPlayerStatisticsShown()">
-    <div class="game-layout-modal__header">
-      <h2>{{ '_GameLayout.Statistics' | transloco }}</h2>
-      <div class="game-layout-modal__header__close" (click)="onPlayerStatisticsClose()">
-        <ng-icon name="tablerX"/>
-      </div>
-    </div>
-    <div class="game-layout-modal__content">
-      @for (statisticGroup of playerStatisticsGroups(); track $index) {
-        <div class="game-layout-modal__statistic-group">
-          <p-card>
-            <ng-template pTemplate="title">
-              <div class="game-layout-modal__statistic-group__header">
-            <span class="game-layout-modal__statistic-group__header__icon">
-              <ng-icon [name]="statisticGroup.icon"/>
-            </span>
-                <span class="game-layout-modal__statistic-group__header__label">
-              {{ '_StatisticsPage.' + statisticGroup.label | transloco }}
-            </span>
-              </div>
-            </ng-template>
-            <div class="game-layout-modal__statistic-group__content">
-              @for (statistic of statisticGroup.statistics; track $index) {
-                <div class="game-layout-modal__statistic">
-                  <div
-                    class="game-layout-modal__statistic__label">{{ '_UserPlayerStatistics.' + statistic.label | transloco }}
-                    :
-                  </div>
-                  <div class="game-layout-modal__statistic__value">{{ statistic.value }}</div>
-                </div>
-              }
-            </div>
-          </p-card>
-        </div>
-      } @empty {
-        <app-no-content/>
-      }
-    </div>
-  </div>
 </div>
+
+<app-player-statistics-dialog [visible]="isPlayerStatisticsShown()" [player]="player()"
+                              (onHide)="onPlayerStatisticsClose()"/>

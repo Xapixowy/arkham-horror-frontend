@@ -5,19 +5,11 @@ import { TranslocoPipe } from '@jsverse/transloco';
 import { ImgPlaceholderComponent } from '@Components/img-placeholder/img-placeholder.component';
 import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import {
-  tablerBackpack,
-  tablerBriefcase2,
-  tablerMinus,
-  tablerPin,
-  tablerPlus,
-  tablerPuzzle,
-  tablerScript,
-  tablerX,
-} from '@ng-icons/tabler-icons';
+import { tablerMinus, tablerPlus } from '@ng-icons/tabler-icons';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AttributeSliderComponent } from '@Components/attribute-slider/attribute-slider.component';
 import { WindowEvent } from '@Enums/window-event.enum';
+import { PlayerCharacterDetailsModalComponent } from '@Layouts/game-layout/_components/player-character-details-modal/player-character-details-modal.component';
 
 @Component({
   selector: 'app-character-page',
@@ -31,18 +23,13 @@ import { WindowEvent } from '@Enums/window-event.enum';
     NgClass,
     AttributeSliderComponent,
     NgIcon,
+    PlayerCharacterDetailsModalComponent,
   ],
   providers: [
     CharacterPageService,
     provideIcons({
       tablerMinus,
       tablerPlus,
-      tablerX,
-      tablerPuzzle,
-      tablerBriefcase2,
-      tablerPin,
-      tablerBackpack,
-      tablerScript,
     }),
   ],
   templateUrl: './character-page.component.html',

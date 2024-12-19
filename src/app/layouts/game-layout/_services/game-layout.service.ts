@@ -11,13 +11,25 @@ import { Player } from '@Models/player.model';
 import { GameSession } from '@Models/game-session.model';
 import { GameSessionPhase } from '@Enums/game-sessions/game-session-phase.enum';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { nextGameSessionPhase, previousGameSessionPhase, resetGameSessionPhase } from '@States/game/game.actions';
+import {
+  createGameSessionPlayer,
+  nextGameSessionPhase,
+  previousGameSessionPhase,
+  renewPlayerCharacter,
+  resetGameSessionPhase,
+  updateGameSessionPhase,
+  updateGameSessionPlayers,
+} from '@States/game/game.actions';
 import { WebsocketService } from '@Services/websocket.service';
 import { WebsocketGateway } from '@Enums/websockets/websocket-gateway.enum';
 import { WebsocketEvent } from '@Enums/websockets/websocket-event.enum';
 import { UserRole } from '@Enums/users/user-role.enum';
 import { PlayerRole } from '@Enums/players/player-role.enum';
 import { LocalStorageService } from '@Services/local-storage.service';
+import { DataResponse } from '@Types/data-response.type';
+import { GameSessionPhaseUpdatedResponse } from '@Types/responses/websockets/game-sessions/game-session-phase-updated-response.type';
+import { ConfirmationService } from 'primeng/api';
+import { PlayerJoinedResponse } from '@Types/responses/websockets/game-sessions/player-joined-response.type';
 
 @Injectable({
   providedIn: 'root',
@@ -28,6 +40,7 @@ export class GameLayoutService {
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
   private readonly store = inject(Store);
+  private readonly confirmationService = inject(ConfirmationService);
 
   readonly speedDialItems = signal<SpeedDialItem[]>(GAME_LAYOUT_CONFIG.speedDialItems);
   readonly player = signal<Player | null>(null);
@@ -43,7 +56,7 @@ export class GameLayoutService {
     this.listenToUrlChanges();
     this.listenToStoreChanges();
     this.setSpeedDialItems(this.router.url);
-    this.websocketService.connect(WebsocketGateway.GAME_SESSION, this.gameSession()?.token);
+    this.websocketService.connect(WebsocketGateway.GAME_SESSIONS, this.localStorageService.gameSessionToken!);
     this.listenToWebsocketEvents();
   }
 
@@ -99,6 +112,27 @@ export class GameLayoutService {
         };
       }
 
+      if (item.id === GameSpeedDialId.RENEW_CHARACTER) {
+        return {
+          ...item,
+          action: () =>
+            this.confirmationService.confirm({
+              key: 'warning',
+              header: '_GameLayout.Character renewal',
+              message: '_GameLayout.Are you sure you want to renew your character?',
+              accept: () => {
+                this.store.dispatch(
+                  renewPlayerCharacter({
+                    gameSessionToken: this.localStorageService.gameSessionToken!,
+                    playerToken: this.localStorageService.playerToken!,
+                  }),
+                );
+                window.dispatchEvent(new CustomEvent(WindowEvent.GAME_PLAYER_RENEW_CHARACTER));
+              },
+            }),
+        };
+      }
+
       return item;
     });
   }
@@ -109,8 +143,9 @@ export class GameLayoutService {
     return speedDialItems.map((item) => {
       const isCharacterPage = url.includes(characterPageUrl);
       const isCharacterDetails = item.id === GameSpeedDialId.CHARACTER_DETAILS;
+      const isRenewPlayerCharacter = item.id === GameSpeedDialId.RENEW_CHARACTER;
 
-      if (!isCharacterPage && isCharacterDetails) {
+      if (!isCharacterPage && (isCharacterDetails || isRenewPlayerCharacter)) {
         return {
           ...item,
           hide: true,
@@ -137,11 +172,35 @@ export class GameLayoutService {
   }
 
   private listenToWebsocketEvents(): void {
-    this.websocketService.listen(WebsocketEvent.GAME_SESSION_PHASE_UPDATED, (data) => {
-      console.log(data);
+    this.websocketService.listen(
+      WebsocketEvent.GAME_SESSION_PHASE_UPDATED,
+      (response: DataResponse<GameSessionPhaseUpdatedResponse>) => {
+        this.store.dispatch(
+          updateGameSessionPhase({
+            gameSessionToken: response.data.game_session_token,
+            phase: response.data.phase,
+          }),
+        );
+      },
+    );
+    this.websocketService.listen(WebsocketEvent.PLAYER_UPDATED, (response: DataResponse<PlayerJoinedResponse>) => {
+      this.store.dispatch(
+        updateGameSessionPlayers({
+          gameSessionToken: response.data.game_session_token,
+          player: response.data.player,
+        }),
+      );
     });
-    this.websocketService.listen(WebsocketEvent.PLAYER_UPDATED, (data) => {
-      console.log(data);
-    });
+    this.websocketService.listen(
+      WebsocketEvent.GAME_SESSION_PLAYER_JOINED,
+      (response: DataResponse<PlayerJoinedResponse>) => {
+        this.store.dispatch(
+          createGameSessionPlayer({
+            gameSessionToken: response.data.game_session_token,
+            player: response.data.player,
+          }),
+        );
+      },
+    );
   }
 }

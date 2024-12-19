@@ -1,3 +1,3 @@
 export enum WebsocketGateway {
-  GAME_SESSION = 'game-session',
+  GAME_SESSIONS = 'game-sessions',
 }

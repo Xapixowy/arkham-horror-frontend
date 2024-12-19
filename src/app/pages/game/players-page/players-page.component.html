@@ -1,0 +1,25 @@
+<div class="players-page">
+  <div class="players-page__header">
+    <h1>{{ '_PlayersPage.Players' | transloco }}</h1>
+  </div>
+  @if (gameSessionToken()) {
+    <div class="players-page__callout">
+      <span>{{ '_PlayersPage.Share this token with others so they can join your game' | transloco }}: </span>
+      <span class="players-page__callout__token">{{ gameSessionToken() }}</span>
+    </div>
+  }
+  <div class="players-page__divider"></div>
+  <div class="players-page__content">
+    @for (player of players(); track player.id) {
+      <app-player [player]="player" (onShowPlayerCharacterDetails)="onShowPlayerCharacterDetailsModal($event)"
+                  (onShowPlayerStatistics)="onShowPlayerStatistics($event)"/>
+    } @empty {
+      <app-no-content/>
+    }
+  </div>
+</div>
+
+<app-player-statistics-dialog [visible]="isPlayerStatisticsModalShown()" [player]="modalPlayer()"
+                              (onHide)="onHidePlayerStatistics()"/>
+<app-player-character-details-modal [visible]="isPlayerCharacterDetailsModalShown()" [character]="character()"
+                                    (onHide)="onHidePlayerCharacterDetailsModal()"/>

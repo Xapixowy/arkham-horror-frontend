@@ -1,12 +1,15 @@
 import { createAction, props } from '@ngrx/store';
 import { GameSession } from '@Models/game-session.model';
 import { Player } from '@Models/player.model';
+import { GameSessionPhase } from '@Enums/game-sessions/game-session-phase.enum';
+import { PlayerDto } from '@Types/dtos/player-dto.type';
 
 const landingPageKey = '[Landing Page]';
-const characterPageKey = '[Character Page]';
+const gameLayoutKey = '[Game Layout]';
 const gameSessionsApiKey = '[Game Sessions API]';
 const playersApiKey = '[Players API]';
 
+export const clearState = createAction(`${landingPageKey} Clear State`);
 export const createGameSession = createAction(`${landingPageKey} Create Game Session`);
 export const createGameSessionSuccess = createAction(
   `${gameSessionsApiKey} Create Game Session Success`,
@@ -42,7 +45,7 @@ export const joinGameSessionFailure = createAction(
   }>(),
 );
 export const updatePlayer = createAction(
-  `${characterPageKey} Update Player`,
+  `${gameLayoutKey} Update Player`,
   props<{
     gameSessionToken: string;
     playerToken: string;
@@ -62,7 +65,7 @@ export const updatePlayerFailure = createAction(
   }>(),
 );
 export const nextGameSessionPhase = createAction(
-  `${characterPageKey} Next Game Session Phase`,
+  `${gameLayoutKey} Next Game Session Phase`,
   props<{
     gameSessionToken: string;
   }>(),
@@ -80,7 +83,7 @@ export const nextGameSessionPhaseFailure = createAction(
   }>(),
 );
 export const previousGameSessionPhase = createAction(
-  `${characterPageKey} Previous Game Session Phase`,
+  `${gameLayoutKey} Previous Game Session Phase`,
   props<{
     gameSessionToken: string;
   }>(),
@@ -98,7 +101,7 @@ export const previousGameSessionPhaseFailure = createAction(
   }>(),
 );
 export const resetGameSessionPhase = createAction(
-  `${characterPageKey} Reset Game Session Phase`,
+  `${gameLayoutKey} Reset Game Session Phase`,
   props<{
     gameSessionToken: string;
   }>(),
@@ -111,6 +114,46 @@ export const resetGameSessionPhaseSuccess = createAction(
 );
 export const resetGameSessionPhaseFailure = createAction(
   `${gameSessionsApiKey} Reset Game Session Phase Failure`,
+  props<{
+    error: string;
+  }>(),
+);
+export const updateGameSessionPhase = createAction(
+  `${gameLayoutKey} Update Game Session Phase`,
+  props<{
+    gameSessionToken: string;
+    phase: GameSessionPhase;
+  }>(),
+);
+export const updateGameSessionPlayers = createAction(
+  `${gameLayoutKey} Update Game Session Players`,
+  props<{
+    gameSessionToken: string;
+    player: PlayerDto;
+  }>(),
+);
+export const createGameSessionPlayer = createAction(
+  `${gameLayoutKey} Create Game Session Player`,
+  props<{
+    gameSessionToken: string;
+    player: PlayerDto;
+  }>(),
+);
+export const renewPlayerCharacter = createAction(
+  `${gameLayoutKey} Renew Player Character`,
+  props<{
+    gameSessionToken: string;
+    playerToken: string;
+  }>(),
+);
+export const renewPlayerCharacterSuccess = createAction(
+  `${playersApiKey} Renew Player Character Success`,
+  props<{
+    player: Player;
+  }>(),
+);
+export const renewPlayerCharacterFailure = createAction(
+  `${playersApiKey} Renew Player Character Failure`,
   props<{
     error: string;
   }>(),

@@ -2,8 +2,10 @@ import { createReducer, on } from '@ngrx/store';
 import { StateStatus } from '@Enums/state-status.enum';
 import { GAME_STATE_CONFIG } from '@States/game/game.config';
 import {
+  clearState,
   createGameSession,
   createGameSessionFailure,
+  createGameSessionPlayer,
   createGameSessionSuccess,
   joinGameSession,
   joinGameSessionFailure,
@@ -14,16 +16,24 @@ import {
   previousGameSessionPhase,
   previousGameSessionPhaseFailure,
   previousGameSessionPhaseSuccess,
+  renewPlayerCharacter,
+  renewPlayerCharacterFailure,
+  renewPlayerCharacterSuccess,
   resetGameSessionPhase,
   resetGameSessionPhaseFailure,
   resetGameSessionPhaseSuccess,
+  updateGameSessionPhase,
+  updateGameSessionPlayers,
   updatePlayer,
   updatePlayerFailure,
   updatePlayerSuccess,
 } from '@States/game/game.actions';
+import { GameSession } from '@Models/game-session.model';
+import { Player } from '@Models/player.model';
 
 export const gameReducer = createReducer(
   GAME_STATE_CONFIG.initialState,
+  on(clearState, () => GAME_STATE_CONFIG.initialState),
   on(createGameSession, (state) => ({ ...state, status: StateStatus.LOADING })),
   on(createGameSessionSuccess, (state, { gameSession, player }) => ({
     ...state,
@@ -99,4 +109,83 @@ export const gameReducer = createReducer(
     status: StateStatus.ERROR,
     error,
   })),
+  on(updateGameSessionPhase, (state, { gameSessionToken, phase }) => {
+    if (state.gameSession?.token !== gameSessionToken) {
+      return state;
+    }
+
+    return {
+      ...state,
+      gameSession: new GameSession(
+        state.gameSession.id,
+        state.gameSession.token,
+        phase,
+        state.gameSession.created_at,
+        state.gameSession.updated_at,
+        state.gameSession.players,
+      ),
+      status: StateStatus.LOADING,
+    };
+  }),
+  on(updateGameSessionPlayers, (state, { gameSessionToken, player }) => {
+    if (state.gameSession?.token !== gameSessionToken) {
+      return state;
+    }
+
+    return {
+      ...state,
+      gameSession: new GameSession(
+        state.gameSession.id,
+        state.gameSession.token,
+        state.gameSession.phase,
+        state.gameSession.created_at,
+        state.gameSession.updated_at,
+        state.gameSession.players?.map((p) => (p.id === player.id ? Player.fromDto(player) : p)),
+      ),
+      status: StateStatus.LOADING,
+    };
+  }),
+  on(createGameSessionPlayer, (state, { gameSessionToken, player }) => {
+    if (state.gameSession?.token !== gameSessionToken) {
+      return state;
+    }
+
+    return {
+      ...state,
+      gameSession: new GameSession(
+        state.gameSession.id,
+        state.gameSession.token,
+        state.gameSession.phase,
+        state.gameSession.created_at,
+        state.gameSession.updated_at,
+        state.gameSession.players?.concat(Player.fromDto(player)),
+      ),
+      status: StateStatus.LOADING,
+    };
+  }),
+  on(renewPlayerCharacter, (state) => ({ ...state, status: StateStatus.LOADING })),
+  on(renewPlayerCharacterSuccess, (state, { player }) => {
+    const updatedGameSession = state.gameSession
+      ? {
+          ...state.gameSession,
+          players: state.gameSession.players
+            ? state.gameSession.players.map((p) => (p.token === player.token ? player : p))
+            : state.gameSession.players,
+        }
+      : null;
+
+    return {
+      ...state,
+      gameSession: updatedGameSession,
+      player,
+      status: StateStatus.LOADING,
+    };
+  }),
+  on(renewPlayerCharacterFailure, (state, { error }) => {
+    return {
+      ...state,
+      status: StateStatus.ERROR,
+      error,
+    };
+  }),
 );

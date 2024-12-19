@@ -28,7 +28,9 @@ export class DashboardEffects {
         this.userService.getUserGameSessions(userId).pipe(
           map((response) =>
             loadGameSessionsSuccess({
-              gameSessions: response.data.map((gameSession) => GameSession.fromDto(gameSession)),
+              gameSessions: response.data
+                .map((gameSession) => GameSession.fromDto(gameSession))
+                .sort((a, b) => (a.updated_at < b.updated_at ? 1 : -1)),
             }),
           ),
           catchError((response: HttpErrorResponse) => {

@@ -4,4 +4,5 @@ export enum GameSpeedDialId {
   NEXT_GAME_PHASE = 'next-game-phase',
   PREVIOUS_GAME_PHASE = 'previous-game-phase',
   RESET_GAME_PHASE = 'refresh-game-phase',
+  RENEW_CHARACTER = 'renew-character',
 }

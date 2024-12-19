@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal, ViewEncapsulation } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Button } from 'primeng/button';
 import { SpeedDialComponent } from '@Components/speed-dial/speed-dial.component';
@@ -10,12 +10,11 @@ import { joinGameSession } from '@States/game/game.actions';
 import { GameLayoutService } from '@Layouts/game-layout/_services/game-layout.service';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { WindowEvent } from '@Enums/window-event.enum';
-import { StatisticsGroup } from '@Types/statistics-group.type';
-import { UserPlayerStatisticsHelper } from '@Helpers/user-player-statistics.helper';
 import { CardModule } from 'primeng/card';
 import { PrimeTemplate } from 'primeng/api';
 import { NoContentComponent } from '@Components/no-content/no-content.component';
 import { WebsocketService } from '@Services/websocket.service';
+import { PlayerStatisticsDialogComponent } from '@Layouts/game-layout/_components/player-statistics-dialog/player-statistics-dialog.component';
 
 @Component({
   selector: 'app-game-layout',
@@ -29,6 +28,7 @@ import { WebsocketService } from '@Services/websocket.service';
     CardModule,
     PrimeTemplate,
     NoContentComponent,
+    PlayerStatisticsDialogComponent,
   ],
   providers: [GameLayoutService, WebsocketService, provideIcons(GAME_LAYOUT_CONFIG.icons)],
   templateUrl: './game-layout.component.html',
@@ -47,14 +47,6 @@ export class GameLayoutComponent {
   protected readonly gameSessionPhase = this.gameLayoutService.gameSessionPhase;
 
   protected readonly isPlayerStatisticsShown = signal<boolean>(false);
-
-  protected readonly playerStatisticsGroups = computed<StatisticsGroup[]>(() => {
-    if (!this.gameLayoutService.player()) {
-      return [];
-    }
-
-    return UserPlayerStatisticsHelper.generateStatisticGroups(this.gameLayoutService.player()!.statistics);
-  });
 
   constructor() {
     this.updateGameSession();

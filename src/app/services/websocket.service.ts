@@ -10,6 +10,7 @@ export class WebsocketService {
 
   connect(gateway: WebsocketGateway, path?: string): void {
     const server = path ? `${ENVIRONMENT.api_url}/${gateway}/${path}` : `${ENVIRONMENT.api_url}/${gateway}`;
+
     const socket = io(server);
 
     this.socket.set(socket);
@@ -19,11 +20,11 @@ export class WebsocketService {
     this.socket()?.disconnect();
   }
 
-  listen(event: WebsocketEvent, callback: (data: any) => void): void {
+  listen(event: WebsocketEvent, callback: (response: any) => void): void {
     this.socket()?.on(event, callback);
   }
 
-  stopListening(event: WebsocketEvent, callback: (data: any) => void): void {
+  stopListening(event: WebsocketEvent, callback: (response: any) => void): void {
     this.socket()?.off(event, callback);
   }
 

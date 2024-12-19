@@ -1,5 +1,4 @@
 import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
-import { LocalStorageService } from '@Services/local-storage.service';
 import { FormControl, FormGroup } from '@angular/forms';
 import { GameCharacterForm } from '@Types/forms/game-character-form.type';
 import { GameCharacterFormControls } from '@Enums/form-controls/game-character-form-controls.enum';
@@ -13,12 +12,12 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { distinctUntilChanged, filter, take } from 'rxjs';
 import { AttributeSliderConfig } from '@Components/attribute-slider/_types/attribute-slider-config.type';
 import { Character } from '@Models/character.model';
+import { WindowEvent } from '@Enums/window-event.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CharacterPageService {
-  private readonly localStorageService = inject(LocalStorageService);
   private readonly store = inject(Store);
   private readonly gameLayoutService = inject(GameLayoutService);
   private readonly destroyRef = inject(DestroyRef);
@@ -44,6 +43,7 @@ export class CharacterPageService {
   constructor() {
     this.listenToStoreChanges();
     this.listenToFormChanges();
+    this.listenToCharacterRenewalEvents();
   }
 
   increaseSanity(): void {
@@ -122,6 +122,10 @@ export class CharacterPageService {
         this.playerStatus.endurance.set(value.status.endurance);
         this.initializeAttributeSliderConfigs();
       });
+  }
+
+  private listenToCharacterRenewalEvents(): void {
+    window.addEventListener(WindowEvent.GAME_PLAYER_RENEW_CHARACTER, () => window.location.reload());
   }
 
   private initializeGameCharacterForm(): FormGroup<GameCharacterForm> {

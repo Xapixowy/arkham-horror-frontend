@@ -19,3 +19,25 @@
     </div>
   </ng-template>
 </p-confirmDialog>
+
+<p-confirmDialog key="warning" #cdWarning>
+  <ng-template pTemplate="headless" let-dialog>
+    <div class="confirm-dialog confirm-dialog--warning">
+      <div class="confirm-dialog__icon">
+        <ng-icon name="tablerExclamationCircleFill"/>
+      </div>
+      <h2 class="confirm-dialog__heading">
+        {{ (dialog.header ?? '_ConfirmDialog.Are you sure?') | transloco }}
+      </h2>
+      <p class="confirm-dialog__message">
+        {{ (dialog.message ?? '_ConfirmDialog.Please confirm to proceed') | transloco }}
+      </p>
+      <div class="confirm-dialog__actions">
+        <p-button severity="warning" [label]="'_ConfirmDialog.Save' | transloco"
+                  (click)="cdWarning.accept()"/>
+        <p-button severity="secondary" [outlined]="true" [label]="'_ConfirmDialog.Cancel' | transloco"
+                  (click)="cdWarning.reject()"/>
+      </div>
+    </div>
+  </ng-template>
+</p-confirmDialog>

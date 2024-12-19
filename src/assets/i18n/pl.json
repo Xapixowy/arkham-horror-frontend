@@ -430,7 +430,8 @@
     "Game Session joined successfully": "Dołączono do sesji gry pomyślnie",
     "Game Session phase has been reset": "Faza sesji gry została zresetowana",
     "Game Session phase has been advanced": "Faza sesji gry została zmieniona",
-    "Game Session phase has been retreated": "Faza sesji gry została zmieniona"
+    "Game Session phase has been retreated": "Faza sesji gry została zmieniona",
+    "Player character has been renewed": "Postać gracza została odnowiona"
   },
   "_GameSessionComponent": {
     "Game session": "Sesja gry",
@@ -493,7 +494,10 @@
     "Refresh game phase": "Zresetuj fazę gry",
     "Previous game phase": "Poprzednia faza gry",
     "Statistics": "Statystyki",
-    "Game phase": "Faza gry"
+    "Game phase": "Faza gry",
+    "Renew character": "Odnów postać",
+    "Character renewal": "Odnowienie postaci",
+    "Are you sure you want to renew your character?": "Jesteś pewien, że chcesz odnowić swoją postać?"
   },
   "_CharacterPage": {
     "Sanity": "Poczytalność",
@@ -519,5 +523,24 @@
     "Character details": "Szczegóły postaci",
     "Concentration": "Skupienie",
     "Character image": "Obraz postaci"
+  },
+  "_PlayersPage": {
+    "Players": "Gracze",
+    "Share this token with others so they can join your game": "Udostępnij ten token innym, aby mogli dołączyć do Twojej gry",
+    "Character image": "Zdjęcie postaci",
+    "Character details": "Szczegóły postaci",
+    "Statistics": "Statystyki",
+    "Sanity": "Poczytalność",
+    "Endurance": "Wytrzymałość",
+    "Money": "Pieniądze",
+    "Clues": "Wskazówki",
+    "Attributes": "Atrybuty",
+    "Speed": "Szybkość",
+    "Sneak": "Skradanie się",
+    "Prowess": "Waleczność",
+    "Will": "Wola",
+    "Knowledge": "Wiedza",
+    "Luck": "Szczęście",
+    "Guest": "Gość"
   }
 }

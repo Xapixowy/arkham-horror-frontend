@@ -20,11 +20,12 @@ export class HistoryPageService {
 
   readonly gameSessions = signal<GameSession[]>([]);
   readonly dashboardStatus = signal<StateStatus>(StateStatus.PENDING);
+  readonly user = this.localStorageService.user!;
 
   constructor() {
     this.store.dispatch(
       loadGameSessions({
-        userId: this.localStorageService.user!.id,
+        userId: this.user.id,
       }),
     );
     this.listenToGameSessionsChanges();

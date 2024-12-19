@@ -16,8 +16,8 @@ export type PlayerDto = {
   equipment: Equipment;
   attributes: Attributes;
   statistics: PlayerStatistics;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   user?: UserDto;
   character?: CharacterDto;
   playerCards?: PlayerCardDto[];

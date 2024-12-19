@@ -8,3 +8,16 @@
     }
   }
 }
+
+.p-dialog--player-statistics-dialog,
+.p-dialog--player-character-details-modal {
+  background-color: var(--surface-ground);
+
+  .p-dialog-header, .p-dialog-content {
+    background-color: transparent;
+  }
+
+  .p-dialog-content {
+    overflow-y: auto;
+  }
+}

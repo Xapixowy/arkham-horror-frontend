@@ -4,6 +4,7 @@ import { DataResponse } from '@Types/data-response.type';
 import { map, Observable } from 'rxjs';
 import { ENVIRONMENT } from '@Environments/environment';
 import { GameSessionDto } from '@Types/dtos/game-session-dto.type';
+import { GameSessionJoinResponse } from '@Types/responses/game-sessions/game-session-join-response.type';
 
 @Injectable({
   providedIn: 'root',
@@ -17,10 +18,10 @@ export class GameSessionsService {
       .pipe(map((response) => response as DataResponse<GameSessionDto>));
   }
 
-  joinGameSession(token: string): Observable<DataResponse<GameSessionDto>> {
+  joinGameSession(token: string): Observable<DataResponse<GameSessionJoinResponse>> {
     return this.httpClient
       .post(`${ENVIRONMENT.api_url}/game-sessions/${token}/join`, {})
-      .pipe(map((response) => response as DataResponse<GameSessionDto>));
+      .pipe(map((response) => response as DataResponse<GameSessionJoinResponse>));
   }
 
   getAllGameSessions(): Observable<DataResponse<GameSessionDto[]>> {
