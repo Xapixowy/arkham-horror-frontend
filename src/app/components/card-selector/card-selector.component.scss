@@ -1,5 +1,11 @@
 @import '../../../assets/styles/breakpoints';
 
+@mixin label {
+  font-size: 1.15rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
 .card-selector {
   display: flex;
   flex-direction: column;
@@ -100,6 +106,79 @@
       font-size: 5rem;
       width: 5rem;
       height: 5rem;
+    }
+  }
+}
+
+.card-details-modal {
+  max-width: 45rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  &__section {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--surface-300);
+
+    &:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    &__header {
+      @include label;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    &__content {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      font-weight: 300;
+      color: var(--surface-600);
+
+      &--description {
+        text-align: justify;
+      }
+
+      &--images {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      &__value {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: space-between;
+
+        span:first-child {
+          flex: 1;
+        }
+
+        span:last-child {
+          font-weight: bold;
+        }
+      }
+    }
+
+    &__image {
+      overflow: hidden;
+      border-radius: var(--border-radius-md);
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+
+      img {
+        display: block;
+        max-width: 8rem;
+      }
     }
   }
 }

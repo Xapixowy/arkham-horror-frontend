@@ -93,7 +93,7 @@
     "magical_weapon": "Broń Magiczna",
     "quest": "Misja",
     "task": "Zadanie",
-    "book": "Książka"
+    "book": "Księga"
   },
   "_Expansion": {
     "base": "Podstawowy",
@@ -200,7 +200,17 @@
   },
   "_CardSelector": {
     "Select card": "Wybierz kartę",
-    "No card selected": "Nie wybrano karty"
+    "No card selected": "Nie wybrano karty",
+    "Card details": "Szczegóły karty",
+    "Description": "Opis",
+    "Modifiers": "Modyfikatory",
+    "Images": "Zdjęcia",
+    "Details": "Szczegóły",
+    "Name": "Nazwa",
+    "Type": "Typ",
+    "Subtype": "Podtyp",
+    "Hand usage": "Użyte ręce",
+    "Attribute modifiers": "Modyfikatory atrybutów"
   },
   "_CharacterSkillSelector": {
     "Name": "Nazwa",

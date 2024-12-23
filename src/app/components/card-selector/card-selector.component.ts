@@ -9,7 +9,15 @@ import { Card } from '@Models/card.model';
 import { Button } from 'primeng/button';
 import { ButtonIconOnlyComponent } from '@Components/button-icon-only/button-icon-only.component';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { tablerCards, tablerMinus, tablerPlus } from '@ng-icons/tabler-icons';
+import {
+  tablerAdjustments,
+  tablerCards,
+  tablerInfoCircle,
+  tablerLibraryPhoto,
+  tablerMinus,
+  tablerPlus,
+  tablerScript,
+} from '@ng-icons/tabler-icons';
 import { TruncatePipe } from '@Pipes/truncate.pipe';
 import { TooltipModule } from 'primeng/tooltip';
 import { TableModule } from 'primeng/table';
@@ -17,6 +25,10 @@ import { PlayerCard } from '@Models/player-card.model';
 import { CardSelectorMode } from '@Components/card-selector/_types/card-selector-mode.type';
 import { NoContentComponent } from '@Components/no-content/no-content.component';
 import { CardModule } from 'primeng/card';
+import { DialogModule } from 'primeng/dialog';
+import { getEnumValues } from 'ts-enum-helpers';
+import { CardAttributeAbility } from '@Enums/cards/card-attribute-ability.enum';
+import { CardAttributeRestriction } from '@Enums/cards/card-attribute-restriction.enum';
 
 @Component({
   selector: 'app-card-selector',
@@ -35,8 +47,20 @@ import { CardModule } from 'primeng/card';
     NgIcon,
     NgTemplateOutlet,
     CardModule,
+    DialogModule,
   ],
-  providers: [CardSelectorService, provideIcons({ tablerMinus, tablerPlus, tablerCards })],
+  providers: [
+    CardSelectorService,
+    provideIcons({
+      tablerMinus,
+      tablerPlus,
+      tablerCards,
+      tablerLibraryPhoto,
+      tablerInfoCircle,
+      tablerAdjustments,
+      tablerScript,
+    }),
+  ],
   templateUrl: './card-selector.component.html',
   styleUrl: './card-selector.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -51,9 +75,30 @@ export class CardSelectorComponent {
 
   readonly onSelectedCardsChange = output<CharacterCard[] | PlayerCard[]>();
 
+  protected readonly isCardDetailsModalShown = signal<boolean>(false);
+  protected readonly cardDetailsModalCard = signal<CharacterCard | PlayerCard | null>(null);
   private readonly isCardBeingSelected = signal<boolean>(false);
 
-  onCardSelection(event: DropdownChangeEvent, component: Dropdown): void {
+  protected showCardDetailsModal(card: CharacterCard | PlayerCard): void {
+    console.log(card);
+    this.cardDetailsModalCard.set(card);
+    this.isCardDetailsModalShown.set(true);
+  }
+
+  protected hideCardDetailsModal(): void {
+    this.isCardDetailsModalShown.set(false);
+    this.cardDetailsModalCard.set(null);
+  }
+
+  protected isCardAttributeAbility(value: string): boolean {
+    return getEnumValues(CardAttributeAbility).includes(value);
+  }
+
+  protected isCardAttributeRestriction(value: string): boolean {
+    return getEnumValues(CardAttributeRestriction).includes(value);
+  }
+
+  protected onCardSelection(event: DropdownChangeEvent, component: Dropdown): void {
     if (this.isCardBeingSelected()) {
       return;
     }
@@ -83,7 +128,7 @@ export class CardSelectorComponent {
     setTimeout(() => this.isCardBeingSelected.set(false), 0);
   }
 
-  onCardQuantityChange(selectedCard: CharacterCard | PlayerCard, modifier: number): void {
+  protected onCardQuantityChange(selectedCard: CharacterCard | PlayerCard, modifier: number): void {
     this.selectedCards().update((selectedCards) => {
       const updatedSelectedCards = [...selectedCards];
       const selectedCardIndex = updatedSelectedCards.findIndex((cc) => cc.id === selectedCard.id);

@@ -41,6 +41,20 @@
         text-align: justify;
       }
     }
+    
+    &__image {
+      overflow: hidden;
+      border-radius: var(--border-radius-md);
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+
+      img {
+        display: block;
+        max-width: 8rem;
+      }
+    }
+
   }
 
   &__equipment {
