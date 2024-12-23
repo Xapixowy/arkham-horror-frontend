@@ -46,4 +46,28 @@
       }
     }
   }
+
+  &__features {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  &__feature {
+    width: 80%;
+    height: calc(100% - 1rem);
+    margin: 0 auto;
+
+    &__image {
+      width: 100%;
+      aspect-ratio: 9/18;
+
+      img {
+        object-fit: cover;
+        object-position: bottom;
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
 }

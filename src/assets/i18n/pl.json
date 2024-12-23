@@ -422,7 +422,18 @@
     "Ask your friends for game session token and join the game": "Poproś swoich znajomych o token sesji i dołącz do gry",
     "Join": "Dołącz",
     "Or": "Lub",
-    "Create a new game session": "Stwórz nową sesję gry"
+    "Create a new game session": "Stwórz nową sesję gry",
+    "Character Management": "Zarządzanie postacią",
+    "Inventory Management": "Zarządzanie ekwipunkiem",
+    "View Other Players": "Podgląd innych graczy",
+    "Game History": "Historia gier",
+    "Account Statistics": "Statystyki konta",
+    "Track your characters in an intuitive and interactive way! The app allows you to manage their attributes, stats, and game phase changes – all synchronized in real-time with other players in the session. Viewing character details and stats has never been easier!": "Śledź swoje postacie w przejrzysty i interaktywny sposób! Dzięki aplikacji możesz zarządzać ich atrybutami, statystykami oraz zmianami faz rozgrywki – wszystko zsynchronizowane na żywo z innymi graczami w sesji. Podgląd szczegółów postaci oraz ich statystyk nigdy nie był prostszy!",
+    "Keep full control over your character's resources! Easily add and edit money, clues, and inventory cards. Practicality and intuitiveness in one place!": "Utrzymuj pełną kontrolę nad zasobami swojej postaci! Dodawaj i edytuj pieniądze, wskazówki oraz karty ekwipunku w prosty sposób. Praktyczność i intuicyjność w jednym miejscu!",
+    "See what’s happening with your friends’ characters! The app lets you view the details and stats of other players, including their money, clues, and character attributes – perfect for teamwork or a little friendly competition!": "Zobacz, co dzieje się z postaciami Twoich znajomych! Aplikacja umożliwia podgląd szczegółów i statystyk innych graczy, ich pieniędzy, wskazówek oraz atrybutów postaci – idealne dla zespołowej współpracy lub… zdrowej rywalizacji!",
+    "Revisit your epic adventures! Browse the history of past sessions, their game phases, character details, and stats – with the option to rejoin (for logged-in players). Your story is always at your fingertips!": "Wróć do swoich epickich przygód! Podglądaj historię poprzednich sesji, ich fazy gry, szczegóły postaci oraz statystyki – z możliwością ponownego dołączenia (dla zalogowanych graczy). Twoja historia zawsze pod ręką!",
+    "Track your progress like a pro! The app provides detailed insights into your account stats: money earned and spent, clues, cards, stamina, or sanity gained and lost. Check how many sessions you’ve played and which characters you’ve led!": "Śledź swoje postępy jak profesjonalista! Aplikacja pozwala na przeglądanie szczegółowych statystyk konta: zdobyte i utracone pieniądze, wskazówki, karty, wytrzymałość czy poczytalność. Sprawdź, ile sesji już rozegrałeś i jakie postacie poprowadziłeś!",
+    "Each feature ensures seamless integration with gameplay, an intuitive interface, and support for advanced users. Become the master of your RPG sessions!": "Każda funkcjonalność zapewnia płynną integrację z rozgrywką, intuicyjny interfejs i wsparcie dla zaawansowanych użytkowników. Zostań mistrzem sesji RPG!"
   },
   "_GameState": {
     "Game Sessions": "Sesje gry",
