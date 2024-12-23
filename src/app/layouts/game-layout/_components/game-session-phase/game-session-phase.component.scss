@@ -1,0 +1,32 @@
+.game-session-phase {
+  height: 3rem;
+  max-width: 16rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.25rem 1rem;
+  border-radius: 100vw;
+  background-color: var(--color-primary);
+  color: var(--surface-ground);
+
+  &__icon {
+    font-size: 1.5rem;
+    width: 1.5rem;
+    display: grid;
+    place-items: center;
+  }
+
+  &__label {
+    overflow: hidden;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: 500;
+    white-space: nowrap;
+    transition: width var(--transition-duration) var(--transition-timing-function);
+
+    &--wrap {
+      font-size: 0.875rem;
+      white-space: normal;
+    }
+  }
+}

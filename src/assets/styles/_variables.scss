@@ -41,7 +41,8 @@
   --outer-shadow: 0 0.25rem 1rem 0 color-mix(in srgb, var(--surface-900), transparent 65%);
 
   // Z-index
-  --landing-navigation-z-index: 3;
+  --landing-navigation-z-index: 4;
+  --game-easter-egg-z-index: 3;
   --game-modal-z-index: 2;
   --game-phase-z-index: 1;
 }

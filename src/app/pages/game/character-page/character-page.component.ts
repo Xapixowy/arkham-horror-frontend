@@ -11,6 +11,7 @@ import { AttributeSliderComponent } from '@Components/attribute-slider/attribute
 import { WindowEvent } from '@Enums/window-event.enum';
 import { PlayerCharacterDetailsModalComponent } from '@Layouts/game-layout/_components/player-character-details-modal/player-character-details-modal.component';
 import { SkeletonModule } from 'primeng/skeleton';
+import { GameSessionPhase } from '@Enums/game-sessions/game-session-phase.enum';
 
 @Component({
   selector: 'app-character-page',
@@ -63,6 +64,10 @@ export class CharacterPageComponent {
     'character__status__input__value--high':
       (this.characterPageService.playerStatus.endurance() || 0) > (this.character()?.endurance || 0),
   }));
+
+  protected readonly disableAttributeSliders = computed<boolean>(
+    () => this.characterPageService.gameSessionPhase() !== GameSessionPhase.UPKEEP,
+  );
 
   constructor() {
     this.listenToWindowEvents();

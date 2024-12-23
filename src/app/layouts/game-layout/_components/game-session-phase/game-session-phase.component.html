@@ -1,0 +1,9 @@
+<div class="game-session-phase">
+  @let label = '_GameSessionPhase.' + phase() | transloco;
+  <div class="game-session-phase__icon">
+    <ng-icon [name]="icon()"/>
+  </div>
+  <div class="game-session-phase__label" [class.game-session-phase__label--wrap]="label.length > 20">
+    {{ label }}
+  </div>
+</div>

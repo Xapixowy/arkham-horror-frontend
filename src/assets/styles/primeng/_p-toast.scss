@@ -1,6 +1,7 @@
 @import '../breakpoints';
 
 .p-toast {
+  display: none;
   --p-toast-mobile-padding: 1rem;
 
   max-width: 30rem;

@@ -61,6 +61,7 @@
       font-weight: 500;
       white-space: nowrap;
       text-overflow: ellipsis;
+      transition: width var(--transition-duration) var(--transition-timing-function);
     }
   }
 

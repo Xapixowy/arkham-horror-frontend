@@ -144,7 +144,8 @@
               <div class="character__attribute__label">
                 {{ attributeSliderConfigs.speedSneak()!.firstAttribute.label | transloco }}
               </div>
-              <app-attribute-slider [config]="attributeSliderConfigs.speedSneak()!" [noLabels]="true"/>
+              <app-attribute-slider [config]="attributeSliderConfigs.speedSneak()!" [noLabels]="true"
+                                    [disabled]="disableAttributeSliders()"/>
               <div class="character__attribute__label">
                 {{ attributeSliderConfigs.speedSneak()!.secondAttribute.label | transloco }}
               </div>
@@ -156,7 +157,8 @@
               <div class="character__attribute__label">
                 {{ attributeSliderConfigs.prowessWill()!.firstAttribute.label | transloco }}
               </div>
-              <app-attribute-slider [config]="attributeSliderConfigs.prowessWill()!" [noLabels]="true"/>
+              <app-attribute-slider [config]="attributeSliderConfigs.prowessWill()!" [noLabels]="true"
+                                    [disabled]="disableAttributeSliders()"/>
               <div class="character__attribute__label">
                 {{ attributeSliderConfigs.prowessWill()!.secondAttribute.label | transloco }}
               </div>
@@ -168,7 +170,8 @@
               <div class="character__attribute__label">
                 {{ attributeSliderConfigs.knowledgeLuck()!.firstAttribute.label | transloco }}
               </div>
-              <app-attribute-slider [config]="attributeSliderConfigs.knowledgeLuck()!" [noLabels]="true"/>
+              <app-attribute-slider [config]="attributeSliderConfigs.knowledgeLuck()!" [noLabels]="true"
+                                    [disabled]="disableAttributeSliders()"/>
               <div class="character__attribute__label">
                 {{ attributeSliderConfigs.knowledgeLuck()!.secondAttribute.label | transloco }}
               </div>

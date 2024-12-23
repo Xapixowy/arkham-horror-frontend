@@ -15,6 +15,7 @@ import { TranslocoPipe } from '@jsverse/transloco';
 export class AttributeSliderComponent implements OnChanges {
   readonly config = input.required<AttributeSliderConfig>();
   readonly noLabels = input<boolean>(false);
+  readonly disabled = input<boolean>(false);
 
   protected readonly sliderValue = signal<number>(0);
 

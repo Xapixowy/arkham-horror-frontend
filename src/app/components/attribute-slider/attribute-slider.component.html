@@ -8,8 +8,9 @@
   <div class="attribute-slider__empty-space"></div>
   <div class="attribute-slider__slider-wrapper">
     <p-slider styleClass="p-slider--attribute-slider" [min]="minValue" [max]="maxValue()" [step]="1"
+              [disabled]="disabled()"
               [(ngModel)]="sliderValue"
-              (onSlideEnd)="onSlideEnd($event)" />
+              (onSlideEnd)="onSlideEnd($event)"/>
   </div>
   <label class="attribute-slider__attribute-label">{{ config().secondAttribute.label | transloco }}</label>
   <div class="attribute-slider__attribute-values">

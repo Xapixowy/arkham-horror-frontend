@@ -26,6 +26,7 @@ export class CharacterPageService {
   readonly gameSession = this.gameLayoutService.gameSession;
   readonly gameStatus = this.gameLayoutService.gameStatus;
   readonly isFirstLoading = this.gameLayoutService.isFirstLoading;
+  readonly gameSessionPhase = this.gameLayoutService.gameSessionPhase;
 
   readonly playerStatus = {
     sanity: signal<number | null>(null),
