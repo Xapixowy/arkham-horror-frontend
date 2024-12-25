@@ -135,7 +135,6 @@ export class GameLayoutService {
                     playerToken: this.localStorageService.playerToken!,
                   }),
                 );
-                window.dispatchEvent(new CustomEvent(WindowEvent.GAME_PLAYER_RENEW_CHARACTER));
               },
             }),
         };
@@ -172,7 +171,12 @@ export class GameLayoutService {
   }
 
   private listenToStoreChanges(): void {
-    this.player$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => this.player.set(value));
+    this.player$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => {
+      if (value?.character && this.player()?.character && value.character.id !== this.player()?.character?.id) {
+        window.dispatchEvent(new CustomEvent(WindowEvent.GAME_PLAYER_RENEW_CHARACTER));
+      }
+      this.player.set(value);
+    });
     this.gameSession$.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((value) => this.gameSession.set(value));
     this.gameSessionPhase$
       .pipe(takeUntilDestroyed(this.destroyRef))
