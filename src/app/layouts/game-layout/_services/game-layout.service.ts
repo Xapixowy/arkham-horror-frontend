@@ -64,7 +64,7 @@ export class GameLayoutService {
     this.listenToUrlChanges();
     this.listenToStoreChanges();
     this.setSpeedDialItems(this.router.url);
-    this.websocketService.connect(WebsocketGateway.GAME_SESSIONS, this.localStorageService.gameSessionToken!);
+    this.websocketService.connect(WebsocketGateway.GAME_SESSIONS);
     this.listenToWebsocketEvents();
   }
 
