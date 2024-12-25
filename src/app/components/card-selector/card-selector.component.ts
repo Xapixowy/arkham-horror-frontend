@@ -80,7 +80,6 @@ export class CardSelectorComponent {
   private readonly isCardBeingSelected = signal<boolean>(false);
 
   protected showCardDetailsModal(card: CharacterCard | PlayerCard): void {
-    console.log(card);
     this.cardDetailsModalCard.set(card);
     this.isCardDetailsModalShown.set(true);
   }

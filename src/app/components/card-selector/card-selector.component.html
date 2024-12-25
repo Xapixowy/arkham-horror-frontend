@@ -96,7 +96,7 @@
           @if (cardDetailsModalCard()!.card!.hand_usage) {
             <div class="card-details-modal__section__content__value">
               <span>{{ '_CardSelector.Hand usage' | transloco }}</span>
-              <span>{{ '_CardHandUsage.' + cardDetailsModalCard()!.card!.hand_usage | transloco }}</span>
+              <span>{{ cardDetailsModalCard()!.card!.hand_usage }}</span>
             </div>
           }
         </div>
@@ -110,26 +110,28 @@
              [innerHTML]="cardDetailsModalCard()!.card!.description"></div>
       </div>
       @if (cardDetailsModalCard()!.card!.attribute_modifiers) {
-        <div class="card-details-modal__section">
-          <div class="card-details-modal__section__header">
-            <ng-icon name="tablerAdjustments"/>
-            <span>{{ '_CardSelector.Attribute modifiers' | transloco }}</span>
+        @if (cardDetailsModalCard()!.card!.attribute_modifiers!.length > 0) {
+          <div class="card-details-modal__section">
+            <div class="card-details-modal__section__header">
+              <ng-icon name="tablerAdjustments"/>
+              <span>{{ '_CardSelector.Attribute modifiers' | transloco }}</span>
+            </div>
+            <div class="card-details-modal__section__content">
+              @for (attributeModifier of cardDetailsModalCard()!.card!.attribute_modifiers; track $index) {
+                <div class="card-details-modal__section__content__value">
+                  @if (isCardAttributeAbility(attributeModifier.modifier)) {
+                    <span>{{ '_CardAttributeAbility.' + attributeModifier.modifier | transloco }}</span>
+                  } @else if (isCardAttributeRestriction(attributeModifier.modifier)) {
+                    <span>{{ '_CardAttributeRestriction.' + attributeModifier.modifier | transloco }}</span>
+                  } @else {
+                    <span>{{ '_CardAttributeModifier.' + attributeModifier.modifier | transloco }}</span>
+                  }
+                  <span>{{ attributeModifier.value }}</span>
+                </div>
+              }
+            </div>
           </div>
-          <div class="card-details-modal__section__content">
-            @for (attributeModifier of cardDetailsModalCard()!.card!.attribute_modifiers; track $index) {
-              <div class="card-details-modal__section__content__value">
-                @if (isCardAttributeAbility(attributeModifier.modifier)) {
-                  <span>{{ '_CardAttributeAbility.' + attributeModifier.modifier | transloco }}</span>
-                } @else if (isCardAttributeRestriction(attributeModifier.modifier)) {
-                  <span>{{ '_CardAttributeRestriction.' + attributeModifier.modifier | transloco }}</span>
-                } @else {
-                  <span>{{ '_CardAttributeModifier.' + attributeModifier.modifier | transloco }}</span>
-                }
-                <span>{{ attributeModifier.value }}</span>
-              </div>
-            }
-          </div>
-        </div>
+        }
       }
     } @else {
       <app-no-content/>

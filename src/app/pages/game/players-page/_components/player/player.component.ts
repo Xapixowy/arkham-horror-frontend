@@ -13,10 +13,10 @@ import {
   tablerBrain,
   tablerChartBar,
   tablerCoin,
+  tablerCrown,
   tablerHeart,
   tablerInfoCircle,
   tablerSearch,
-  tablerTool,
 } from '@ng-icons/tabler-icons';
 import { TooltipModule } from 'primeng/tooltip';
 import { PlayerRole } from '@Enums/players/player-role.enum';
@@ -44,7 +44,7 @@ import { DateHumanReadableComponent } from '@Components/date-human-readable/date
       tablerCoin,
       tablerSearch,
       tablerAdjustmentsAlt,
-      tablerTool,
+      tablerCrown,
     }),
   ],
   templateUrl: './player.component.html',
