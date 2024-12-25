@@ -17,15 +17,14 @@
     gap: 0.5rem;
 
     &__image {
+      overflow: hidden;
+      border-radius: var(--border-radius-md);
       display: flex;
       align-items: center;
       justify-content: flex-end;
-      width: 4rem;
-      height: 4rem;
 
       img {
         max-width: 4rem;
-        max-height: 4rem;
       }
     }
 
@@ -170,7 +169,7 @@
 
     &__image {
       overflow: hidden;
-      border-radius: var(--border-radius-md);
+      border-radius: var(--border-radius-lg);
       margin: 0 auto;
       display: flex;
       justify-content: center;
