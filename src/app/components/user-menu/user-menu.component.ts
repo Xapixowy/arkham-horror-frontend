@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, input } from '@angular/core';
 import { User } from '@Models/user.model';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { UserMenuAction } from '@Components/user-menu/_types/user-menu-action.type';
@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
 import { APP_ROUTES_CONFIG } from '@Configs/routes.config';
 import { TranslocoPipe } from '@jsverse/transloco';
 import { NgIcon } from '@ng-icons/core';
-import { WindowEvent } from '@Enums/window-event.enum';
 import { UserAvatarComponent } from '@Components/user-avatar/user-avatar.component';
 import { UserMenuConfig } from '@Components/user-menu/_types/user-menu-config.type';
 import { Button } from 'primeng/button';
@@ -21,7 +20,7 @@ import { Button } from 'primeng/button';
   styleUrl: './user-menu.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UserMenuComponent implements OnInit {
+export class UserMenuComponent {
   private readonly localStorageService = inject(LocalStorageService);
   private readonly router = inject(Router);
 
@@ -34,16 +33,12 @@ export class UserMenuComponent implements OnInit {
     return this.overrideActionFunctions(actionsWithoutHidden);
   });
 
-  ngOnInit() {
-    this.listenForLogoutUserEvent();
-  }
-
   private overrideActionFunctions(actions: UserMenuAction[]): UserMenuAction[] {
     return actions.map((action) => {
       if (action.id === UserMenuActionId.LOGOUT) {
         return {
           ...action,
-          action: () => this.logoutActionFunction(),
+          action: () => UserMenuComponent.logoutActionFunction(this.localStorageService, this.router),
         };
       }
       if (action.id === UserMenuActionId.ADMIN_DASHBOARD) {
@@ -56,16 +51,10 @@ export class UserMenuComponent implements OnInit {
     });
   }
 
-  private listenForLogoutUserEvent(): void {
-    window.addEventListener(WindowEvent.LOGOUT_USER, () => {
-      this.logoutActionFunction();
-    });
-  }
-
-  private logoutActionFunction(): void {
-    this.localStorageService.user = null;
-    this.localStorageService.gameSessionToken = null;
-    this.localStorageService.playerToken = null;
-    this.router.navigate([APP_ROUTES_CONFIG.Default]);
+  static logoutActionFunction(localStorageService: LocalStorageService, router: Router): void {
+    localStorageService.user = null;
+    localStorageService.gameSessionToken = null;
+    localStorageService.playerToken = null;
+    router.navigate([APP_ROUTES_CONFIG.Default]);
   }
 }
