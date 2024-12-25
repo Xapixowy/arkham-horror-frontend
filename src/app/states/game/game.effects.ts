@@ -64,6 +64,7 @@ export class GameEffects {
             });
           }),
           catchError((response: HttpErrorResponse) => {
+            console.log(response);
             const { error } = response.error;
             this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
             return of(createGameSessionFailure({ error }));
@@ -90,6 +91,7 @@ export class GameEffects {
             });
           }),
           catchError((response: HttpErrorResponse) => {
+            console.log(response);
             const { error } = response.error;
             this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
             return of(joinGameSessionFailure({ error }));
