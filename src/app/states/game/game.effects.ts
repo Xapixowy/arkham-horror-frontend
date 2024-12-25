@@ -58,6 +58,8 @@ export class GameEffects {
               GAME_STATE_CONFIG.toastTranslationKeys.createGameSessionSuccess,
             );
 
+            console.log(response.data, this.getNewestPlayerFromGameSession(response.data));
+
             return createGameSessionSuccess({
               gameSession: GameSession.fromDto(response.data),
               player: Player.fromDto(this.getNewestPlayerFromGameSession(response.data)),
@@ -91,7 +93,6 @@ export class GameEffects {
             });
           }),
           catchError((response: HttpErrorResponse) => {
-            console.log(response);
             const { error } = response.error;
             this.errorService.throwError(GAME_STATE_CONFIG.toastTranslationKeys.gameSessions, response);
             return of(joinGameSessionFailure({ error }));
