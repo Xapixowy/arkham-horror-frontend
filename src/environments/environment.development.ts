@@ -1,6 +1,6 @@
 import { Environment } from './environment.type';
 
 export const ENVIRONMENT: Environment = {
-  production: true,
+  production: false,
   api_url: 'https://arkham-horror-api.xapixowy.ovh',
 };

@@ -98,6 +98,18 @@
               ],
               "outputHashing": "all"
             },
+            "development": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ],
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "outputHashing": "all"
+            },
             "local": {
               "fileReplacements": [
                 {
@@ -118,6 +130,9 @@
           "configurations": {
             "production": {
               "buildTarget": "arkham-horror-frontend:build:production"
+            },
+            "development": {
+              "buildTarget": "arkham-horror-frontend:build:development"
             },
             "local": {
               "buildTarget": "arkham-horror-frontend:build:local"

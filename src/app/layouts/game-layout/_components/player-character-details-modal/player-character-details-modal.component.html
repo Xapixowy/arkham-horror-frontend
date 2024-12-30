@@ -66,6 +66,21 @@
           </p>
         </div>
       </div>
+      @if (character()?.characterCards) {
+        <div class="player-character-details-modal__section">
+          <div class="player-character-details-modal__section__header">
+            <ng-icon name="tablerCards"/>
+            <span>{{ '_CharacterPage.Starting cards' | transloco }}</span>
+          </div>
+          <div class="player-character-details-modal__section__content">
+            <ul>
+              @for (characterCard of character()!.characterCards; track $index) {
+                <li>{{ characterCard.card?.name }}</li>
+              }
+            </ul>
+          </div>
+        </div>
+      }
       <div class="player-character-details-modal__section">
         <div class="player-character-details-modal__section__header">
           <ng-icon name="tablerScript"/>
