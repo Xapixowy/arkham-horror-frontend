@@ -16,6 +16,7 @@
       <li><a href="#priemng">PrimeNg</a></li>
       <li><a href="#ngrx">NgRx</a></li>
       <li><a href="#socketio">Socket.IO</a></li>
+      <li><a href="#docker">Docker</a></li>
     </ul>
   </li>
   <li><a href="#installation">Installation</a>
