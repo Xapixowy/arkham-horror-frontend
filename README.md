@@ -57,6 +57,12 @@
 <h3 align="center" id="socketio"><a href="https://socket.io">Socket.IO</a></h3>
 <p>Socket.IO client is a JavaScript library for real-time, bidirectional communication between web clients and servers, allowing the frontend to easily connect to a Socket.IO server for features like chat, live updates, and real-time notifications.</p>
 
+<p align="center">
+  <img src="https://logos-world.net/wp-content/uploads/2021/02/Docker-Logo-700x394.png" alt="logo" width="200"/>
+</p>
+<h3 align="center" id="docker"><a href="https://www.docker.com/">Docker</a></h3>
+<p>Docker is an open-source platform that automates the deployment and management of applications using containers, allowing for consistent environments across different systems.</p>
+
 <h2 id="installation">Installation</h2>
 <p>To simplify the installation process, the project uses a Docker.</p>
 <p>Remember, this application is tightly linked to the <a href="https://github.com/Xapixowy/arkham-horror-backend">backend</a>, and you should also set up <a href="https://github.com/Xapixowy/arkham-horror-backend">that project</a> to get the full functionality.</p>
