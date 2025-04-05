@@ -1,6 +1,6 @@
-<div style="text-align: center">
+<p align="center">
   <img src="https://raw.githubusercontent.com/Xapixowy/arkham-horror-backend/refs/heads/main/public/assets/images/email/banner.webp" alt="logo" width="500"/>
-</div>
+</p>
 
 <h1 align="center">Arkham Horror</h1>
 
@@ -30,28 +30,28 @@
 <p>The application was designed to simplify managing characters and game elements during Arkham Horror board game sessions. It provides real-time updates on the game phase and allows easy management of items, spells, companions, and other resources directly through the interface.</p>
 
 <h2 id="tech-stack">Tech Stack</h2>
-<div style="text-align: center">
+<p align="center">
   <img src="https://angular.dev/assets/images/press-kit/angular_icon_gradient.gif" alt="logo" width="130"/>
-  <h3 id="angular"><a href="https://angular.dev/">Angular</a></h3>
-</div>
+</p>
+<h3 align="center" id="angular"><a href="https://angular.dev/">Angular</a></h3>
 <p>Angular is a popular open-source web application framework developed by Google for building dynamic, single-page applications using HTML, CSS, and TypeScript.</p>
 
-<div style="text-align: center">
+<p align="center">
   <img src="https://i0.wp.com/www.primefaces.org/wp-content/uploads/2021/10/primeng-logo.png?fit=280%2C300&ssl=1" alt="logo" width="100"/>
-  <h3 id="primeng"><a href="https://primeng.org/">PrimeNg</a></h3>
-</div>
+</p>
+<h3 align="center" id="primeng"><a href="https://primeng.org/">PrimeNg</a></h3>
 <p>PrimeNG is a collection of rich UI components for Angular, offering a wide range of customizable and responsive elements to build modern web applications.</p>
 
-<div style="text-align: center">
+<p align="center">
   <img src="https://ngrx.io/assets/images/badge.svg" alt="logo" width="100"/>
-  <h3 id="ngrx"><a href="https://ngrx.io/">NgRx</a></h3>
-</div>
+</p>
+<h3 align="center" id="ngrx"><a href="https://ngrx.io/">NgRx</a></h3>
 <p>NgRx is a state management library for Angular applications, inspired by Redux, that helps manage application state using reactive programming and RxJS for better scalability and maintainability.</p>
 
-<div style="text-align: center">
+<p align="center">
   <img src="https://socket.io/images/logo-dark.svg" alt="logo" width="100"/>
-  <h3 id="socketio"><a href="https://socket.io">Socket.IO</a></h3>
-</div>
+</p>
+<h3 align="center" id="socketio"><a href="https://socket.io">Socket.IO</a></h3>
 <p>Socket.IO client is a JavaScript library for real-time, bidirectional communication between web clients and servers, allowing the frontend to easily connect to a Socket.IO server for features like chat, live updates, and real-time notifications.</p>
 
 <h2 id="installation">Installation</h2>
