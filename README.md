@@ -31,7 +31,7 @@
 
 <h2 id="tech-stack">Tech Stack</h2>
 <p align="center">
-  <img src="https://angular.dev/assets/images/press-kit/angular_icon_gradient.gif" alt="logo" width="130"/>
+  <img src="https://lh3.googleusercontent.com/d/1S7QzMK5MggtQAnKnptrZN1JJNnDpQ8eK" alt="logo" width="130"/>
 </p>
 <h3 align="center" id="angular"><a href="https://angular.dev/">Angular</a></h3>
 <p>Angular is a popular open-source web application framework developed by Google for building dynamic, single-page applications using HTML, CSS, and TypeScript.</p>
@@ -49,7 +49,10 @@
 <p>NgRx is a state management library for Angular applications, inspired by Redux, that helps manage application state using reactive programming and RxJS for better scalability and maintainability.</p>
 
 <p align="center">
-  <img src="https://socket.io/images/logo-dark.svg" alt="logo" width="100"/>
+  <picture>
+  <source media="(prefers-color-scheme: dark)" srcset="https://socket.io/images/logo-dark.svg">
+  <img src="https://socket.io/images/logo.svg" alt="logo" width="100"/>
+  </picture>
 </p>
 <h3 align="center" id="socketio"><a href="https://socket.io">Socket.IO</a></h3>
 <p>Socket.IO client is a JavaScript library for real-time, bidirectional communication between web clients and servers, allowing the frontend to easily connect to a Socket.IO server for features like chat, live updates, and real-time notifications.</p>
