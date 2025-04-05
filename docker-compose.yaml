@@ -1,0 +1,16 @@
+services:
+ app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - APP_ENVIRONMENT=${APP_ENVIRONMENT}
+    restart: unless-stopped
+    ports:
+      - "${APP_PORT}:80"
+    networks:
+      - default
+
+networks:
+  default:
+    driver: bridge

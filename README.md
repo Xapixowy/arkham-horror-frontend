@@ -1,27 +1,80 @@
-# ArkhamHorrorFrontend
+<div style="text-align: center">
+  <img src="https://raw.githubusercontent.com/Xapixowy/arkham-horror-backend/refs/heads/main/public/assets/images/email/banner.webp" alt="logo" width="500"/>
+</div>
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.12.
+<h1 align="center">Arkham Horror</h1>
 
-## Development server
+<p align="center">Application to make Arkham Horror games easier.</p>
+<p align="center">This repository is closely linked to <a href="https://github.com/Xapixowy/arkham-horror-backend">another one</a>, which handles the <a href="https://github.com/Xapixowy/arkham-horror-backend">backend</a>, while this one is the <b><u>frontend</b></u>.</p>
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+<h2>Table of contents</h2>
+<ul>
+  <li><a href="#description">Description</a></li>
+  <li><a href="#tech-stack">Tech Stack</a>
+    <ul>
+      <li><a href="#angular">Angular</a></li>
+      <li><a href="#priemng">PrimeNg</a></li>
+      <li><a href="#ngrx">NgRx</a></li>
+      <li><a href="#socketio">Socket.IO</a></li>
+    </ul>
+  </li>
+  <li><a href="#installation">Installation</a>
+    <ul>
+      <li><a href="#prerequisites">Prerequisites</a></li>
+      <li><a href="#steps">Steps</a></li>
+    </ul>
+  </li>
+</ul>
 
-## Code scaffolding
+<h2 id="description">Description</h2>
+<p>The application was designed to simplify managing characters and game elements during Arkham Horror board game sessions. It provides real-time updates on the game phase and allows easy management of items, spells, companions, and other resources directly through the interface.</p>
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+<h2 id="tech-stack">Tech Stack</h2>
+<div style="text-align: center">
+  <img src="https://angular.dev/assets/images/press-kit/angular_icon_gradient.gif" alt="logo" width="130"/>
+  <h3 id="angular"><a href="https://angular.dev/">Angular</a></h3>
+</div>
+<p>Angular is a popular open-source web application framework developed by Google for building dynamic, single-page applications using HTML, CSS, and TypeScript.</p>
 
-## Build
+<div style="text-align: center">
+  <img src="https://i0.wp.com/www.primefaces.org/wp-content/uploads/2021/10/primeng-logo.png?fit=280%2C300&ssl=1" alt="logo" width="100"/>
+  <h3 id="primeng"><a href="https://primeng.org/">PrimeNg</a></h3>
+</div>
+<p>PrimeNG is a collection of rich UI components for Angular, offering a wide range of customizable and responsive elements to build modern web applications.</p>
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+<div style="text-align: center">
+  <img src="https://ngrx.io/assets/images/badge.svg" alt="logo" width="100"/>
+  <h3 id="ngrx"><a href="https://ngrx.io/">NgRx</a></h3>
+</div>
+<p>NgRx is a state management library for Angular applications, inspired by Redux, that helps manage application state using reactive programming and RxJS for better scalability and maintainability.</p>
 
-## Running unit tests
+<div style="text-align: center">
+  <img src="https://socket.io/images/logo-dark.svg" alt="logo" width="100"/>
+  <h3 id="socketio"><a href="https://socket.io">Socket.IO</a></h3>
+</div>
+<p>Socket.IO client is a JavaScript library for real-time, bidirectional communication between web clients and servers, allowing the frontend to easily connect to a Socket.IO server for features like chat, live updates, and real-time notifications.</p>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+<h2 id="installation">Installation</h2>
+<p>To simplify the installation process, the project uses a Docker.</p>
+<p>Remember, this application is tightly linked to the <a href="https://github.com/Xapixowy/arkham-horror-backend">backend</a>, and you should also set up <a href="https://github.com/Xapixowy/arkham-horror-backend">that project</a> to get the full functionality.</p>
 
-## Running end-to-end tests
+<h3 id="prerequisites">Prerequisites</h3>
+<ul>
+  <li><a href="https://www.docker.com/">Docker</a></li>
+</ul>
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+<h3 id="steps">Steps</h3>
+<h4>1. Environment variables</h4>
 
-## Further help
+Copy `.env.example` file to `.env`. You don't need to make any changes there.
+```bash
+cp .env.example .env
+```
+<h4>2. Build Docker container</h4>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Just run the command to build the container and wait.
+```bash
+docker-compose up -d
+```
+
+<h4>3. Enjoy :)</h4>
